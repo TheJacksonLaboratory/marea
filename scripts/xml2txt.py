@@ -1,7 +1,8 @@
 import xml.etree.ElementTree as ET
 import sys
+import gzip
 
-tree = ET.parse(sys.argv[1])
+tree = ET.parse(gzip.open(sys.argv[1]))
 root = tree.getroot()
 
 parsed = []
@@ -37,7 +38,7 @@ for article in root:
 	
 	parsed.append(string)
 
-f = open(f'{sys.argv[1][:-3]}txt', 'w')
+f = open(f'{sys.argv[1].replace("xml.gz","txt")}', 'w')
 for string in parsed:
 	f.write(f'{string}\n')
 f.close()

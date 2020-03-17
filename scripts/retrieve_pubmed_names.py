@@ -1,5 +1,8 @@
 import ftplib
 import os
+
+from retrieve_pubmed_files import DOWNLOADS_DIR
+
 f = ftplib.FTP()
 pubmedftp = 'ftp.ncbi.nlm.nih.gov'
 f.connect(pubmedftp)
@@ -18,8 +21,8 @@ for entry in ls:
     print("'%s'" % fname)
     xmlfiles.append(fname)
 
-outfilename = 'medline_ftp_links.txt'
-with open(outfilename, 'w') as f:
+ftp_filenames = DOWNLOADS_DIR + 'medline_ftp_links.txt'
+with open(ftp_filenames, 'w') as f:
     for xfile in xmlfiles:
         path = os.path.join('ftp.ncbi.nlm.nih.gov/pubmed/baseline', xfile)
         f.write("%s\n" % path)

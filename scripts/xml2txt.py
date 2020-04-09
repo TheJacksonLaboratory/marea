@@ -15,10 +15,10 @@ for article in root:
 
 	descriptorPresent = False
 	for heading in article.iter('DescriptorName'):
-		string += f'{heading.text}, '
+		string += f"[{heading.get('UI')} {heading.text} {heading.get('MajorTopicYN')}], "
 		descriptorPresent = True
 
-	if descriptorPresent == False:
+	if not descriptorPresent:
 		string += '; '
 	else:
 		string = f'{string[:-2]}; '
@@ -28,7 +28,7 @@ for article in root:
 		string += f'{keyword.text}, '
 		keywordPresent = True
 
-	if keywordPresent == False:
+	if not keywordPresent:
 		string += '; '
 	else:
 		string = f'{string[:-2]}; '

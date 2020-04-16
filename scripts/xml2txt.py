@@ -15,13 +15,13 @@ for article in root:
 
 	descriptorPresent = False
 	for heading in article.iter('DescriptorName'):
-		string += f"[{heading.get('UI')} | {heading.text} | {heading.get('MajorTopicYN')}], "
+		string += f"{heading.get('UI')} {heading.text} {heading.get('MajorTopicYN')} | "
 		descriptorPresent = True
 
 	if not descriptorPresent:
 		string += '; '
 	else:
-		string = f'{string[:-2]}; '
+		string = f'{string[:-3]}; ' # eliminate the final | separator
 
 	keywordPresent = False
 	for keyword in article.iter('Keyword'):

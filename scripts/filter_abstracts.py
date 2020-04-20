@@ -5,9 +5,8 @@ import sys
 
 from query_mesh import get_descendants
 
-
 ABSTRACTS_DIR = '../downloads/pubmed/'
-FILTERED_DIR = '../downloads/filtered/'
+FILTERED_DIR = '../downloads/relevant/'
 
 
 def extract_descriptors(descriptor_str):
@@ -26,20 +25,50 @@ def extract_descriptors(descriptor_str):
     for des in descriptors:
         des_parts = des.split()
         retval[des_parts[0]] = des_parts[-1].upper() == 'Y'
-    for it in sorted(retval.items()):
-        print('{} {}'.format(it[0], it[1]))
     return retval
 
 
-def get_filename(path):
+def find_relevant_abstracts(f, major_topic, desired_descriptors):
+    with open(f) as unfiltered_file:
+        outfile_path = FILTERED_DIR + get_outfilename(f)
+        with open(outfile_path, 'w') as filtered_file:
+            for line in unfiltered_file:
+                segments = line.split('##')
+                # check whether this line contains an abstract
+                if segments[-1] != '':
+                    # check whether the abstract meets relevancy criteria
+                    abstract_descriptors = extract_descriptors(segments[1])
+                    if is_relevant(abstract_descriptors, desired_descriptors,
+                                   major_topic):
+                        # record relevant abstract in output file
+                        filtered_file.write('{}\t{}\n'.format(segments[0], segments[-1]))
+
+
+def get_outfilename(path):
     """
-    Extract the filename from a path,
-    e.g. 'pubmed20n0001' from '../downloads/pubmed/pubmed20n0001.txt'
-    :param path: path to a file with a single extension, such as .txt, not .xml.gz)
-    :return: unadorned filename without extension
+    Generate the filename for abstracts filtered by relevant MeSH descriptors.
+    e.g. 'pubmed20n0001_relevant.txt' from '../downloads/pubmed/pubmed20n0001.txt'
+    :param path: path to the input .txt file of PubMed abstracts
+    :return: output filename with .txt extension
     """
     filename = path.split('/')[-1]
-    return filename.split('.')[0]
+    return filename.split('.')[0] + '_relevant.txt'
+
+
+def is_relevant(abstract_dict, desired_list, major_bool):
+    relevant = False
+    abstract_des = list(abstract_dict.keys())
+    if major_bool:
+        # Keep only the descriptors that are marked as major topics
+        # Note: some entries in the input files have no descriptors marked as
+        # major topics for the article; not sure whether this occurs in articles
+        # that have an abstract or only in articles that have no abstract.
+        abstract_des = list(filter(lambda d: abstract_dict[d], abstract_des))
+    i = 0;
+    while not relevant and i < len(abstract_des):
+        relevant = abstract_des[i] in desired_list
+        i += 1
+    return relevant
 
 
 def merge_descendants(ancestors):
@@ -50,26 +79,12 @@ def merge_descendants(ancestors):
     return sorted(retval)
 
 
-def parse_abstract_file(f, major_topic, desired_descriptors):
-    with open(f) as abstract_file:
-        for line in abstract_file:
-            line = line.rstrip()
-            segments = line.split(';')
-            pmid = segments[0]
-            abs_descriptors = extract_descriptors(segments[1])
-            # for it in sorted(abs_descriptors.items()):
-            #     print('{} {}'.format(it[0], it[1]))
-            # abs_descriptors.clear()
-    return None
-
-
 def main(descriptor_list, major_topic_only=False):
     files_to_parse = glob.glob(ABSTRACTS_DIR + '*.txt')
     os.makedirs(FILTERED_DIR, exist_ok=True)
     desired_descriptors = merge_descendants(descriptor_list)
-    print(len(desired_descriptors))
-    for des in desired_descriptors:
-        print(des)
+    find_relevant_abstracts(files_to_parse[0], major_topic_only,
+                            desired_descriptors)
 
     # for item in sorted(desired_descriptors.items()):
     #     print('{} {}'.format(item[0], item[1]))

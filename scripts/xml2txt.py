@@ -11,7 +11,7 @@ for article in root:
 	for elem in article.iter('PMID'):
 		id = elem.text
 
-	string = f'{id}; '		
+	string = f'{id}## '
 
 	descriptorPresent = False
 	for heading in article.iter('DescriptorName'):
@@ -19,9 +19,9 @@ for article in root:
 		descriptorPresent = True
 
 	if not descriptorPresent:
-		string += '; '
+		string += '## '
 	else:
-		string = f'{string[:-3]}; ' # eliminate the final | separator
+		string = f'{string[:-3]}## ' # eliminate the final | separator
 
 	keywordPresent = False
 	for keyword in article.iter('Keyword'):
@@ -29,9 +29,9 @@ for article in root:
 		keywordPresent = True
 
 	if not keywordPresent:
-		string += '; '
+		string += '## '
 	else:
-		string = f'{string[:-2]}; '
+		string = f'{string[:-2]}## '
 
 	for abstract in article.iter('AbstractText'):
 		string += f'{abstract.text} '

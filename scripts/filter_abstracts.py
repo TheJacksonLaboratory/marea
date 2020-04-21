@@ -5,8 +5,8 @@ import sys
 
 from query_mesh import get_descendants
 
-ABSTRACTS_DIR = '../downloads/pubmed/'
-FILTERED_DIR = '../downloads/relevant/'
+ABSTRACTS_DIR = '../data/pubmed/'
+FILTERED_DIR = '../data/relevant/'
 
 
 def extract_descriptors(descriptor_str):
@@ -35,19 +35,20 @@ def find_relevant_abstracts(f, major_topic, desired_descriptors):
             for line in unfiltered_file:
                 segments = line.split('##')
                 # check whether this line contains an abstract
-                if segments[-1] != '':
+                abstract = segments[-1].strip()
+                if abstract != '':
                     # check whether the abstract meets relevancy criteria
-                    abstract_descriptors = extract_descriptors(segments[1])
+                    abstract_descriptors = extract_descriptors(segments[1].strip())
                     if is_relevant(abstract_descriptors, desired_descriptors,
                                    major_topic):
                         # record relevant abstract in output file
-                        filtered_file.write('{}\t{}\n'.format(segments[0], segments[-1]))
+                        filtered_file.write('{}\t{}\n'.format(segments[0], abstract))
 
 
 def get_outfilename(path):
     """
     Generate the filename for abstracts filtered by relevant MeSH descriptors.
-    e.g. 'pubmed20n0001_relevant.txt' from '../downloads/pubmed/pubmed20n0001.txt'
+    e.g. 'pubmed20n0001_relevant.txt' from '../data/pubmed/pubmed20n0001.txt'
     :param path: path to the input .txt file of PubMed abstracts
     :return: output filename with .txt extension
     """
@@ -61,10 +62,11 @@ def is_relevant(abstract_dict, desired_list, major_bool):
     if major_bool:
         # Keep only the descriptors that are marked as major topics
         # Note: some entries in the input files have no descriptors marked as
-        # major topics for the article; not sure whether this occurs in articles
-        # that have an abstract or only in articles that have no abstract.
+        # major topics for the article; this probably means that one of
+        # the qualifiers on the descriptor is marked as a major topic.
+        # We do not extract qualifiers from the .xml file.
         abstract_des = list(filter(lambda d: abstract_dict[d], abstract_des))
-    i = 0;
+    i = 0
     while not relevant and i < len(abstract_des):
         relevant = abstract_des[i] in desired_list
         i += 1
@@ -86,9 +88,6 @@ def main(descriptor_list, major_topic_only=False):
     find_relevant_abstracts(files_to_parse[0], major_topic_only,
                             desired_descriptors)
 
-    # for item in sorted(desired_descriptors.items()):
-    #     print('{} {}'.format(item[0], item[1]))
-    # parse_abstract_file(files_to_parse[0], major_topic_only, desired_descriptors)
     # for in_file in files_to_parse[:25]:
     #     parse_abstract_file(in_file, major_topic_only, descriptor_dict)
 
@@ -109,9 +108,9 @@ def main(descriptor_list, major_topic_only=False):
 
 
 if __name__ == '__main__':
-    descriptors = [des for des in sys.argv if re.fullmatch(r'D(\d{6}|\d{9})', des)]
+    mesh_ids = [des for des in sys.argv if re.fullmatch(r'D(\d{6}|\d{9})', des)]
     major_topic_only = sys.argv[-1].lower() == 'y'
     # for des in descriptors:
     #     print(des, end=' ')
     # print('MajorTopicOnly = {}'.format(major_topic_only))
-    main(descriptors, major_topic_only)
+    main(mesh_ids, major_topic_only)

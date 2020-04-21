@@ -1,6 +1,7 @@
 import unittest
 from filter_abstracts import extract_descriptors, get_outfilename, is_relevant, merge_descendants
 
+
 class FilterAbstractsTestCase(unittest.TestCase):
 
     def test_extract_descriptors(self):
@@ -15,7 +16,7 @@ class FilterAbstractsTestCase(unittest.TestCase):
                          'Extracted descriptors do not match expected.')
 
     def test_get_outfilename(self):
-        out_filename = get_outfilename('../downloads/pubmed/pubmed20n0007.txt')
+        out_filename = get_outfilename('../data/pubmed/pubmed20n0007.txt')
         self.assertEqual(out_filename, 'pubmed20n0007_relevant.txt',
                          out_filename + ' does not match expected string.')
 

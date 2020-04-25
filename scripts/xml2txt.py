@@ -11,27 +11,27 @@ for article in root:
 	for elem in article.iter('PMID'):
 		id = elem.text
 
-	string = f'{id}; '		
+	string = f'{id}## '
 
 	descriptorPresent = False
 	for heading in article.iter('DescriptorName'):
-		string += f'{heading.text}, '
+		string += f"{heading.get('UI')} {heading.text} {heading.get('MajorTopicYN')} | "
 		descriptorPresent = True
 
-	if descriptorPresent == False:
-		string += '; '
+	if not descriptorPresent:
+		string += '## '
 	else:
-		string = f'{string[:-2]}; '
+		string = f'{string[:-3]}## ' # eliminate the final | separator
 
 	keywordPresent = False
 	for keyword in article.iter('Keyword'):
 		string += f'{keyword.text}, '
 		keywordPresent = True
 
-	if keywordPresent == False:
-		string += '; '
+	if not keywordPresent:
+		string += '## '
 	else:
-		string = f'{string[:-2]}; '
+		string = f'{string[:-2]}## '
 
 	for abstract in article.iter('AbstractText'):
 		string += f'{abstract.text} '

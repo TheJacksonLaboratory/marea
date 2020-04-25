@@ -18,17 +18,17 @@ def get_descendants(ancestor):
         PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
 
         CONSTRUCT {
-        ?descriptor rdfs:label ?label
+            ?descriptor rdfs:label ?label
         }
         WHERE {
-        mesh:"""
+            mesh:"""
                     + ancestor +
                     """ meshv:treeNumber ?treeNum .
                     ?childTreeNum meshv:parentTreeNumber+ ?treeNum .
                     ?descriptor meshv:treeNumber ?childTreeNum .
                     ?descriptor rdfs:label ?label .
-                    }
-                """)
+            }
+        """)
 
     sparql.setReturnFormat(RDFXML)
     # Suppress the warning

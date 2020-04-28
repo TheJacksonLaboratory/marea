@@ -1,3 +1,4 @@
+import click
 import glob
 import os
 import re
@@ -81,11 +82,15 @@ def merge_descendants(ancestors):
     return sorted(retval)
 
 
-def main(descriptor_list, major_topic_only=False):
+@click.command()
+@click.option('--m', default=False, is_flag=True, help='filter on major topics only')
+@click.argument('descriptors', nargs=-1)
+#@click.argument('filename', type=click.Path(exists=True))
+def main(descriptors, m):
     files_to_parse = glob.glob(ABSTRACTS_DIR + '*.txt')
     os.makedirs(FILTERED_DIR, exist_ok=True)
-    desired_descriptors = merge_descendants(descriptor_list)
-    find_relevant_abstracts(files_to_parse[0], major_topic_only,
+    desired_descriptors = merge_descendants(descriptors)
+    find_relevant_abstracts(files_to_parse[0], m,
                             desired_descriptors)
 
     # for in_file in files_to_parse[:25]:
@@ -108,9 +113,7 @@ def main(descriptor_list, major_topic_only=False):
 
 
 if __name__ == '__main__':
-    mesh_ids = [des for des in sys.argv if re.fullmatch(r'D(\d{6}|\d{9})', des)]
-    major_topic_only = sys.argv[-1].lower() == 'y'
+    # mesh_ids = [des for des in sys.argv if re.fullmatch(r'D(\d{6}|\d{9})', des)]
     # for des in descriptors:
     #     print(des, end=' ')
-    # print('MajorTopicOnly = {}'.format(major_topic_only))
-    main(mesh_ids, major_topic_only)
+    main()

@@ -1,5 +1,6 @@
 import unittest
-from filter_abstracts import extract_descriptors, get_outfilename, is_relevant, merge_descendants
+from filter_abstracts import extract_descriptors, find_relevant_abstracts, \
+    get_outfilename, is_relevant, merge_descendants
 
 
 class FilterAbstractsTestCase(unittest.TestCase):
@@ -12,12 +13,12 @@ class FilterAbstractsTestCase(unittest.TestCase):
         expected = {'D000310': False, 'D000311': False, 'D000328': False,
                     'D002404': True, 'D006801': False, 'D006977': False,
                     'D010690': True, 'D012082': True, 'D012083': False}
-        self.assertEqual(extract_descriptors(descriptor_str), expected,
+        self.assertEqual(expected, extract_descriptors(descriptor_str),
                          'Extracted descriptors do not match expected.')
 
     def test_get_outfilename(self):
         out_filename = get_outfilename('../data/pubmed/pubmed20n0007.txt')
-        self.assertEqual(out_filename, 'pubmed20n0007_relevant.txt',
+        self.assertEqual('pubmed20n0007_relevant.txt', out_filename,
                          out_filename + ' does not match expected string.')
 
     def test_is_relevant(self):
@@ -26,18 +27,18 @@ class FilterAbstractsTestCase(unittest.TestCase):
         desired0 = ['D000855', 'D010591', 'D020385', 'D060486']
         desired1 = ['D010591', 'D020385', 'D060486']
         desired2 = ['D020385', 'D060486']
-        self.assertIs(is_relevant(abs_dict, desired0, True), True,
-                         'Should be relevant with one major topic.')
-        self.assertIs(is_relevant(abs_dict, desired0, False), True,
-                         'Should be relevant with two topics, one major one not.')
-        self.assertIs(is_relevant(abs_dict, desired1, True), False,
-                         'Should be not relevant, no matching major topic.')
-        self.assertIs(is_relevant(abs_dict, desired1, False), True,
-                         'Should be relevant with one topic, not major.')
-        self.assertIs(is_relevant(abs_dict, desired2, True), False,
-                         'Should be not relevant, no overlap of (major) topics.')
-        self.assertIs(is_relevant(abs_dict, desired2, False), False,
-                         'Should be not relevant, no overlap of (any) topics.')
+        self.assertIs(True, is_relevant(abs_dict, desired0, True),
+                      'Should be relevant with one major topic.')
+        self.assertIs(True, is_relevant(abs_dict, desired0, False),
+                      'Should be relevant with two topics, one major one not.')
+        self.assertIs(False, is_relevant(abs_dict, desired1, True),
+                      'Should be not relevant, no matching major topic.')
+        self.assertIs(True, is_relevant(abs_dict, desired1, False),
+                      'Should be relevant with one topic, not major.')
+        self.assertIs(False, is_relevant(abs_dict, desired2, True),
+                      'Should be not relevant, no overlap of (major) topics.')
+        self.assertIs(False, is_relevant(abs_dict, desired2, False),
+                      'Should be not relevant, no overlap of (any) topics.')
 
     def test_merge_descendants(self):
         ancestors = ['D016543', 'D011118', 'D008175']
@@ -82,8 +83,59 @@ class FilterAbstractsTestCase(unittest.TestCase):
             'D056364'
         ]
         actual = merge_descendants(ancestors)
-        self.assertEqual(len(actual), 38, 'List of descendants has incorrect length.')
-        self.assertEqual(actual, expected, 'List of descendants does not match.')
+        self.assertEqual(38, len(actual), 'List of descendants has incorrect length.')
+        self.assertEqual(expected, actual, 'List of descendants does not match.')
+
+    def test_find_relevant_abstracts(self):
+        input_dir = 'data/pubmed/'
+        output_dir = 'data/relevant/'
+        test_files = {
+            'D005796-D009369-D037102.txt': ['D005796', 'D009369', 'D037102'],
+            'D005796-D009369-D037102-m.txt': ['D005796', 'D009369', 'D037102'],
+            'D009369-D037102.txt': ['D009369', 'D037102'],
+            'D009369-D037102-m.txt': ['D009369', 'D037102'],
+            'D005796.txt': ['D005796'],
+            'D005796-m.txt': ['D005796'],
+            'D009369.txt': ['D009369'],
+            'D009369-m.txt': ['D009369'],
+            'D037102.txt': ['D037102'],
+            'D037102-m.txt': ['D037102']
+        }
+        relevant_des = {
+            'D005796-D009369-D037102.txt':
+                ['273474', '273475', '273632', '273634', '274699', '274701',
+                 '274703', '274705', '274710', '274713', '274714', '274718',
+                 '274719', '274720', '274721'],
+            'D005796-D009369-D037102-m.txt':
+                ['274699', '274703', '274705', '274710', '274714', '274719',
+                 '274720', '274721'],
+            'D009369-D037102.txt':
+                ['273474', '273475', '273632', '273634', '274699', '274705',
+                 '274718', '274721'],
+            'D009369-D037102-m.txt':
+                ['274699', '274705', '274721'],
+            'D005796.txt':
+                ['274701', '274703', '274710', '274713', '274714','274719',
+                 '274720'],
+            'D005796-m.txt':
+                ['274703', '274710', '274714', '274719', '274720'],
+            'D009369.txt':
+                ['273474', '273475', '273632', '273634', '274718'],
+            'D009369-m.txt': [],
+            'D037102.txt':
+                ['274699', '274705', '274721'],
+            'D037102-m.txt':
+                ['274699', '274705', '274721'],
+        }
+        for f in test_files:
+            fname = f.split('.')[0]
+            major = fname[-1] == 'm'
+            desired = merge_descendants(test_files[f])
+            find_relevant_abstracts(input_dir + f, output_dir,
+                                    major, desired)
+            with open(output_dir + fname + '_relevant.txt') as outfile:
+                output_des = [line.split()[0] for line in outfile]
+            self.assertEqual(relevant_des[f], output_des, 'Incorrect descriptors for ' + f)
 
 
 if __name__ == '__main__':

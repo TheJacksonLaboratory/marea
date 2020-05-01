@@ -8,7 +8,8 @@ from query_mesh import get_descendants
 
 def check_descriptors(ctx, param, value):
     """
-    Check format of each MeSH descriptor passed as command line argument.
+    Check format of each MeSH descriptor passed as command line argument. Raise
+    exception if any has incorrect format.
     :param ctx: required for click callback feature
     :param param: required for click callback feature
     :param value: tuple of MeSH descriptors as written on command line
@@ -64,8 +65,8 @@ def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors)
         with click.open_file(outfile_path, 'w') as filtered_file:
             for line in unfiltered_file:
                 segments = line.split('##')
-                # check whether this line contains an abstract
                 abstract = segments[-1].strip()
+                # check whether this line contains an abstract
                 if abstract != '':
                     # check whether the abstract meets relevancy criteria
                     abstract_descriptors = extract_descriptors(segments[1].strip())
@@ -138,37 +139,13 @@ def main(i, o, descriptors, m):
     Filters each .txt file from input directory by MeSH descriptors, writes PMID and abstract
     of relevant articles to corresponding output file.
     """
-    click.echo(click.format_filename(i))
-    click.echo(click.format_filename(o))
     files_to_parse = glob.glob(final_slash(i) + '*.txt')
-    for fil in files_to_parse:
-        click.echo(fil)
     os.makedirs(o, exist_ok=True)
     desired_descriptors = merge_descendants(descriptors)
-    find_relevant_abstracts(files_to_parse[0], final_slash(o), m,
-                            desired_descriptors)
-
-    # for in_file in files_to_parse[:25]:
-    #     parse_abstract_file(in_file, major_topic_only, descriptor_dict)
-
-    #     if extracted:
-    #         short_name = get_disease_name(file)
-    #         # url = 'http://www.ncbi.nlm.nih.gov/books/n/gene/{}'.format(disease)
-    #         long_name = extract_long_name(root)
-    #         disease_names[long_name] = short_name
-    #         #            print("{}\t\t{}".format(disease, long_name))
-    #
-    #         with open(GR_EXTRACTED + short_name + '.txt', 'w') as export:
-    #             export.write(extracted)
-    #
-    # with open(MATCHES_DIR + DISEASE_NAMES, 'w') as f:
-    #     for dis in sorted(disease_names, key=str.lower):
-    #         f.write("{}\t{}\n".format(disease_names[dis], dis))
-    #         print(dis)
+    for f in files_to_parse:
+        find_relevant_abstracts(f, final_slash(o), m, desired_descriptors)
+        click.echo(f)
 
 
 if __name__ == '__main__':
-    # mesh_ids = [des for des in sys.argv if re.fullmatch(r'D(\d{6}|\d{9})', des)]
-    # for des in descriptors:
-    #     print(des, end=' ')
     main()

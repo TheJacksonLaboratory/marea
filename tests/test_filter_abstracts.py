@@ -87,55 +87,53 @@ class FilterAbstractsTestCase(unittest.TestCase):
         self.assertEqual(expected, actual, 'List of descendants does not match.')
 
     def test_find_relevant_abstracts(self):
-        input_dir = 'data/pubmed/'
-        output_dir = 'data/relevant/'
-        test_files = {
-            'D005796-D009369-D037102.txt': ['D005796', 'D009369', 'D037102'],
-            'D005796-D009369-D037102-m.txt': ['D005796', 'D009369', 'D037102'],
-            'D009369-D037102.txt': ['D009369', 'D037102'],
-            'D009369-D037102-m.txt': ['D009369', 'D037102'],
-            'D005796.txt': ['D005796'],
-            'D005796-m.txt': ['D005796'],
-            'D009369.txt': ['D009369'],
-            'D009369-m.txt': ['D009369'],
-            'D037102.txt': ['D037102'],
-            'D037102-m.txt': ['D037102']
-        }
-        relevant_des = {
-            'D005796-D009369-D037102.txt':
+        test_filename = 'test_abstracts'
+        input_dir = 'testdata/pubmed/'
+        output_dir = 'testdata/relevant/'
+        test_params = [
+            'D005796-D009369-D037102',
+            'D009369-D037102',
+            'D005796',
+            'D009369',
+            'D037102'
+        ]
+        relevant_pmids = {
+            'D005796-D009369-D037102':
                 ['273474', '273475', '273632', '273634', '274699', '274701',
                  '274703', '274705', '274710', '274713', '274714', '274718',
                  '274719', '274720', '274721'],
-            'D005796-D009369-D037102-m.txt':
+            'D005796-D009369-D037102-m':
                 ['274699', '274703', '274705', '274710', '274714', '274719',
                  '274720', '274721'],
-            'D009369-D037102.txt':
+            'D009369-D037102':
                 ['273474', '273475', '273632', '273634', '274699', '274705',
                  '274718', '274721'],
-            'D009369-D037102-m.txt':
+            'D009369-D037102-m':
                 ['274699', '274705', '274721'],
-            'D005796.txt':
+            'D005796':
                 ['274701', '274703', '274710', '274713', '274714','274719',
                  '274720'],
-            'D005796-m.txt':
+            'D005796-m':
                 ['274703', '274710', '274714', '274719', '274720'],
-            'D009369.txt':
+            'D009369':
                 ['273474', '273475', '273632', '273634', '274718'],
-            'D009369-m.txt': [],
-            'D037102.txt':
+            'D009369-m': [],
+            'D037102':
                 ['274699', '274705', '274721'],
-            'D037102-m.txt':
+            'D037102-m':
                 ['274699', '274705', '274721'],
         }
-        for f in test_files:
-            fname = f.split('.')[0]
-            major = fname[-1] == 'm'
-            desired = merge_descendants(test_files[f])
-            find_relevant_abstracts(input_dir + f, output_dir,
-                                    major, desired)
-            with open(output_dir + fname + '_relevant.txt') as outfile:
-                output_des = [line.split()[0] for line in outfile]
-            self.assertEqual(relevant_des[f], output_des, 'Incorrect descriptors for ' + f)
+        for params in test_params:
+            descriptors = params.split('-')
+            desired = merge_descendants(descriptors)
+            for major in (False, True):
+                pmidKey = params + '-m' if major else params
+                find_relevant_abstracts(input_dir + test_filename + '.txt',
+                                        output_dir, major, desired)
+                with open(output_dir + test_filename + '_relevant.txt') as outfile:
+                    output_pmids = [line.split()[0] for line in outfile]
+                self.assertEqual(relevant_pmids[pmidKey], output_pmids,
+                                 'Incorrect PMIDs for ' + pmidKey)
 
 
 if __name__ == '__main__':

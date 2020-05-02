@@ -1,12 +1,26 @@
+import click
 import glob
 import os
 import re
-import sys
 
 from query_mesh import get_descendants
 
-ABSTRACTS_DIR = '../data/pubmed/'
-FILTERED_DIR = '../data/relevant/'
+
+def check_descriptors(ctx, param, value):
+    """
+    Check format of each MeSH descriptor passed as command line argument. Raise
+    exception if any has incorrect format.
+    :param ctx: required for click callback feature
+    :param param: required for click callback feature
+    :param value: tuple of MeSH descriptors as written on command line
+    :return: value if all descriptors are correctly formatted
+    """
+    for des in value:
+        if not re.fullmatch(r'D(\d{6}|\d{9})', des):
+            raise click.BadParameter(
+                'Descriptor %s incorrect, should be D followed by 6 or 9 digits'
+                % des, param_hint='MeSH DESCRIPTORS')
+    return value
 
 
 def extract_descriptors(descriptor_str):
@@ -28,14 +42,31 @@ def extract_descriptors(descriptor_str):
     return retval
 
 
-def find_relevant_abstracts(f, major_topic, desired_descriptors):
-    with open(f) as unfiltered_file:
-        outfile_path = FILTERED_DIR + get_outfilename(f)
-        with open(outfile_path, 'w') as filtered_file:
+def final_slash(path):
+    """Make sure path ends with a / character."""
+    if path[-1] == '/':
+        return path
+    else:
+        return path + '/'
+
+
+def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors):
+    """
+    Filters PubMed articles from input according to MeSH descriptors and major
+    topic flag, writes PMID and abstract of relevant articles to output file.
+    :param in_file: input file of PubMed id, descriptors, abstract
+    :param out_path: path to output directory
+    :param major_topic: boolean, if true only consider major topic descriptors
+    :param desired_descriptors: list of MeSH descriptor ids
+    :return: None
+    """
+    with click.open_file(in_file) as unfiltered_file:
+        outfile_path = out_path + get_outfilename(in_file)
+        with click.open_file(outfile_path, 'w') as filtered_file:
             for line in unfiltered_file:
                 segments = line.split('##')
-                # check whether this line contains an abstract
                 abstract = segments[-1].strip()
+                # check whether this line contains an abstract
                 if abstract != '':
                     # check whether the abstract meets relevancy criteria
                     abstract_descriptors = extract_descriptors(segments[1].strip())
@@ -57,6 +88,16 @@ def get_outfilename(path):
 
 
 def is_relevant(abstract_dict, desired_list, major_bool):
+    """
+    Determine whether abstract is relevant w.r.t. the desired MeSH descriptors.
+    Abstract considered relevant if one of its descriptors is on the list of
+    desired descriptors. If major topic flag is set, consider only those
+    descriptors marked as major topic for this PubMed article.
+    :param abstract_dict: maps each MeSH descriptor to boolean major topic flag
+    :param desired_list: list of descriptors that user specified as relevant
+    :param major_bool: if true, consider only abstract's major topic descriptors
+    :return: True if this abstract is relevant, False otherwise
+    """
     relevant = False
     abstract_des = list(abstract_dict.keys())
     if major_bool:
@@ -67,6 +108,7 @@ def is_relevant(abstract_dict, desired_list, major_bool):
         # We do not extract qualifiers from the .xml file.
         abstract_des = list(filter(lambda d: abstract_dict[d], abstract_des))
     i = 0
+    # stop looking as soon as we find a relevant descriptor for this abstract
     while not relevant and i < len(abstract_des):
         relevant = abstract_des[i] in desired_list
         i += 1
@@ -74,6 +116,11 @@ def is_relevant(abstract_dict, desired_list, major_bool):
 
 
 def merge_descendants(ancestors):
+    """
+    Find all descendants of ancestor descriptors in MeSH classification tree
+    :param ancestors: list of MeSH descriptors
+    :return: list including ancestors and all their descendants in MeSH
+    """
     retval = []
     for descriptor in ancestors:
         retval.append(descriptor)
@@ -81,36 +128,24 @@ def merge_descendants(ancestors):
     return sorted(retval)
 
 
-def main(descriptor_list, major_topic_only=False):
-    files_to_parse = glob.glob(ABSTRACTS_DIR + '*.txt')
-    os.makedirs(FILTERED_DIR, exist_ok=True)
-    desired_descriptors = merge_descendants(descriptor_list)
-    find_relevant_abstracts(files_to_parse[0], major_topic_only,
-                            desired_descriptors)
-
-    # for in_file in files_to_parse[:25]:
-    #     parse_abstract_file(in_file, major_topic_only, descriptor_dict)
-
-    #     if extracted:
-    #         short_name = get_disease_name(file)
-    #         # url = 'http://www.ncbi.nlm.nih.gov/books/n/gene/{}'.format(disease)
-    #         long_name = extract_long_name(root)
-    #         disease_names[long_name] = short_name
-    #         #            print("{}\t\t{}".format(disease, long_name))
-    #
-    #         with open(GR_EXTRACTED + short_name + '.txt', 'w') as export:
-    #             export.write(extracted)
-    #
-    # with open(MATCHES_DIR + DISEASE_NAMES, 'w') as f:
-    #     for dis in sorted(disease_names, key=str.lower):
-    #         f.write("{}\t{}\n".format(disease_names[dis], dis))
-    #         print(dis)
+@click.command()
+@click.option('-i', type=click.Path(exists=True), required=True, help='input directory')
+@click.option('-o', type=click.Path(), required=True, help='output directory')
+@click.option('-m', is_flag=True, flag_value=True, help='filter on major topics only')
+@click.argument('descriptors', callback=check_descriptors, metavar='MeSH_DESCRIPTORS', nargs=-1)
+# python filter-abstracts.py -i ../data/pubmed -o ../data/relevant -m D005796 D009369 D037102
+def main(i, o, descriptors, m):
+    """
+    Filters each .txt file from input directory by MeSH descriptors, writes PMID and abstract
+    of relevant articles to corresponding output file.
+    """
+    files_to_parse = glob.glob(final_slash(i) + '*.txt')
+    os.makedirs(o, exist_ok=True)
+    desired_descriptors = merge_descendants(descriptors)
+    for f in files_to_parse:
+        find_relevant_abstracts(f, final_slash(o), m, desired_descriptors)
+        click.echo(f)
 
 
 if __name__ == '__main__':
-    mesh_ids = [des for des in sys.argv if re.fullmatch(r'D(\d{6}|\d{9})', des)]
-    major_topic_only = sys.argv[-1].lower() == 'y'
-    # for des in descriptors:
-    #     print(des, end=' ')
-    # print('MajorTopicOnly = {}'.format(major_topic_only))
-    main(mesh_ids, major_topic_only)
+    main()

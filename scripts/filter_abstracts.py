@@ -5,6 +5,13 @@ import re
 
 from query_mesh import get_descendants
 
+# fields in the .txt file created by xml2txt.py
+PMID_INDEX = 0
+PUBYEAR_INDEX = 1
+DESCRIPTORS_INDEX = 2
+# KEYWORDS_INDEX = 3
+ABSTRACT_INDEX = -1
+
 
 def check_descriptors(ctx, param, value):
     """
@@ -52,9 +59,10 @@ def final_slash(path):
 
 def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors):
     """
-    Filters PubMed articles from input according to MeSH descriptors and major
-    topic flag, writes PMID and abstract of relevant articles to output file.
-    :param in_file: input file of PubMed id, descriptors, abstract
+    Filter PubMed articles from input according to MeSH descriptors and major
+    topic flag; write PMID, publication date, and abstract of relevant articles
+    to output file.
+    :param in_file: input file of PubMed id, year, descriptors, abstract
     :param out_path: path to output directory
     :param major_topic: boolean, if true only consider major topic descriptors
     :param desired_descriptors: list of MeSH descriptor ids
@@ -64,16 +72,22 @@ def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors)
         outfile_path = out_path + get_outfilename(in_file)
         with click.open_file(outfile_path, 'w') as filtered_file:
             for line in unfiltered_file:
-                segments = line.split('##')
-                abstract = segments[-1].strip()
-                # check whether this line contains an abstract
-                if abstract != '':
+                segments = line.split('## ')
+                print('{} {}'.format(segments[0], len(segments)))
+                # strip off final space at end of abstract (if any)
+                abstract = segments[ABSTRACT_INDEX].strip()
+                descriptor_str = segments[DESCRIPTORS_INDEX]
+                # check whether this line contains an abstract and descriptors
+                # TODO: handle articles that have keywords but no descriptors
+                if abstract != '' and descriptor_str != '':
                     # check whether the abstract meets relevancy criteria
-                    abstract_descriptors = extract_descriptors(segments[1].strip())
+                    abstract_descriptors = extract_descriptors(descriptor_str)
                     if is_relevant(abstract_descriptors, desired_descriptors,
                                    major_topic):
                         # record relevant abstract in output file
-                        filtered_file.write('{}\t{}\n'.format(segments[0], abstract))
+                        filtered_file.write('{}\t{}\t{}\n'.format(segments[PMID_INDEX],
+                                                                  segments[PUBYEAR_INDEX],
+                                                                  abstract))
 
 
 def get_outfilename(path):

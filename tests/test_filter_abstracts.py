@@ -1,5 +1,5 @@
 import unittest
-from filter_abstracts import extract_descriptors, find_relevant_abstracts, \
+from filter_abstracts import PMID_INDEX, extract_descriptors, find_relevant_abstracts, \
     get_outfilename, is_relevant, merge_descendants
 
 
@@ -131,7 +131,7 @@ class FilterAbstractsTestCase(unittest.TestCase):
                 find_relevant_abstracts(input_dir + test_filename + '.txt',
                                         output_dir, major, desired)
                 with open(output_dir + test_filename + '_relevant.txt') as outfile:
-                    output_pmids = [line.split()[0] for line in outfile]
+                    output_pmids = [line.split()[PMID_INDEX] for line in outfile]
                 self.assertEqual(relevant_pmids[pmidKey], output_pmids,
                                  'Incorrect PMIDs for ' + pmidKey)
 

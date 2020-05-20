@@ -1,6 +1,7 @@
 import unittest
-from filter_abstracts import PMID_INDEX, extract_descriptors, find_relevant_abstracts, \
-    get_outfilename, is_relevant, merge_descendants
+from os import makedirs
+from scripts.filter_abstracts import PMID_INDEX, extract_descriptors, find_relevant_abstracts, \
+    is_relevant, merge_descendants
 
 
 class FilterAbstractsTestCase(unittest.TestCase):
@@ -15,11 +16,6 @@ class FilterAbstractsTestCase(unittest.TestCase):
                     'D010690': True, 'D012082': True, 'D012083': False}
         self.assertEqual(expected, extract_descriptors(descriptor_str),
                          'Extracted descriptors do not match expected.')
-
-    def test_get_outfilename(self):
-        out_filename = get_outfilename('../data/pubmed/pubmed20n0007.txt')
-        self.assertEqual('pubmed20n0007_relevant.txt', out_filename,
-                         out_filename + ' does not match expected string.')
 
     def test_is_relevant(self):
         abs_dict = {'D000855': True, 'D000073496': False, 'D010591': False,
@@ -90,6 +86,7 @@ class FilterAbstractsTestCase(unittest.TestCase):
         test_filename = 'test_abstracts'
         input_dir = 'testdata/pubmed/'
         output_dir = 'testdata/relevant/'
+        makedirs(output_dir, exist_ok=True)
         test_params = [
             'D005796-D009369-D037102',
             'D009369-D037102',

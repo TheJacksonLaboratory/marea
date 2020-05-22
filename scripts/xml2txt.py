@@ -69,10 +69,15 @@ def text_from_xml(filename):
         else:
             string = f'{string[:-3]}##'
 
-        # TODO: get rid of "OtherAbstract" foreign language text
-        for abstract in article.iter('AbstractText'):
-            if abstract.text is not None:
-                string += f'{sanitize(abstract.text)} '
+        for abstract in article.iterfind('.//Abstract/AbstractText'):
+            inner_text = ''
+            for element in abstract.iter():
+                if element.text is not None:
+                    inner_text += element.text
+                if element.tail is not None:
+                    inner_text += element.tail
+            if inner_text != '':
+                string += f'{sanitize(inner_text)} '
 
         parsed.append(string.strip())
 

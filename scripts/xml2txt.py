@@ -5,8 +5,6 @@ import xml.etree.ElementTree as ET
 
 from os import makedirs
 from os.path import basename, join
-# from scripts.retrieve_pubmed_names import DOWNLOADS_DIR
-# from scripts.utils import final_slash
 
 
 def sanitize(string):
@@ -44,6 +42,7 @@ def text_from_xml(filename):
                 child = pdate.find('MedlineDate')
                 if child is not None:
                     year = child.text.split()[0]
+
         string += f'{year}##'
 
         descriptor_present = False
@@ -71,11 +70,8 @@ def text_from_xml(filename):
 
         for abstract in article.iterfind('.//Abstract/AbstractText'):
             inner_text = ''
-            for element in abstract.iter():
-                if element.text is not None:
-                    inner_text += element.text
-                if element.tail is not None:
-                    inner_text += element.tail
+            for sub_text in abstract.itertext():
+                inner_text += sub_text
             if inner_text != '':
                 string += f'{sanitize(inner_text)} '
 

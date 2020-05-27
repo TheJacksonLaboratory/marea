@@ -127,7 +127,7 @@ class FilterAbstractsTestCase(unittest.TestCase):
                 pmidKey = params + '-m' if major else params
                 find_relevant_abstracts(input_dir + test_filename + '.txt',
                                         output_dir, major, desired)
-                with open(output_dir + test_filename + '_relevant.txt') as outfile:
+                with open(output_dir + test_filename + '_relevant.tsv') as outfile:
                     output_pmids = [line.split()[PMID_INDEX] for line in outfile]
                 self.assertEqual(relevant_pmids[pmidKey], output_pmids,
                                  'Incorrect PMIDs for ' + pmidKey)

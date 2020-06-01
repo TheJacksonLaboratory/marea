@@ -1,6 +1,7 @@
 import click
 import glob
 import gzip
+import re
 import xml.etree.ElementTree as ET
 
 from os import makedirs
@@ -31,19 +32,27 @@ def text_from_xml(filename):
 
         string = f'{id}##'
 
-        year = 'unknown'
-        # TODO: compare PubDate to PubMedPubDate if any, ArticleDate if any,
-        # take the earliest date see head1015
+        dates = []
+        # Compare PubDate to ArticleDate if any, PubMedPubDate if any,
+        # record the earliest year.
         for pdate in article.iter('PubDate'):
+            year = None
             child = pdate.find('Year')
             if child is not None:
                 year = child.text
             else:
                 child = pdate.find('MedlineDate')
                 if child is not None:
-                    year = child.text.split()[0]
-
-        string += f'{year}##'
+                    m = re.match(r'^(\d{4}).*', child.text)
+                    year = m.group(1) if m else None
+            if year:
+                dates.append(int(year))
+        for pyear in article.iterfind(".//ArticleDate/Year"):
+            dates.append(int(pyear.text))
+        for pyear in article.iterfind(".//PubMedPubDate[@PubStatus='pubmed']/Year"):
+            dates.append(int(pyear.text))
+        pubyear = min(dates) if dates else 'unknown'
+        string += f'{pubyear}##'
 
         descriptor_present = False
         for heading in article.iter('DescriptorName'):

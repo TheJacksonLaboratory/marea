@@ -93,8 +93,8 @@ def text_from_xml(filename):
 @click.option('-x', type=click.Path(exists=True), required=True,
               help='directory of gzipped xml files')
 @click.option('-t', type=click.Path(), help='directory for txt files, defaults to xml directory')
-# python xml2txt.py -x ../data/pubmed/
-# python xml2txt.py -x ../data/pubmed -t ../data/txtextracted
+# python xml2txt.py -x ../data/pubmed_xml/
+# python xml2txt.py -x ../data/pubmed_xml -t ../data/pubmed_txt
 def main(x, t):
     xml_files = glob.glob(join(x, '*.xml.gz'))
     for pmxml in xml_files:

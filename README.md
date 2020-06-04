@@ -34,5 +34,52 @@ gzipped _.xml_ files of PubMed article abstracts and metadata should be download
 `python retrieve_pubmed_files.py -d ../data/ -x ../data/pubmed_xml/`
 
 ### 3. Extract .txt from .xml
+_scripts/xml2txt.py_ extracts key fields for each article recorded in the gzipped _.xml_ file, eliminates _.xml_ 
+formatting, and writes the result to a text file. The fields of interest are:
+
+* PubMed ID
+* year of publication (the earliest one if the entry has multiple dates with different years)
+* MeSH descriptors (if any)
+* keywords (if any)
+* abstract (if any)
+
+_xml2txt.py_ takes two command line options. The _-x_ option specifies the directory containing the
+gzipped _.xml_ files downloaded in step 2. The _-t_ option names the directory for the text files produced by 
+_xml2txt.py_. There will be one _.txt_ output file for each _.xml.gz_ input file, sharing the filename.
+For example,
+ 
+`python xml2txt.py -x ../data/pubmed_xml -t ../data/pubmed_txt`
+
+The _-t_ directory is optional; if absent, the _.txt_ files are written to the directory that already contains
+_.xml.gz_ files.
 
 ### 4. Select relevant articles from .txt files
+
+_scripts/filter_abstracts.py_ filters the _.txt_ file to select articles that are relevant according to
+a user-supplied set of MeSH descriptors. An article is deemed relevant if at least one of the the article's
+descriptors is a subcategory of, or identical to, one of the specified search descriptors. In the _.xml_ file,
+each MeSH descriptor and keyword is marked Y/N as a "major topic" for the article. The command line options for 
+_filter_abstracts.py_ include an optional flag to restrict the search to major topics only. Note that using this
+flag will drastically reduce the number of matching articles because few MeSH descriptors and even fewer keywords
+are marked as major topics. Many articles have no MeSH descriptors or keywords marked as major topics.
+
+Not all PubMed articles have MeSH descriptors; many have no abstract. Any article that has no abstract is irrelevant
+for the search regardless of its MeSH descriptors. Filtering on keywords is not yet implemented.
+
+For each input _.txt_ file, _filter_abstracts.py_ writes an output _.tsv_ file containing only the PubMed ID,
+year of publication, and abstract of those articles deemed relevant. MeSH descriptors and keywords are not preserved
+in the output file. For an input named _pubmed20n1014.txt_, the corresponding output file is named
+_pubmed20n1014_relevant.tsv_.
+
+_filter_abstracts.py_ has four command line parameters. The _-i_ option specifies the directory containing the
+text files produced in step 3. The _-o_ option names the directory for the _.tsv_ files written by 
+_filter_abstracts.py_. -m is the optional flag described above that limits the search to major topic MeSH
+descriptors only. At the end of the command line is the list of MeSH descriptors that designate relevant
+categories. These should be high-level descriptors; the software automatically includes all their subcategories in
+the search. For example,
+
+`python filter_abstracts.py -m -i ../data/pubmed_txt -o ../data/pubmed_relevant D005796 D009369 D037102`
+
+finds articles whose major topic descriptors fall under one or more of the categories for "Genes", "Neoplasms",
+ and "Lectins".
+ 

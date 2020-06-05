@@ -1,10 +1,18 @@
+import click
 import ftplib
-import os
 
-DOWNLOADS_DIR = '../data/'
+from os import makedirs
+from os.path import join
+
+# file containing list of URLs for PubMed files to download
+FTP_FILENAMES = 'medline_ftp_links.txt'
 
 
-def main():
+@click.command()
+@click.option('-d', type=click.Path(), required=True,
+              help='directory for list of PubMed files')
+# python retrieve_pubmed_names.py -d ../data
+def main(d):
     f = ftplib.FTP()
     pubmedftp = 'ftp.ncbi.nlm.nih.gov'
     f.connect(pubmedftp)
@@ -15,21 +23,19 @@ def main():
 
     xmlfiles = []
     for entry in ls:
-        # print(entry)
-        # print(type(entry))
         fname = entry.rstrip('\n').split(';')[-1].strip()
         if not fname.endswith('xml.gz'):
             continue
-        print("'%s'" % fname)
+        click.echo('%s' % click.format_filename(fname))
         xmlfiles.append(fname)
 
-    os.makedirs(DOWNLOADS_DIR, exist_ok=True)
-    ftp_filenames = DOWNLOADS_DIR + 'medline_ftp_links.txt'
-    with open(ftp_filenames, 'w') as f:
+    makedirs(d, exist_ok=True)
+    ftp_filenames = join(d, FTP_FILENAMES)
+    with click.open_file(ftp_filenames, 'w') as f:
         for xfile in xmlfiles:
-            path = os.path.join('ftp.ncbi.nlm.nih.gov/pubmed/baseline', xfile)
+            path = join('ftp.ncbi.nlm.nih.gov/pubmed/baseline', xfile)
             f.write("%s\n" % path)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

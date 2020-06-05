@@ -3,8 +3,8 @@ Filter PubMed articles for relevance.
 
 ### Naive filter
 The goal of this project is to select PubMed articles based on their MeSH descriptors, or their keywords for articles
-that do not have MeSH descriptors. For MeSH descriptors, user specifies a set of high-level descriptor ids. Any article
-that has at least one of these descriptors or any subcategory of these descriptors is considered relevant.
+that do not have MeSH descriptors. For MeSH filtering, the user specifies a set of high-level descriptors. Any article
+marked with at least one of these descriptors or any subcategory of these descriptors is considered relevant.
 
 ### 1. Requirements
 Requirements for the virtual environment of marea:
@@ -20,16 +20,16 @@ Requirements for the virtual environment of marea:
 * six 1.15.0
 
 ### 2. Download .xml files
-First, create the list of PubMed files to be downloaded from NCBI. Run _retrieve_pubmed_names.py_ from
-the __scripts__ subdirectory, which writes the file _medline_ftp_links.txt_ in
-the directory specified as the _-d_ command line option. For example,
+First, create the list of PubMed files to be downloaded from NCBI. Run _scripts/retrieve_pubmed_names.py_
+to obtain the file _medline_ftp_links.txt_ in the directory specified on the command line with the _-d_ option.
+The output directory will be created if it does not already exist (true for all the __marea__ scripts). For example,
 
 `python retrieve_pubmed_names.py -d ../data`
 
-Next, download the files by running _retrieve_pubmed_files.py_ from the __scripts__ subdirectory.
-The _-d_ command line option specifies the directory containing _medline_ftp_links.txt_
-(the directory used in the previous step). The _-x_ option specifies the directory to which the
-gzipped _.xml_ files of PubMed article abstracts and metadata should be downloaded. For example,
+Next, run _scripts/retrieve_pubmed_files.py_ to download the files listed in the previous step. As before,
+the _-d_ command line option specifies the directory containing _medline_ftp_links.txt_. The _-x_ option specifies
+the directory to which the gzipped _.xml_ files of PubMed article abstracts and metadata should be downloaded.
+For example,
 
 `python retrieve_pubmed_files.py -d ../data/ -x ../data/pubmed_xml/`
 
@@ -58,7 +58,7 @@ _.xml.gz_ files.
 _scripts/filter_abstracts.py_ filters the _.txt_ file to select articles that are relevant according to
 a user-supplied set of MeSH descriptors. An article is deemed relevant if at least one of the the article's
 descriptors is a subcategory of, or identical to, one of the specified search descriptors. In the _.xml_ file,
-each MeSH descriptor and keyword is marked Y/N as a "major topic" for the article. The command line options for 
+each MeSH descriptor and keyword is marked Y/N as a "major topic" for the article. The command line parameters for 
 _filter_abstracts.py_ include an optional flag to restrict the search to major topics only. Note that using this
 flag will drastically reduce the number of matching articles because few MeSH descriptors and even fewer keywords
 are marked as major topics. Many articles have no MeSH descriptors or keywords marked as major topics.
@@ -73,13 +73,13 @@ _pubmed20n1014_relevant.tsv_.
 
 _filter_abstracts.py_ has four command line parameters. The _-i_ option specifies the directory containing the
 text files produced in step 3. The _-o_ option names the directory for the _.tsv_ files written by 
-_filter_abstracts.py_. -m is the optional flag described above that limits the search to major topic MeSH
+_filter_abstracts.py_. _-m_ is the optional flag described above that limits the search to major topic MeSH
 descriptors only. At the end of the command line is the list of MeSH descriptors that designate relevant
 categories. These should be high-level descriptors; the software automatically includes all their subcategories in
 the search. For example,
 
 `python filter_abstracts.py -m -i ../data/pubmed_txt -o ../data/pubmed_relevant D005796 D009369 D037102`
 
-finds articles whose major topic descriptors fall under one or more of the categories for "Genes", "Neoplasms",
- and "Lectins".
+finds articles whose major topic descriptors fall under one or more of the categories for Genes, Neoplasms,
+ and Lectins.
  

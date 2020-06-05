@@ -1,9 +1,17 @@
 import click
 import glob
-import os
 import re
 
-from query_mesh import get_descendants
+from os import makedirs
+from os.path import basename, join
+from scripts.query_mesh import get_descendants
+
+# fields in the .txt file created by xml2txt.py
+PMID_INDEX = 0
+PUBYEAR_INDEX = 1
+DESCRIPTORS_INDEX = 2
+# KEYWORDS_INDEX = 3
+ABSTRACT_INDEX = -1
 
 
 def check_descriptors(ctx, param, value):
@@ -42,49 +50,36 @@ def extract_descriptors(descriptor_str):
     return retval
 
 
-def final_slash(path):
-    """Make sure path ends with a / character."""
-    if path[-1] == '/':
-        return path
-    else:
-        return path + '/'
-
-
 def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors):
     """
-    Filters PubMed articles from input according to MeSH descriptors and major
-    topic flag, writes PMID and abstract of relevant articles to output file.
-    :param in_file: input file of PubMed id, descriptors, abstract
+    Filter PubMed articles from input according to MeSH descriptors and major
+    topic flag; write PMID, publication date, and abstract of relevant articles
+    to output file.
+    :param in_file: input file of PubMed id, year, descriptors, abstract
     :param out_path: path to output directory
     :param major_topic: boolean, if true only consider major topic descriptors
     :param desired_descriptors: list of MeSH descriptor ids
     :return: None
     """
     with click.open_file(in_file) as unfiltered_file:
-        outfile_path = out_path + get_outfilename(in_file)
+        outfile_path = join(out_path,
+                            basename(in_file).replace('.txt', '_relevant.tsv'))
         with click.open_file(outfile_path, 'w') as filtered_file:
             for line in unfiltered_file:
                 segments = line.split('##')
-                abstract = segments[-1].strip()
-                # check whether this line contains an abstract
-                if abstract != '':
+                abstract = segments[ABSTRACT_INDEX].strip()
+                descriptor_str = segments[DESCRIPTORS_INDEX]
+                # check whether this line contains an abstract and descriptors
+                # TODO: handle articles that have keywords but no descriptors
+                if abstract != '' and descriptor_str != '':
                     # check whether the abstract meets relevancy criteria
-                    abstract_descriptors = extract_descriptors(segments[1].strip())
+                    abstract_descriptors = extract_descriptors(descriptor_str)
                     if is_relevant(abstract_descriptors, desired_descriptors,
                                    major_topic):
                         # record relevant abstract in output file
-                        filtered_file.write('{}\t{}\n'.format(segments[0], abstract))
-
-
-def get_outfilename(path):
-    """
-    Generate the filename for abstracts filtered by relevant MeSH descriptors.
-    e.g. 'pubmed20n0001_relevant.txt' from '../data/pubmed/pubmed20n0001.txt'
-    :param path: path to the input .txt file of PubMed abstracts
-    :return: output filename with .txt extension
-    """
-    filename = path.split('/')[-1]
-    return filename.split('.')[0] + '_relevant.txt'
+                        filtered_file.write('{}\t{}\t{}\n'.format(segments[PMID_INDEX],
+                                                                  segments[PUBYEAR_INDEX],
+                                                                  abstract))
 
 
 def is_relevant(abstract_dict, desired_list, major_bool):
@@ -133,18 +128,18 @@ def merge_descendants(ancestors):
 @click.option('-o', type=click.Path(), required=True, help='output directory')
 @click.option('-m', is_flag=True, flag_value=True, help='filter on major topics only')
 @click.argument('descriptors', callback=check_descriptors, metavar='MeSH_DESCRIPTORS', nargs=-1)
-# python filter-abstracts.py -i ../data/pubmed -o ../data/relevant -m D005796 D009369 D037102
+# python filter-abstracts.py -i ../data/pubmed_txt -o ../data/pubmed_relevant -m D005796 D009369 D037102
 def main(i, o, descriptors, m):
     """
-    Filters each .txt file from input directory by MeSH descriptors, writes PMID and abstract
-    of relevant articles to corresponding output file.
+    Filters each .txt file from input directory by MeSH descriptors, writes PMID, publication
+    year, and abstract of relevant articles to corresponding output file.
     """
-    files_to_parse = glob.glob(final_slash(i) + '*.txt')
-    os.makedirs(o, exist_ok=True)
+    files_to_parse = glob.glob(join(i, '*.txt'))
+    makedirs(o, exist_ok=True)
     desired_descriptors = merge_descendants(descriptors)
     for f in files_to_parse:
-        find_relevant_abstracts(f, final_slash(o), m, desired_descriptors)
-        click.echo(f)
+        find_relevant_abstracts(f, o, m, desired_descriptors)
+        click.echo(basename(f))
 
 
 if __name__ == '__main__':

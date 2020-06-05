@@ -6,11 +6,12 @@ import socket
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 
-DOWNLOADS_DIR = '/projects/robinson-lab/PMP/'
-# DOWNLOADS_DIR = '../data/'
-PUBMED_DIR = DOWNLOADS_DIR + 'pubmed/'
-# ftp_filenames = DOWNLOADS_DIR + 'medline_ftp_links.txt'
-ftp_filenames = 'medline_ftp_links.txt'
+# DOWNLOADS_DIR = '/projects/robinson-lab/PMP/'
+DOWNLOADS_DIR = '../data/'
+PUBMED_DIR = DOWNLOADS_DIR + 'pubmed_xml/'
+ftp_filenames = DOWNLOADS_DIR + 'subset_medline_links.txt'
+# ftp_filenames = 'medline_ftp_links.txt'
+
 
 def main():
     """

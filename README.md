@@ -10,14 +10,12 @@ marked with at least one of these descriptors or any subcategory of these descri
 Requirements for the virtual environment of marea:
 
 * Python 3.8
-* SPARQLWrapper 1.8.5
 * click 7.1.2
 * isodate 0.6.0
-* pip 20.1.1
 * pyparsing 2.4.7
 * rdflib 5.0.0
-* setuptools 47.1.1
 * six 1.15.0
+* SPARQLWrapper 1.8.5
 
 ### 2. Download .xml files
 First, create the list of PubMed files to be downloaded from NCBI. Run _scripts/retrieve_pubmed_names.py_

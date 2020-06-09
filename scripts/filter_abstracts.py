@@ -4,7 +4,7 @@ import re
 
 from os import makedirs
 from os.path import basename, join
-from scripts.query_mesh import get_descendants
+from query_mesh import get_descendants
 
 # fields in the .txt file created by xml2txt.py
 PMID_INDEX = 0

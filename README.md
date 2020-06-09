@@ -106,8 +106,9 @@ marea
     ├── filter.sh
     └── marea_python.def
 ```
-_download.sh_ builds a singularity container _marea_python.sif_ as described in _marea_python.def_ with the latest
-version of python and the other __marea__ requirements, writing . It then downloads from NCBI all the gzipped
+
+_download.sh_ builds a singularity container _marea_python.sif_ from _marea_python.def_ with the latest
+version of python and other requirements listed in Section 1. The script downloads from NCBI the gzipped
 _.xml_ files for PubMed articles. _filter.sh_ extracts _.txt_ files from the _.xml_ and then identifies
 relevant articles according to the specified MeSH descriptors (as explained in Section 4).
 
@@ -115,9 +116,9 @@ Edit both _download.sh_ and _filter.sh_ to change
 
 * the email address for slurm messages
 * the directories to which files are written
-* the MeSH descriptors for relevance filtering (in)
+* the MeSH descriptors for relevance filtering
 
-Run _download.sh_ followed by _filter.sh_ with
+On sumner, _download.sh_ and _filter.sh_ can be run in the __singularity__ directory with
 
 ```
 sbatch -q batch <scriptname>.sh

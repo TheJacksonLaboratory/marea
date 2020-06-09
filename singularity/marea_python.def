@@ -1,0 +1,6 @@
+BootStrap: docker
+From: python:latest
+
+%post
+    pip install click rdflib SPARQLWrapper
+

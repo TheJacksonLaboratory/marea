@@ -10,28 +10,30 @@ marked with at least one of these descriptors or any subcategory of these descri
 Requirements for the virtual environment of marea:
 
 * Python 3.8
-* SPARQLWrapper 1.8.5
 * click 7.1.2
 * isodate 0.6.0
-* pip 20.1.1
 * pyparsing 2.4.7
 * rdflib 5.0.0
-* setuptools 47.1.1
 * six 1.15.0
+* SPARQLWrapper 1.8.5
 
 ### 2. Download .xml files
 First, create the list of PubMed files to be downloaded from NCBI. Run _scripts/retrieve_pubmed_names.py_
 to obtain the file _medline_ftp_links.txt_ in the directory specified on the command line with the _-d_ option.
 The output directory will be created if it does not already exist (true for all the __marea__ scripts). For example,
 
-`python retrieve_pubmed_names.py -d ../data`
+```
+python retrieve_pubmed_names.py -d ../data
+```
 
 Next, run _scripts/retrieve_pubmed_files.py_ to download the files listed in the previous step. As before,
 the _-d_ command line option specifies the directory containing _medline_ftp_links.txt_. The _-x_ option specifies
 the directory to which the gzipped _.xml_ files of PubMed article abstracts and metadata should be downloaded.
 For example,
 
-`python retrieve_pubmed_files.py -d ../data/ -x ../data/pubmed_xml/`
+```
+python retrieve_pubmed_files.py -d ../data/ -x ../data/pubmed_xml/
+```
 
 ### 3. Extract .txt from .xml
 _scripts/xml2txt.py_ extracts key fields for each article recorded in the gzipped _.xml_ file, eliminates _.xml_ 
@@ -48,7 +50,9 @@ gzipped _.xml_ files downloaded in step 2. The _-t_ option names the directory f
 _xml2txt.py_. There will be one _.txt_ output file for each _.xml.gz_ input file, sharing the filename.
 For example,
  
-`python xml2txt.py -x ../data/pubmed_xml -t ../data/pubmed_txt`
+```
+python xml2txt.py -x ../data/pubmed_xml -t ../data/pubmed_txt
+```
 
 The _-t_ directory is optional; if absent, the _.txt_ files are written to the directory that already contains
 _.xml.gz_ files.
@@ -78,8 +82,44 @@ descriptors only. At the end of the command line is the list of MeSH descriptors
 categories. These should be high-level descriptors; the software automatically includes all their subcategories in
 the search. For example,
 
-`python filter_abstracts.py -m -i ../data/pubmed_txt -o ../data/pubmed_relevant D005796 D009369 D037102`
+```
+python filter_abstracts.py -m -i ../data/pubmed_txt -o ../data/pubmed_relevant D005796 D009369 D037102
+```
 
 finds articles whose major topic descriptors fall under one or more of the categories for Genes, Neoplasms,
  and Lectins.
- 
+
+### 5. Run pipeline on HPC
+Copy the processing pipeline scripts to the HPC file system, preserving the directory structure.
+
+```
+marea
+├── scripts
+│   ├── __init__.py
+│   ├── filter_abstracts.py
+│   ├── query_mesh.py
+│   ├── retrieve_pubmed_files.py
+│   ├── retrieve_pubmed_names.py
+│   └── xml2txt.py
+└── singularity
+    ├── download.sh
+    ├── filter.sh
+    └── marea_python.def
+```
+
+_download.sh_ builds a singularity container _marea_python.sif_ from _marea_python.def_ with the latest
+version of python and other requirements listed in Section 1. The script downloads from NCBI the gzipped
+_.xml_ files for PubMed articles. _filter.sh_ extracts _.txt_ files from the _.xml_ and then identifies
+relevant articles according to the specified MeSH descriptors (as explained in Section 4).
+
+Edit both _download.sh_ and _filter.sh_ to change
+
+* the email address for slurm messages
+* the directories to which files are written
+* the MeSH descriptors for relevance filtering
+
+On sumner, _download.sh_ and _filter.sh_ can be run in the __singularity__ directory with
+
+```
+sbatch -q batch <scriptname>.sh
+```

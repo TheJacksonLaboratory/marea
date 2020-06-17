@@ -1,4 +1,5 @@
 import warnings
+from collections import defaultdict
 from SPARQLWrapper import SPARQLWrapper, RDFXML
 from rdflib import Graph
 
@@ -18,16 +19,21 @@ def get_descendants(ancestor):
         PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
 
         CONSTRUCT {
-            ?descriptor rdfs:label ?label
+            ?descriptor meshv:altLabel ?label
         }
         WHERE {
-            mesh:"""
+            SELECT DISTINCT ?descriptor ?label
+            WHERE {
+                mesh:"""
                     + ancestor +
                     """ meshv:treeNumber ?treeNum .
                     ?childTreeNum meshv:parentTreeNumber+ ?treeNum .
                     ?descriptor meshv:treeNumber ?childTreeNum .
-                    ?descriptor rdfs:label ?label .
+                    ?descriptor meshv:preferredTerm ?term .
+                    { ?descriptor rdfs:label ?label } UNION
+                    { ?term meshv:altLabel ?label } .
             }
+        }
         """)
 
     sparql.setReturnFormat(RDFXML)
@@ -46,8 +52,21 @@ def get_descendants(ancestor):
     # Create dictionary mapping from MeSH identifier to label for each descriptor.
     # Use the split function to chop off the prefix 'http://id.nlm.nih.gov/mesh/'
     # from each identifier.
-    descriptors = {s.toPython().split('/')[-1]: o.toPython() for s, p, o in g}
-    return descriptors
+    descriptor_tuples = {(s.toPython().split('/')[-1], o.toPython()) for s, p, o in g}
+    # print(len(descriptors))
+    # i = 0
+    # for (identifier, label) in sorted(descriptors):
+    #     if i > 100:
+    #         break
+    #     print('{}\t{}'.format(identifier, label))
+    #     i += 1
+    descriptor_dict = defaultdict(set)
+    for descriptor, label in descriptor_tuples:
+        descriptor_dict[descriptor].add(label)
+
+    # for d in descriptors:
+    #     descriptor_labels[d.toPython().split('/')[-1]] = {o.toPython() for o, p, o in g}
+    return descriptor_dict
 
 
 def main():
@@ -55,9 +74,10 @@ def main():
     all_descendants = get_descendants('D009369')
     print('Size of return set: {}'.format(len(all_descendants)))
     # Print the descriptors sorted by their labels
-    for (identifier, label) in sorted(all_descendants.items(),
-                                      key=lambda item: item[1]):
-        print("{}\t{}".format(identifier, label))
+    # for (identifier, label) in sorted(all_descendants.items(),
+    #                                   key=lambda item: item[1]):
+    for key, value in sorted(all_descendants.items()):
+        print('{}\t{}'.format(key, value))
 
 
 if __name__ == '__main__':

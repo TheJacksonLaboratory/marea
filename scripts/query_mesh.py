@@ -2,9 +2,10 @@ import warnings
 from collections import defaultdict
 from SPARQLWrapper import SPARQLWrapper, RDFXML, JSON
 from rdflib import Graph
+from typing import Dict, List, Set
 
 
-def get_descendants(ancestor):
+def get_descendants(ancestor: str) -> Dict[str, Set[str]]:
     """
     Return all descendants of the specified MeSH descriptor.
     :param ancestor: MeSH identifier (e.g., 'D013568')
@@ -60,7 +61,7 @@ def get_descendants(ancestor):
     return dict(descriptor_dict)
 
 
-def get_synonyms(descriptor):
+def get_synonyms(descriptor: str) -> Set[str]:
     """
     Return all the labels, preferred and alternate, for specified MeSH descriptor.
     :param descriptor: MeSH identifier (e.g., 'D009918')
@@ -87,6 +88,22 @@ def get_synonyms(descriptor):
     for result in results["results"]["bindings"]:
         resultset.add(result["label"]["value"])
     return resultset
+
+
+def merge_descendants(ancestors: List[str]) -> Dict[str, Set[str]]:
+    """
+    Find all descendants of ancestor descriptors in MeSH classification tree.
+    Return dictionary including all ancestors and their descendants.
+    :param ancestors: list of MeSH descriptors
+    :return: dictionary mapping the MeSH identifier for each ancestor and
+             each of its descendants to a set containing the preferred
+             label and all synonyms for that identifier
+    """
+    merge_dict = {}
+    for descriptor in ancestors:
+        merge_dict.update(get_descendants(descriptor))
+        merge_dict[descriptor] = get_synonyms(descriptor)
+    return merge_dict
 
 
 def main():

@@ -1,7 +1,8 @@
 import unittest
 from os import makedirs
 from scripts.filter_abstracts import PMID_INDEX, extract_descriptors, find_relevant_abstracts, \
-    is_relevant, merge_descendants
+    is_relevant
+from scripts.query_mesh import merge_descendants
 
 
 class FilterAbstractsTestCase(unittest.TestCase):
@@ -36,52 +37,6 @@ class FilterAbstractsTestCase(unittest.TestCase):
         self.assertIs(False, is_relevant(abs_dict, desired2, False),
                       'Should be not relevant, no overlap of (any) topics.')
 
-    def test_merge_descendants(self):
-        ancestors = ['D016543', 'D011118', 'D008175']
-        expected = [
-            'D000072481',
-            'D000077192',
-            'D000080443',
-            'D001932',
-            'D001984',
-            'D002282',
-            'D002283',
-            'D002289',
-            'D002528',
-            'D002551',
-            'D007029',
-            'D008175',
-            'D008577',
-            'D008579',
-            'D010178',
-            'D010871',
-            'D010911',
-            'D011088',
-            'D011118',
-            'D011130',
-            'D013120',
-            'D015173',
-            'D015174',
-            'D015192',
-            'D016080',
-            'D016543',
-            'D016545',
-            'D018202',
-            'D018306',
-            'D020288',
-            'D020295',
-            'D020863',
-            'D047868',
-            'D054975',
-            'D055613',
-            'D055752',
-            'D055756',
-            'D056364'
-        ]
-        actual = merge_descendants(ancestors)
-        self.assertEqual(38, len(actual), 'List of descendants has incorrect length.')
-        self.assertEqual(expected, actual, 'List of descendants does not match.')
-
     def test_find_relevant_abstracts(self):
         test_filename = 'test_abstracts'
         input_dir = 'testdata/pubmed/'
@@ -108,7 +63,7 @@ class FilterAbstractsTestCase(unittest.TestCase):
             'D009369-D037102-m':
                 ['274699', '274705', '274721'],
             'D005796':
-                ['274701', '274703', '274710', '274713', '274714','274719',
+                ['274701', '274703', '274710', '274713', '274714', '274719',
                  '274720'],
             'D005796-m':
                 ['274703', '274710', '274714', '274719', '274720'],
@@ -124,13 +79,13 @@ class FilterAbstractsTestCase(unittest.TestCase):
             descriptors = params.split('-')
             desired = merge_descendants(descriptors)
             for major in (False, True):
-                pmidKey = params + '-m' if major else params
+                pmid_key = params + '-m' if major else params
                 find_relevant_abstracts(input_dir + test_filename + '.txt',
                                         output_dir, major, desired)
                 with open(output_dir + test_filename + '_relevant.tsv') as outfile:
                     output_pmids = [line.split()[PMID_INDEX] for line in outfile]
-                self.assertEqual(relevant_pmids[pmidKey], output_pmids,
-                                 'Incorrect PMIDs for ' + pmidKey)
+                self.assertEqual(relevant_pmids[pmid_key], output_pmids,
+                                 'Incorrect PMIDs for ' + pmid_key)
 
 
 if __name__ == '__main__':

@@ -4,7 +4,8 @@ import re
 
 from os import makedirs
 from os.path import basename, join
-from query_mesh import get_descendants
+from query_mesh import merge_descendants
+from typing import Dict, List, Set
 
 # fields in the .txt file created by xml2txt.py
 PMID_INDEX = 0
@@ -14,7 +15,7 @@ DESCRIPTORS_INDEX = 2
 ABSTRACT_INDEX = -1
 
 
-def check_descriptors(ctx, param, value):
+def check_descriptors(ctx, param, value: List[str]) -> List[str]:
     """
     Check format of each MeSH descriptor passed as command line argument. Raise
     exception if any has incorrect format.
@@ -31,7 +32,7 @@ def check_descriptors(ctx, param, value):
     return value
 
 
-def extract_descriptors(descriptor_str):
+def extract_descriptors(descriptor_str: str) -> Dict[str, bool]:
     """
     Convert a string of MeSH descriptors to a dictionary (skip over the labels).
     String has the form (but all on one line):
@@ -50,7 +51,7 @@ def extract_descriptors(descriptor_str):
     return retval
 
 
-def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors):
+def find_relevant_abstracts(in_file, out_path, major_topic: bool, search_dict: Dict[str, Set[str]]):
     """
     Filter PubMed articles from input according to MeSH descriptors and major
     topic flag; write PMID, publication date, and abstract of relevant articles
@@ -58,7 +59,8 @@ def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors)
     :param in_file: input file of PubMed id, year, descriptors, abstract
     :param out_path: path to output directory
     :param major_topic: boolean, if true only consider major topic descriptors
-    :param desired_descriptors: list of MeSH descriptor ids
+    :param search_dict: mapping of MeSH descriptor to set of synonyms for MeSH
+                        descriptors user gave as search terms
     :return: None
     """
     with click.open_file(in_file) as unfiltered_file:
@@ -74,7 +76,7 @@ def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors)
                 if abstract != '' and descriptor_str != '':
                     # check whether the abstract meets relevancy criteria
                     abstract_descriptors = extract_descriptors(descriptor_str)
-                    if is_relevant(abstract_descriptors, desired_descriptors,
+                    if is_relevant(abstract_descriptors, set(search_dict.keys()),
                                    major_topic):
                         # record relevant abstract in output file
                         filtered_file.write('{}\t{}\t{}\n'.format(segments[PMID_INDEX],
@@ -82,14 +84,15 @@ def find_relevant_abstracts(in_file, out_path, major_topic, desired_descriptors)
                                                                   abstract))
 
 
-def is_relevant(abstract_dict, desired_list, major_bool):
+def is_relevant(abstract_dict: Dict[str, bool], desired_desc: Set[str],
+                major_bool: bool):
     """
     Determine whether abstract is relevant w.r.t. the desired MeSH descriptors.
-    Abstract considered relevant if one of its descriptors is on the list of
-    desired descriptors. If major topic flag is set, consider only those
+    Abstract considered relevant if one of its descriptors is in the set of
+    desired descriptors. If major topic flag is True, consider only those
     descriptors marked as major topic for this PubMed article.
     :param abstract_dict: maps each MeSH descriptor to boolean major topic flag
-    :param desired_list: list of descriptors that user specified as relevant
+    :param desired_desc: set of descriptors that user specified as relevant
     :param major_bool: if true, consider only abstract's major topic descriptors
     :return: True if this abstract is relevant, False otherwise
     """
@@ -105,22 +108,9 @@ def is_relevant(abstract_dict, desired_list, major_bool):
     i = 0
     # stop looking as soon as we find a relevant descriptor for this abstract
     while not relevant and i < len(abstract_des):
-        relevant = abstract_des[i] in desired_list
+        relevant = abstract_des[i] in desired_desc
         i += 1
     return relevant
-
-
-def merge_descendants(ancestors):
-    """
-    Find all descendants of ancestor descriptors in MeSH classification tree
-    :param ancestors: list of MeSH descriptors
-    :return: list including ancestors and all their descendants in MeSH
-    """
-    retval = []
-    for descriptor in ancestors:
-        retval.append(descriptor)
-        retval.extend(get_descendants(descriptor).keys())
-    return sorted(retval)
 
 
 @click.command()
@@ -129,16 +119,16 @@ def merge_descendants(ancestors):
 @click.option('-m', is_flag=True, flag_value=True, help='filter on major topics only')
 @click.argument('descriptors', callback=check_descriptors, metavar='MeSH_DESCRIPTORS', nargs=-1)
 # python filter-abstracts.py -i ../data/pubmed_txt -o ../data/pubmed_relevant -m D005796 D009369 D037102
-def main(i, o, descriptors, m):
+def main(i, o, descriptors: List[str], m: bool):
     """
     Filters each .txt file from input directory by MeSH descriptors, writes PMID, publication
     year, and abstract of relevant articles to corresponding output file.
     """
     files_to_parse = glob.glob(join(i, '*.txt'))
     makedirs(o, exist_ok=True)
-    desired_descriptors = merge_descendants(descriptors)
+    mesh_dict = merge_descendants(descriptors)
     for f in files_to_parse:
-        find_relevant_abstracts(f, o, m, desired_descriptors)
+        find_relevant_abstracts(f, o, m, mesh_dict)
         click.echo(basename(f))
 
 

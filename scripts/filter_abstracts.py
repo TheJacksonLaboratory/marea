@@ -11,7 +11,7 @@ from typing import Dict, List, Set
 PMID_INDEX = 0
 PUBYEAR_INDEX = 1
 DESCRIPTORS_INDEX = 2
-# KEYWORDS_INDEX = 3
+KEYWORDS_INDEX = 3
 ABSTRACT_INDEX = -1
 
 
@@ -51,7 +51,25 @@ def extract_descriptors(descriptor_str: str) -> Dict[str, bool]:
     return retval
 
 
-def find_relevant_abstracts(in_file, out_path, major_topic: bool, search_dict: Dict[str, Set[str]]):
+def extract_keywords(keyword_str: str) -> Dict[str, bool]:
+    """
+    Convert a string of keywords to a dictionary.
+    String has the form (but all on one line):
+        Aging-related tau astrogliopathy (ARTAG) N | Astrocytes N |
+        Atypical Alzheimer disease N | Clinical heterogeneity N | Tau N
+    :param keyword_str: keywords for PubMed abstract
+    :return: dictionary mapping each keyword (or keyword phrase) to boolean
+             is this keyword a major topic for this abstract
+    """
+    retval = {}
+    keywords = keyword_str.split(' | ')
+    for kw in keywords:
+        retval[kw[:-3]] = kw[-1].upper() == 'Y'
+    return retval
+
+
+def find_relevant_abstracts(in_file, out_path, major_topic: bool,
+                            search_dict: Dict[str, Set[str]]):
     """
     Filter PubMed articles from input according to MeSH descriptors and major
     topic flag; write PMID, publication date, and abstract of relevant articles
@@ -69,48 +87,61 @@ def find_relevant_abstracts(in_file, out_path, major_topic: bool, search_dict: D
         with click.open_file(outfile_path, 'w') as filtered_file:
             for line in unfiltered_file:
                 segments = line.split('##')
-                abstract = segments[ABSTRACT_INDEX].strip()
                 descriptor_str = segments[DESCRIPTORS_INDEX]
-                # check whether this line contains an abstract and descriptors
-                # TODO: handle articles that have keywords but no descriptors
-                if abstract != '' and descriptor_str != '':
-                    # check whether the abstract meets relevancy criteria
-                    abstract_descriptors = extract_descriptors(descriptor_str)
-                    if is_relevant(abstract_descriptors, set(search_dict.keys()),
-                                   major_topic):
-                        # record relevant abstract in output file
-                        filtered_file.write('{}\t{}\t{}\n'.format(segments[PMID_INDEX],
-                                                                  segments[PUBYEAR_INDEX],
-                                                                  abstract))
+                keyword_str = segments[KEYWORDS_INDEX]
+                abstract = segments[ABSTRACT_INDEX].strip()
+                # check whether this line contains an abstract
+                if abstract != '':
+                    relevant = False
+                    # does article have MeSH descriptors?
+                    if descriptor_str != '':
+                        abstract_descriptors = extract_descriptors(descriptor_str)
+                        relevant = is_relevant(abstract_descriptors,
+                                               set(search_dict.keys()), major_topic)
+                    # if no relevant descriptors, does article have keywords?
+                    if not relevant and keyword_str != '':
+                        abstract_keywords = extract_keywords(keyword_str)
+                        # Each value in search_dict is a set of labels for the
+                        # MeSH descriptor; want to flatten to one big set
+                        search_keywords = {elt for subset in search_dict.values()
+                                           for elt in subset}
+                        # Ignore value of major_topic because almost all keywords
+                        # are marked N for not major_topic
+                        relevant = is_relevant(abstract_keywords, search_keywords,
+                                               False)
+                    # record relevant abstract in output file
+                    if relevant:
+                        filtered_file.write('{}\t{}\t{}\n'.format(
+                            segments[PMID_INDEX], segments[PUBYEAR_INDEX], abstract))
 
 
-def is_relevant(abstract_dict: Dict[str, bool], desired_desc: Set[str],
-                major_bool: bool):
+def is_relevant(abstract_dict: Dict[str, bool], search_set: Set[str],
+                major_bool: bool) -> bool:
     """
-    Determine whether abstract is relevant w.r.t. the desired MeSH descriptors.
-    Abstract considered relevant if one of its descriptors is in the set of
-    desired descriptors. If major topic flag is True, consider only those
-    descriptors marked as major topic for this PubMed article.
-    :param abstract_dict: maps each MeSH descriptor to boolean major topic flag
-    :param desired_desc: set of descriptors that user specified as relevant
-    :param major_bool: if true, consider only abstract's major topic descriptors
+    Determine whether abstract is relevant w.r.t. the desired MeSH
+    descriptors/keywords. Since descriptors and keywords are both
+    represented as strings, this function handles either type of search set.
+    Abstract considered relevant if there is any overlap between its
+    descriptors/keywords and the set of desired descriptors/keywords.
+    If major topic flag is True, consider only those descriptors/keywords
+    marked as major topic for this PubMed article.
+    :param abstract_dict: maps each MeSH descriptor/keyword to boolean flag
+                          indicating major topic
+    :param search_set: set of descriptors/keywords that user specified as relevant
+    :param major_bool: if true, consider only abstract's major topics
     :return: True if this abstract is relevant, False otherwise
     """
-    relevant = False
-    abstract_des = list(abstract_dict.keys())
+    abstract_set = set(abstract_dict.keys())
     if major_bool:
-        # Keep only the descriptors that are marked as major topics
+        # Keep only the descriptors/keywords that are marked as major topics
         # Note: some entries in the input files have no descriptors marked as
-        # major topics for the article; this probably means that one of
-        # the qualifiers on the descriptor is marked as a major topic.
-        # We do not extract qualifiers from the .xml file.
-        abstract_des = list(filter(lambda d: abstract_dict[d], abstract_des))
-    i = 0
-    # stop looking as soon as we find a relevant descriptor for this abstract
-    while not relevant and i < len(abstract_des):
-        relevant = abstract_des[i] in desired_desc
-        i += 1
-    return relevant
+        # major topics for the article; this probably means that one of the
+        # qualifiers on the descriptor is marked as a major topic. We do not
+        # extract qualifiers from the .xml file. Also, most keywords are
+        # marked N so it is not very useful to filter keywords by their major
+        # topic flag, the result will likely be an empty set.
+        abstract_set = set(filter(lambda d: abstract_dict[d], abstract_set))
+    return not search_set.isdisjoint(abstract_set)
 
 
 @click.command()

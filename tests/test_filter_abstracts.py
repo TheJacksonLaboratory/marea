@@ -21,9 +21,9 @@ class FilterAbstractsTestCase(unittest.TestCase):
     def test_is_relevant(self):
         abs_dict = {'D000855': True, 'D000073496': False, 'D010591': False,
                     'D003638': False, 'D037061': True}
-        desired0 = ['D000855', 'D010591', 'D020385', 'D060486']
-        desired1 = ['D010591', 'D020385', 'D060486']
-        desired2 = ['D020385', 'D060486']
+        desired0 = {'D000855', 'D010591', 'D020385', 'D060486'}
+        desired1 = {'D010591', 'D020385', 'D060486'}
+        desired2 = {'D020385', 'D060486'}
         self.assertIs(True, is_relevant(abs_dict, desired0, True),
                       'Should be relevant with one major topic.')
         self.assertIs(True, is_relevant(abs_dict, desired0, False),
@@ -39,8 +39,8 @@ class FilterAbstractsTestCase(unittest.TestCase):
 
     def test_find_relevant_abstracts(self):
         test_filename = 'test_abstracts'
-        input_dir = 'testdata/pubmed/'
-        output_dir = 'testdata/relevant/'
+        input_dir = 'testdata/pubmed_txt/'
+        output_dir = 'testdata/pubmed_rel/'
         makedirs(output_dir, exist_ok=True)
         test_params = [
             'D005796-D009369-D037102',

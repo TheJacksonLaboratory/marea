@@ -64,7 +64,7 @@ def extract_keywords(keyword_str: str) -> Dict[str, bool]:
     retval = {}
     keywords = keyword_str.split(' | ')
     for kw in keywords:
-        retval[kw[:-3]] = kw[-1].upper() == 'Y'
+        retval[kw[:-2].lower()] = kw[-1].upper() == 'Y'
     return retval
 
 
@@ -81,6 +81,10 @@ def find_relevant_abstracts(in_file, out_path, major_topic: bool,
                         descriptors user gave as search terms
     :return: None
     """
+    # Each value in search_dict is a set of labels for the MeSH descriptor;
+    # want to flatten to one big set and convert to lowercase
+    search_keywords = {elt.lower() for subset in search_dict.values()
+                       for elt in subset}
     with click.open_file(in_file) as unfiltered_file:
         outfile_path = join(out_path,
                             basename(in_file).replace('.txt', '_relevant.tsv'))
@@ -101,10 +105,6 @@ def find_relevant_abstracts(in_file, out_path, major_topic: bool,
                     # if no relevant descriptors, does article have keywords?
                     if not relevant and keyword_str != '':
                         abstract_keywords = extract_keywords(keyword_str)
-                        # Each value in search_dict is a set of labels for the
-                        # MeSH descriptor; want to flatten to one big set
-                        search_keywords = {elt for subset in search_dict.values()
-                                           for elt in subset}
                         # Ignore value of major_topic because almost all keywords
                         # are marked N for not major_topic
                         relevant = is_relevant(abstract_keywords, search_keywords,

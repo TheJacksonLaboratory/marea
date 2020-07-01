@@ -1,7 +1,7 @@
 import unittest
 from os import makedirs
-from scripts.filter_abstracts import PMID_INDEX, extract_descriptors, find_relevant_abstracts, \
-    is_relevant
+from scripts.filter_abstracts import PMID_INDEX, extract_descriptors, extract_keywords, \
+    find_relevant_abstracts, is_relevant
 from scripts.query_mesh import merge_descendants
 
 
@@ -17,6 +17,15 @@ class FilterAbstractsTestCase(unittest.TestCase):
                     'D010690': True, 'D012082': True, 'D012083': False}
         self.assertEqual(expected, extract_descriptors(descriptor_str),
                          'Extracted descriptors do not match expected.')
+
+    def test_extract_keywords(self):
+        keyword_str = 'Aging-related tau astrogliopathy (ARTAG) Y | Astrocytes N ' +\
+                      '| Atypical Alzheimer disease N | Clinical heterogeneity N | Tau N'
+        expected = {'aging-related tau astrogliopathy (artag)': True,
+                    'astrocytes': False, 'atypical alzheimer disease': False,
+                    'clinical heterogeneity': False, 'tau': False}
+        self.assertEqual(expected, extract_keywords(keyword_str),
+                         'Extracted keywords do not match expected.')
 
     def test_is_relevant(self):
         abs_dict = {'D000855': True, 'D000073496': False, 'D010591': False,
@@ -36,6 +45,46 @@ class FilterAbstractsTestCase(unittest.TestCase):
                       'Should be not relevant, no overlap of (major) topics.')
         self.assertIs(False, is_relevant(abs_dict, desired2, False),
                       'Should be not relevant, no overlap of (any) topics.')
+        search_set = {'neoplasm, breast', 'breast neoplasms', 'breast neoplasm',
+                      'unilateral breast neoplasms', 'breast neoplasm, unilateral',
+                      'breast neoplasms, unilateral', 'breast carcinoma in situ',
+                      'carcinoma, ductal, breast', 'carcinomas, lobular',
+                      'lobular carcinomas', 'lobular carcinoma',
+                      'carcinoma, lobular', 'breast neoplasms, male',
+                      'male breast neoplasm', 'breast neoplasm, male',
+                      'neoplasm, male breast', 'inflammatory breast neoplasms',
+                      'neoplasms, inflammatory breast',
+                      'breast neoplasms, inflammatory',
+                      'breast neoplasm, inflammatory', 'inflammatory breast neoplasm',
+                      'neoplasm, inflammatory breast',
+                      'hereditary breast and ovarian cancer syndrome',
+                      'triple negative breast neoplasms'}
+        kw0 = {'breast carcinoma in situ': False, 'intraductal papilloma': False,
+               'nipple discharge': False}
+        kw1 = {'breast neoplasms': True, 'oestrogen receptors': True,
+               'signal transduction': True}
+        kw2 = {'breast cancer': False, 'proteomic': False,
+               'triorganotin isothiocyanates': False, 'vimentin': False,
+               'itraq': False}
+        kw3 = {'breast cancer': False, 'case report': False,
+               'gastrointestinal metastasis': False,
+               'intussusception': False, 'invasive lobular carcinoma': False}
+        self.assertIs(True, is_relevant(kw0, search_set, False),
+                      "Should be relevant: 'breast carcinoma in situ'.")
+        self.assertIs(True, is_relevant(kw1, search_set, False),
+                      "Should be relevant: 'breast neoplasms'.")
+        self.assertIs(False, is_relevant(kw2, search_set, False),
+                      "Should not be relevant: 'breast cancer' does not match.")
+        self.assertIs(False, is_relevant(kw3, search_set, False),
+                      "Should not be relevant: 'invasive lobular carcinoma' does not match.")
+        self.assertIs(False, is_relevant(kw0, search_set, True),
+                      "Should not be relevant: no major topic keywords.")
+        self.assertIs(True, is_relevant(kw1, search_set, True),
+                      "Should be relevant: 'breast neoplasms' major topic.")
+        self.assertIs(False, is_relevant(kw2, search_set, True),
+                      "Should not be relevant: no major topic keywords.")
+        self.assertIs(False, is_relevant(kw3, search_set, True),
+                      "Should not be relevant: no major topic keywords.")
 
     def test_find_relevant_abstracts(self):
         test_filename = 'test_abstracts'

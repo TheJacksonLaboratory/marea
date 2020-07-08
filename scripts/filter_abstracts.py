@@ -58,8 +58,8 @@ def extract_keywords(keyword_str: str) -> Dict[str, bool]:
         Aging-related tau astrogliopathy (ARTAG) N | Astrocytes N |
         Atypical Alzheimer disease N | Clinical heterogeneity N | Tau N
     :param keyword_str: keywords for PubMed abstract
-    :return: dictionary mapping each keyword (or keyword phrase) to boolean
-             is this keyword a major topic for this abstract
+    :return: dictionary mapping each keyword (or keyword phrase), in lowercase,
+             to boolean is this keyword a major topic for this abstract
     """
     retval = {}
     keywords = keyword_str.split(' | ')
@@ -71,9 +71,9 @@ def extract_keywords(keyword_str: str) -> Dict[str, bool]:
 def find_relevant_abstracts(in_file, out_path, major_topic: bool,
                             search_dict: Dict[str, Set[str]]):
     """
-    Filter PubMed articles from input according to MeSH descriptors and major
-    topic flag; write PMID, publication date, and abstract of relevant articles
-    to output file.
+    Filter PubMed articles from input according to MeSH descriptors/keywords
+    and major topic flag; write PMID, publication date, and abstract of
+    relevant articles to output file.
     :param in_file: input file of PubMed id, year, descriptors, abstract
     :param out_path: path to output directory
     :param major_topic: boolean, if true only consider major topic descriptors
@@ -152,8 +152,9 @@ def is_relevant(abstract_dict: Dict[str, bool], search_set: Set[str],
 # python filter-abstracts.py -i ../data/pubmed_txt -o ../data/pubmed_relevant -m D005796 D009369 D037102
 def main(i, o, descriptors: List[str], m: bool):
     """
-    Filters each .txt file from input directory by MeSH descriptors, writes PMID, publication
-    year, and abstract of relevant articles to corresponding output file.
+    Filters each .txt file from input directory by MeSH descriptors/keywords.
+    Writes PMID, publication year, and abstract of relevant articles to
+    corresponding output file.
     """
     files_to_parse = glob.glob(join(i, '*.txt'))
     makedirs(o, exist_ok=True)

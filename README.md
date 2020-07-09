@@ -2,10 +2,10 @@
 Filter PubMed articles for relevance.
 
 ### Naive filter
-The goal of this project is to select PubMed articles based on their MeSH descriptors and keywords. For MeSH filtering,
-the user specifies a set of high-level descriptors. Any article marked with at least one of these descriptors or any
-subcategory of these descriptors is considered relevant. An article is also judged relevant if it has a keyword
-that matches a label or synonym for the search descriptors or a subcategory.
+The goal of this project is to select PubMed articles based on their MeSH descriptors and keywords. For filtering,
+the user specifies a set of high-level MeSH descriptors. Any article marked with at least one of these descriptors or
+any subcategory of these descriptors is considered relevant. An article is also judged relevant if it has a keyword
+that matches a label or synonym of the search descriptors or their subcategories.
 
 ### 1. Requirements
 Requirements for the virtual environment of marea:
@@ -63,15 +63,16 @@ _.xml.gz_ files.
 _scripts/filter_abstracts.py_ filters the _.txt_ file to select articles that are relevant according to
 a user-supplied set of MeSH descriptors. An article is deemed relevant if at least one of the the article's
 descriptors is a subcategory of, or identical to, one of the specified search descriptors. If there is no
-match on MeSH descriptors, the code compares the article's keywords to the set of primary labels and synonyms
-for all the search descriptors and subcategories. If the article has at least one keyword included in the set,
-it is considered relevant.
+match on MeSH descriptors, the code compares the article's keywords to the set of preferred labels and synonyms
+for all the search descriptors and subcategories. If at least one of the article's keywords is included in the set,
+the article is considered relevant.
 
 In the _.xml_ file,
 each MeSH descriptor and keyword is marked Y/N as a "major topic" for the article. The command line parameters for 
 _filter_abstracts.py_ include an optional flag to restrict the search to major topics only. Note that using this
-flag will drastically reduce the number of matching articles because few MeSH descriptors and even fewer keywords
-are marked as major topics. Many articles have no MeSH descriptors or keywords marked as major topics.
+flag will drastically reduce the number of matching articles. Few MeSH descriptors and even fewer keywords
+are marked as major topics. Many articles have no MeSH descriptors or keywords marked as major topics. The current
+implementation respects the major topic flag for MeSH descriptors but ignores it for keywords.
 
 Not all PubMed articles have MeSH descriptors or keywords; many have no abstract. Any article that has no abstract
 is irrelevant for the search regardless of its MeSH descriptors/keywords. 
@@ -89,7 +90,7 @@ categories. These should be high-level descriptors; the software automatically i
 the search. For example,
 
 ```
-python filter_abstracts.py -m -i ../data/pubmed_txt -o ../data/pubmed_rel D005796 D009369 D037102
+python filter_abstracts.py -m -i ../data/pubmed_txt -o ../data/pubmed_rel0 D005796 D009369 D037102
 ```
 
 finds articles whose major topic descriptors fall under one or more of the categories for Genes, Neoplasms,

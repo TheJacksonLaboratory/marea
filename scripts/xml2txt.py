@@ -11,10 +11,12 @@ from os.path import basename, join
 def sanitize(string):
     """
     Remove whitespace from ends of the string, and replace any line breaks
-    within the string by a single space.
+    within the string by a single space. If passed None, return None.
     :param string: string to be cleaned up
     :return: sanitized string
     """
+    if string is None:
+        return string
     retval = string.strip()
     # eliminate line breaks within the string
     return " ".join(retval.splitlines())
@@ -68,9 +70,10 @@ def text_from_xml(filename):
 
         keyword_present = False
         for keyword in article.iter('Keyword'):
-            if keyword.text is not None:
-                string += f"{sanitize(keyword.text)} {keyword.get('MajorTopicYN')} | "
-            keyword_present = True
+            keyword_sanitized = sanitize(keyword.text)
+            if keyword_sanitized is not None and keyword_sanitized != '':
+                string += f"{keyword_sanitized} {keyword.get('MajorTopicYN')} | "
+                keyword_present = True
 
         if not keyword_present:
             string += '##'

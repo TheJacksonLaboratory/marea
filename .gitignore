@@ -130,4 +130,4 @@ dmypy.json
 
 # specific to this project
 data/
-/tests/testdata/relevant/
+/tests/testdata/pubmed_rel/

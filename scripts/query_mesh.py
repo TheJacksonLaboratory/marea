@@ -1,15 +1,17 @@
 import warnings
-from SPARQLWrapper import SPARQLWrapper, RDFXML
+from collections import defaultdict
+from SPARQLWrapper import SPARQLWrapper, RDFXML, JSON
 from rdflib import Graph
+from typing import Dict, List, Set
 
 
-def get_descendants(ancestor):
+def get_descendants(ancestor: str) -> Dict[str, Set[str]]:
     """
-    Return all descendants of the specified MeSH descriptor (e.g.,
-    'D013568').
-    :param ancestor:  MeSH descriptor for which we want all descendants
-    :return: dictionary mapping from MeSH identifier to the corresponding
-             label for all descendants of ancestor
+    Return all descendants of the specified MeSH descriptor.
+    :param ancestor: MeSH identifier (e.g., 'D013568')
+    :return: dictionary mapping MeSH identifier of each descendant of ancestor
+             to a set containing the preferred label and all synonyms for
+             that identifier
     """
     sparql = SPARQLWrapper("http://id.nlm.nih.gov/mesh/sparql")
     sparql.setQuery("""
@@ -18,16 +20,21 @@ def get_descendants(ancestor):
         PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
 
         CONSTRUCT {
-            ?descriptor rdfs:label ?label
+            ?descriptor meshv:altLabel ?label
         }
         WHERE {
-            mesh:"""
+            SELECT DISTINCT ?descriptor ?label
+            WHERE {
+                mesh:"""
                     + ancestor +
                     """ meshv:treeNumber ?treeNum .
                     ?childTreeNum meshv:parentTreeNumber+ ?treeNum .
                     ?descriptor meshv:treeNumber ?childTreeNum .
-                    ?descriptor rdfs:label ?label .
+                    ?descriptor meshv:preferredTerm ?term .
+                    { ?descriptor rdfs:label ?label } UNION
+                    { ?term meshv:altLabel ?label } .
             }
+        }
         """)
 
     sparql.setReturnFormat(RDFXML)
@@ -46,18 +53,68 @@ def get_descendants(ancestor):
     # Create dictionary mapping from MeSH identifier to label for each descriptor.
     # Use the split function to chop off the prefix 'http://id.nlm.nih.gov/mesh/'
     # from each identifier.
-    descriptors = {s.toPython().split('/')[-1]: o.toPython() for s, p, o in g}
-    return descriptors
+    descriptor_tuples = {(s.toPython().split('/')[-1], o.toPython()) for s, p, o in g}
+    descriptor_dict = defaultdict(set)
+    for descriptor, label in descriptor_tuples:
+        descriptor_dict[descriptor].add(label)
+    # for simplicity, convert defaultdict to ordinary dictionary
+    return dict(descriptor_dict)
+
+
+def get_synonyms(descriptor: str) -> Set[str]:
+    """
+    Return all the labels, preferred and alternate, for specified MeSH descriptor.
+    :param descriptor: MeSH identifier (e.g., 'D009918')
+    :return: set of strings
+    """
+    sparql = SPARQLWrapper("http://id.nlm.nih.gov/mesh/sparql")
+    sparql.setQuery("""
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+        PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+        SELECT DISTINCT ?label
+        WHERE {
+            mesh:"""
+                    + descriptor +
+                    """ meshv:preferredTerm ?term .
+                    { mesh:""" + descriptor + """ rdfs:label ?label } UNION
+                    { ?term meshv:altLabel ?label } .
+        }
+        """)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    resultset = set()
+    for result in results["results"]["bindings"]:
+        resultset.add(result["label"]["value"])
+    return resultset
+
+
+def merge_descendants(ancestors: List[str]) -> Dict[str, Set[str]]:
+    """
+    Find all descendants of ancestor descriptors in MeSH classification tree.
+    Return dictionary including all ancestors and their descendants.
+    :param ancestors: list of MeSH descriptors
+    :return: dictionary mapping the MeSH identifier for each ancestor and
+             each of its descendants to a set containing the preferred
+             label and all synonyms for that identifier
+    """
+    merge_dict = {}
+    for descriptor in ancestors:
+        merge_dict.update(get_descendants(descriptor))
+        merge_dict[descriptor] = get_synonyms(descriptor)
+    return merge_dict
 
 
 def main():
+    # D000238 is for Adenoma, Chromophobe
+    print(get_synonyms('D000238'))
     # D009369 is for Neoplasm
     all_descendants = get_descendants('D009369')
-    print('Size of return set: {}'.format(len(all_descendants)))
-    # Print the descriptors sorted by their labels
-    for (identifier, label) in sorted(all_descendants.items(),
-                                      key=lambda item: item[1]):
-        print("{}\t{}".format(identifier, label))
+    print('\nSize of return set: {}'.format(len(all_descendants)))
+    # Print the descriptors sorted by MeSH identifier
+    for key, value in sorted(all_descendants.items()):
+        print('{}\t{}'.format(key, value))
 
 
 if __name__ == '__main__':

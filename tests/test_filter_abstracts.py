@@ -1,7 +1,8 @@
 import unittest
 from os import makedirs
-from scripts.filter_abstracts import PMID_INDEX, extract_descriptors, find_relevant_abstracts, \
-    is_relevant, merge_descendants
+from scripts.filter_abstracts import PMID_INDEX, extract_descriptors, extract_keywords, \
+    find_relevant_abstracts, is_relevant
+from scripts.query_mesh import merge_descendants
 
 
 class FilterAbstractsTestCase(unittest.TestCase):
@@ -17,12 +18,21 @@ class FilterAbstractsTestCase(unittest.TestCase):
         self.assertEqual(expected, extract_descriptors(descriptor_str),
                          'Extracted descriptors do not match expected.')
 
+    def test_extract_keywords(self):
+        keyword_str = 'Aging-related tau astrogliopathy (ARTAG) Y | Astrocytes N ' +\
+                      '| Atypical Alzheimer disease N | Clinical heterogeneity N | Tau N'
+        expected = {'aging-related tau astrogliopathy (artag)': True,
+                    'astrocytes': False, 'atypical alzheimer disease': False,
+                    'clinical heterogeneity': False, 'tau': False}
+        self.assertEqual(expected, extract_keywords(keyword_str),
+                         'Extracted keywords do not match expected.')
+
     def test_is_relevant(self):
         abs_dict = {'D000855': True, 'D000073496': False, 'D010591': False,
                     'D003638': False, 'D037061': True}
-        desired0 = ['D000855', 'D010591', 'D020385', 'D060486']
-        desired1 = ['D010591', 'D020385', 'D060486']
-        desired2 = ['D020385', 'D060486']
+        desired0 = {'D000855', 'D010591', 'D020385', 'D060486'}
+        desired1 = {'D010591', 'D020385', 'D060486'}
+        desired2 = {'D020385', 'D060486'}
         self.assertIs(True, is_relevant(abs_dict, desired0, True),
                       'Should be relevant with one major topic.')
         self.assertIs(True, is_relevant(abs_dict, desired0, False),
@@ -35,57 +45,51 @@ class FilterAbstractsTestCase(unittest.TestCase):
                       'Should be not relevant, no overlap of (major) topics.')
         self.assertIs(False, is_relevant(abs_dict, desired2, False),
                       'Should be not relevant, no overlap of (any) topics.')
-
-    def test_merge_descendants(self):
-        ancestors = ['D016543', 'D011118', 'D008175']
-        expected = [
-            'D000072481',
-            'D000077192',
-            'D000080443',
-            'D001932',
-            'D001984',
-            'D002282',
-            'D002283',
-            'D002289',
-            'D002528',
-            'D002551',
-            'D007029',
-            'D008175',
-            'D008577',
-            'D008579',
-            'D010178',
-            'D010871',
-            'D010911',
-            'D011088',
-            'D011118',
-            'D011130',
-            'D013120',
-            'D015173',
-            'D015174',
-            'D015192',
-            'D016080',
-            'D016543',
-            'D016545',
-            'D018202',
-            'D018306',
-            'D020288',
-            'D020295',
-            'D020863',
-            'D047868',
-            'D054975',
-            'D055613',
-            'D055752',
-            'D055756',
-            'D056364'
-        ]
-        actual = merge_descendants(ancestors)
-        self.assertEqual(38, len(actual), 'List of descendants has incorrect length.')
-        self.assertEqual(expected, actual, 'List of descendants does not match.')
+        search_set = {'neoplasm, breast', 'breast neoplasms', 'breast neoplasm',
+                      'unilateral breast neoplasms', 'breast neoplasm, unilateral',
+                      'breast neoplasms, unilateral', 'breast carcinoma in situ',
+                      'carcinoma, ductal, breast', 'carcinomas, lobular',
+                      'lobular carcinomas', 'lobular carcinoma',
+                      'carcinoma, lobular', 'breast neoplasms, male',
+                      'male breast neoplasm', 'breast neoplasm, male',
+                      'neoplasm, male breast', 'inflammatory breast neoplasms',
+                      'neoplasms, inflammatory breast',
+                      'breast neoplasms, inflammatory',
+                      'breast neoplasm, inflammatory', 'inflammatory breast neoplasm',
+                      'neoplasm, inflammatory breast',
+                      'hereditary breast and ovarian cancer syndrome',
+                      'triple negative breast neoplasms'}
+        kw0 = {'breast carcinoma in situ': False, 'intraductal papilloma': False,
+               'nipple discharge': False}
+        kw1 = {'breast neoplasms': True, 'oestrogen receptors': True,
+               'signal transduction': True}
+        kw2 = {'breast cancer': False, 'proteomic': False,
+               'triorganotin isothiocyanates': False, 'vimentin': False,
+               'itraq': False}
+        kw3 = {'breast cancer': False, 'case report': False,
+               'gastrointestinal metastasis': False,
+               'intussusception': False, 'invasive lobular carcinoma': False}
+        self.assertIs(True, is_relevant(kw0, search_set, False),
+                      "Should be relevant: 'breast carcinoma in situ'.")
+        self.assertIs(True, is_relevant(kw1, search_set, False),
+                      "Should be relevant: 'breast neoplasms'.")
+        self.assertIs(False, is_relevant(kw2, search_set, False),
+                      "Should not be relevant: 'breast cancer' does not match.")
+        self.assertIs(False, is_relevant(kw3, search_set, False),
+                      "Should not be relevant: 'invasive lobular carcinoma' does not match.")
+        self.assertIs(False, is_relevant(kw0, search_set, True),
+                      "Should not be relevant: no major topic keywords.")
+        self.assertIs(True, is_relevant(kw1, search_set, True),
+                      "Should be relevant: 'breast neoplasms' major topic.")
+        self.assertIs(False, is_relevant(kw2, search_set, True),
+                      "Should not be relevant: no major topic keywords.")
+        self.assertIs(False, is_relevant(kw3, search_set, True),
+                      "Should not be relevant: no major topic keywords.")
 
     def test_find_relevant_abstracts(self):
         test_filename = 'test_abstracts'
-        input_dir = 'testdata/pubmed/'
-        output_dir = 'testdata/relevant/'
+        input_dir = 'testdata/pubmed_txt/'
+        output_dir = 'testdata/pubmed_rel/'
         makedirs(output_dir, exist_ok=True)
         test_params = [
             'D005796-D009369-D037102',
@@ -98,39 +102,48 @@ class FilterAbstractsTestCase(unittest.TestCase):
             'D005796-D009369-D037102':
                 ['273474', '273475', '273632', '273634', '274699', '274701',
                  '274703', '274705', '274710', '274713', '274714', '274718',
-                 '274719', '274720', '274721'],
+                 '274719', '274720', '274721', '31640550', '31652515',
+                 '31721357', '31723456', '31723458', '31724699', '31754330',
+                 '31778855'],
             'D005796-D009369-D037102-m':
                 ['274699', '274703', '274705', '274710', '274714', '274719',
-                 '274720', '274721'],
+                 '274720', '274721', '31640550', '31652515', '31721357',
+                 '31723456', '31723458', '31724699', '31754330', '31778855'],
             'D009369-D037102':
                 ['273474', '273475', '273632', '273634', '274699', '274705',
-                 '274718', '274721'],
+                 '274718', '274721', '31640550', '31652515', '31721357',
+                 '31723456', '31723458', '31724699'],
             'D009369-D037102-m':
-                ['274699', '274705', '274721'],
+                ['274699', '274705', '274721', '31640550', '31652515',
+                 '31721357', '31723456', '31723458', '31724699'],
             'D005796':
-                ['274701', '274703', '274710', '274713', '274714','274719',
-                 '274720'],
+                ['274701', '274703', '274710', '274713', '274714', '274719',
+                 '274720', '31754330', '31778855'],
             'D005796-m':
-                ['274703', '274710', '274714', '274719', '274720'],
+                ['274703', '274710', '274714', '274719', '274720', '31754330',
+                 '31778855'],
             'D009369':
-                ['273474', '273475', '273632', '273634', '274718'],
-            'D009369-m': [],
+                ['273474', '273475', '273632', '273634', '274718',
+                 '31723456', '31723458'],
+            'D009369-m': ['31723456', '31723458'],
             'D037102':
-                ['274699', '274705', '274721'],
+                ['274699', '274705', '274721', '31640550', '31652515',
+                 '31721357', '31724699'],
             'D037102-m':
-                ['274699', '274705', '274721'],
+                ['274699', '274705', '274721', '31640550', '31652515',
+                 '31721357', '31724699']
         }
         for params in test_params:
             descriptors = params.split('-')
             desired = merge_descendants(descriptors)
             for major in (False, True):
-                pmidKey = params + '-m' if major else params
+                pmid_key = params + '-m' if major else params
                 find_relevant_abstracts(input_dir + test_filename + '.txt',
                                         output_dir, major, desired)
                 with open(output_dir + test_filename + '_relevant.tsv') as outfile:
                     output_pmids = [line.split()[PMID_INDEX] for line in outfile]
-                self.assertEqual(relevant_pmids[pmidKey], output_pmids,
-                                 'Incorrect PMIDs for ' + pmidKey)
+                self.assertEqual(relevant_pmids[pmid_key], output_pmids,
+                                 'Incorrect PMIDs for ' + pmid_key)
 
 
 if __name__ == '__main__':

@@ -26,8 +26,11 @@ def build_pubtator(data_dir) -> Dict[str, Tuple[str, str, List[Tuple[int, int, s
     t_pattern = re.compile(r'(\d+)\|t\|(.+)')   # matches title
     a_pattern = re.compile(r'(\d+)\|a\|(.*)')   # matches abstract, which might be empty
     c_pattern = re.compile(
-        r'\d+\t(\d+)\t(\d+)\t[\S \n\r\f\v]+\t(DNAMutation|CellLine|Chemical|Disease|Gene|ProteinMutation|Species)\t(.*)$')
+        r'\d+\t(\d+)\t(\d+)\t[\S \n\r\f\v]+\t(\w+)\t(.*)$')
+    #         r'\d+\t(\d+)\t(\d+)\t[\S \n\r\f\v]+\t(
+    #         DNAMutation|CellLine|Chemical|Disease|Gene|ProteinMutation|Species)\t(.*)$')
     e_pattern = re.compile('^$')
+    # 'bioconcepts2pubtatorcentral.offset.gz'
     with gzip.open(join(data_dir,
                         'bioconcepts2pubtatorcentral.offset.sample.gz')) as pc:
         for byteline in pc:
@@ -62,7 +65,9 @@ def build_pubtator(data_dir) -> Dict[str, Tuple[str, str, List[Tuple[int, int, s
 
 def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
     return start < max_len and \
-           category not in {'DNAMutation', 'ProteinMutation'} and cid != ''
+           category in {'CellLine', 'Chemical', 'Disease', 'Gene', 'Species'} and \
+           cid != ''
+#           category not in {'DNAMutation', 'ProteinMutation'}
 
 
 def replace(cr: Tuple[str, str, List[Tuple[int, int, str]]]) -> str:

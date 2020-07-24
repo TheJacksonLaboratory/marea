@@ -65,9 +65,8 @@ def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
            category not in {'DNAMutation', 'ProteinMutation'} and cid != ''
 
 
-def replace(pmid: str,
-            cr_dict: Dict[str, Tuple[str, str, List[Tuple[int, int, str]]]]) -> str:
-    (title, abstract, concepts) = cr_dict[pmid]
+def replace(cr: Tuple[str, str, List[Tuple[int, int, str]]]) -> str:
+    (title, abstract, concepts) = cr
     all_text = ''.join([title, abstract])
     new_text = []
     current = 0
@@ -101,7 +100,7 @@ def main(p, r, o):
                     pmid = fields[PMID_INDEX]
                     if pmid in pubtator_dict:
                         outfile.write('{}\t{}\t{}\n'.format(
-                            pmid, fields[PUBYEAR_INDEX], replace(pmid, pubtator_dict)))
+                            pmid, fields[PUBYEAR_INDEX], replace(pubtator_dict[pmid])))
 
     # for k in sorted(pubtator_dict, key=lambda x: (len(x), x)):
     #     (t, a, cs) = pubtator_dict[k]

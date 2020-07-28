@@ -30,7 +30,6 @@ def build_pubtator(data_dir) -> Dict[str, Tuple[str, str, List[Tuple[int, int, s
     #         r'\d+\t(\d+)\t(\d+)\t[\S \n\r\f\v]+\t(
     #         DNAMutation|CellLine|Chemical|Disease|Gene|ProteinMutation|Species)\t(.*)$')
     e_pattern = re.compile('^$')
-    # 'bioconcepts2pubtatorcentral.offset.gz'
     with gzip.open(join(data_dir,
                         'bioconcepts2pubtatorcentral.offset.sample.gz')) as pc:
         for byteline in pc:

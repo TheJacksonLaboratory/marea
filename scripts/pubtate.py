@@ -62,7 +62,7 @@ def replace_all(input_dir, output_dir) -> None:
 def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
     return start < max_len and \
            category in {'CellLine', 'Chemical', 'Disease', 'Gene', 'Species'} and \
-           cid != ''
+           not (cid == '' or cid == '-')
 
 
 def replace_one(title: str, abstract: str,

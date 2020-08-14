@@ -15,6 +15,7 @@ Requirements for the virtual environment of marea:
 * isodate 0.6.0
 * pyparsing 2.4.7
 * rdflib 5.0.0
+* requests 2.24.0
 * six 1.15.0
 * SPARQLWrapper 1.8.5
 

@@ -1,11 +1,11 @@
 import click
 import glob
-import re
 
 from os import makedirs
 from os.path import basename, join
 from typing import Dict
 
+from fetch_pubtator import pubtate_list, PTC_LIMIT
 from filter_abstracts import PMID_INDEX, PUBYEAR_INDEX
 
 
@@ -21,34 +21,32 @@ def make_relevant_dict(rel_dir) -> Dict[str, str]:
     return relevant
 
 
-def select_articles(pubtator_file, out_dir, relevant: Dict[str, str]) -> None:
-    pattern = re.compile(r'^(\d+)\t(.+)$')
-    with click.open_file(join(out_dir, 'pubmed_cr.tsv'), 'w') as outfile:
-        with click.open_file(pubtator_file) as pfile:
-            for line in pfile:
-                m = pattern.match(line)
-                if m:
-                    pmid = m.group(1)
-                    abstract = m.group(2)
-                    if pmid in relevant:
-                        outfile.write('{}\t{}\t{}\n'.format(
-                            pmid, relevant[pmid], abstract))
-                else:
-                    raise ValueError('Unexpected format in pubtator file:\n{}'.format(line))
+def process_articles(out_dir, relevant: Dict[str, str]) -> None:
+    i = len(relevant)
+    key_list = list(relevant.keys())
+    current = 0
+    remaining = len(key_list)
+    with click.open_file(join(out_dir, 'pubmed_crt2.tsv'), 'w') as outfile:
+        while remaining > 0:
+            limit = min(remaining, PTC_LIMIT)
+            print(key_list[current:current+limit])
+            for (pmid, title_abstract) in pubtate_list(key_list[current:current+limit]):
+                # output pmid, publication date, and text with concepts replaced
+                outfile.write('{}\t{}\t{}\n'.
+                              format(pmid, relevant[pmid], title_abstract))
+            current += limit
+            remaining -= limit
 
 
 @click.command()
-@click.option('-p', type=click.Path(exists=True), required=True,
-              help='path to pubtator file with concepts replaced')
 @click.option('-r', type=click.Path(exists=True), required=True,
               help='directory of relevant abstracts')
 @click.option('-o', type=click.Path(), required=True, help='output directory')
-# python replace_concepts.py -p ../data/bioconcepts2pubtatorcentral.replaced \
-#        -r ../data/pubmed_rel -o ../data/pubmed_cr
-def main(p, r, o):
+# python replace_concepts.py -r ../data/pubmed_rel -o ../data/pubmed_cr
+def main(r, o):
     makedirs(o, exist_ok=True)
     rel_dict = make_relevant_dict(r)
-    select_articles(p, o, rel_dict)
+    process_articles(o, rel_dict)
 
 
 if __name__ == '__main__':

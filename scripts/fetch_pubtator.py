@@ -4,18 +4,19 @@ import requests
 from typing import List, Tuple
 from time import sleep
 
-PTC_LIMIT = 1000
+PTC_LIMIT = 1000  # number of pmids per Pubtator Central API request
 
 
 def add_prefix(category: str, cid: str) -> str:
+    """Add prefix (if necessary) to concept id and pad with spaces."""
     if category == 'Gene':
-        return 'NCBIGene:' + cid
+        return f' NCBIGene:{cid} '
     elif category == 'SNP':
-        return 'SNP:' + cid.lower()
+        return f' SNP:{cid.lower()} '
     elif category == 'Species':
-        return 'NCBITaxon:' + cid
+        return f' NCBITaxon:{cid} '
     else:
-        return cid
+        return f' {cid} '
 
 
 def pubtate_list(pmid_list: List[str]) -> List[Tuple[str, str]]:
@@ -25,7 +26,7 @@ def pubtate_list(pmid_list: List[str]) -> List[Tuple[str, str]]:
             "https://www.ncbi.nlm.nih.gov/research/pubtator-api/publications/export/pubtator",
             json={'pmids': pmid_list})
         if r.status_code == requests.codes.ok:
-            # limit on requests per second not specified on PubtatorCentral website
+            # limit on requests per second not specified on Pubtator Central website
             sleep(5)
             return parse_articles(r.text, num_pmids)
         else:
@@ -99,7 +100,8 @@ def replace_one(text: str, concepts: List[Tuple[int, int, str]]) -> str:
 
 
 def main():
-    payload = {'pmids': ['15055594', '22298231', '6330977', '28121313', '32229322']}
+    payload = {'pmids': ['15126348', '15207020']}
+    # payload = {'pmids': ['15055594', '22298231', '6330977', '28121313', '32229322']}
     # payload = {'pmids': ['61552', '61568', '61580', '61588', '61608', '61637', '61639', '61657', '61661', '61690',
     # '61702', '61713', '61720', '61727', '61730']}
     r = requests.post("https://www.ncbi.nlm.nih.gov/research/pubtator-api/publications/export/pubtator",

@@ -7,10 +7,13 @@ from typing import List, Tuple
 
 
 def add_prefix(category: str, cid: str) -> str:
+    """Add prefix (if necessary) to concept id."""
     if category == 'Gene':
-        return 'NCBIGene:' + cid
+        return f'NCBIGene:{cid}'
+    elif category == 'SNP':
+        return f'SNP:{cid.lower()}'
     elif category == 'Species':
-        return 'NCBITaxon:' + cid
+        return f'NCBITaxon:{cid}'
     else:
         return cid
 
@@ -61,8 +64,8 @@ def replace_all(input_dir, output_dir) -> None:
 
 def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
     return start < max_len and \
-           category in {'CellLine', 'Chemical', 'Disease', 'Gene', 'Species'} and \
-           not (cid == '' or cid == '-')
+           not (category == 'DomainMotif' or 'Mutation' in category
+                or cid == '' or cid == '-')
 
 
 def replace_one(title: str, abstract: str,

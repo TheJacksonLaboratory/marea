@@ -42,6 +42,8 @@ def replace_all(input_dir, output_dir) -> None:
                     if m:
                         pmid = m.group(1)
                         title = m.group(2)
+                        if not title.endswith(' '):
+                            title += ' '
                     else:
                         m = a_pattern.match(line)
                         if m:

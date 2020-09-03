@@ -4,6 +4,9 @@ import re
 
 from os import makedirs
 from os.path import basename, join
+
+from my_lemmatizer import MyLemmatizer
+from nlp_utils import nltk_setup
 from query_mesh import merge_descendants
 from typing import Dict, List, Set
 
@@ -51,20 +54,24 @@ def extract_descriptors(descriptor_str: str) -> Dict[str, bool]:
     return retval
 
 
-def extract_keywords(keyword_str: str) -> Dict[str, bool]:
+def extract_keywords(lemmatizer: MyLemmatizer,
+                     keyword_str: str) -> Dict[str, bool]:
     """
     Convert a string of keywords to a dictionary.
     String has the form (but all on one line):
         Aging-related tau astrogliopathy (ARTAG) N | Astrocytes N |
         Atypical Alzheimer disease N | Clinical heterogeneity N | Tau N
-    :param keyword_str: keywords for PubMed abstract
+    :param lemmatizer:  MyLemmatizer object
+    :param keyword_str: keywords for PubMed article
     :return: dictionary mapping each keyword (or keyword phrase), in lowercase,
              to boolean is this keyword a major topic for this abstract
     """
     retval = {}
-    keywords = keyword_str.split(' | ')
-    for kw in keywords:
-        retval[kw[:-2].lower()] = kw[-1].upper() == 'Y'
+    kwd_segments = keyword_str.split(' | ')
+    for kwd_segment in kwd_segments:
+        kwds = kwd_segment[:-2].lower()
+        major = kwd_segment[-1].upper() == 'Y'
+        retval[lemmatizer.lemmatize_seq(kwds)] = major
     return retval
 
 
@@ -81,10 +88,11 @@ def find_relevant_abstracts(in_file, out_path, major_topic: bool,
                         descriptors user gave as search terms
     :return: None
     """
+    lem = MyLemmatizer()
     # Each value in search_dict is a set of labels for the MeSH descriptor;
-    # want to flatten to one big set and convert to lowercase
-    search_keywords = {elt.lower() for subset in search_dict.values()
-                       for elt in subset}
+    # want to flatten to one big set, convert to lowercase and lemmatize
+    search_keywords = {lem.lemmatize_seq(elt.lower()) for subset in
+                       search_dict.values() for elt in subset}
     with click.open_file(in_file) as unfiltered_file:
         outfile_path = join(out_path,
                             basename(in_file).replace('.txt', '_relevant.tsv'))
@@ -99,15 +107,15 @@ def find_relevant_abstracts(in_file, out_path, major_topic: bool,
                     relevant = False
                     # does article have MeSH descriptors?
                     if descriptor_str != '':
-                        abstract_descriptors = extract_descriptors(descriptor_str)
-                        relevant = is_relevant(abstract_descriptors,
+                        article_descriptors = extract_descriptors(descriptor_str)
+                        relevant = is_relevant(article_descriptors,
                                                set(search_dict.keys()), major_topic)
                     # if no relevant descriptors, does article have keywords?
                     if not relevant and keyword_str != '':
-                        abstract_keywords = extract_keywords(keyword_str)
+                        article_keywords = extract_keywords(lem, keyword_str)
                         # Ignore value of major_topic because almost all keywords
                         # are marked N for not major_topic
-                        relevant = is_relevant(abstract_keywords, search_keywords,
+                        relevant = is_relevant(article_keywords, search_keywords,
                                                False)
                     # record relevant abstract in output file
                     if relevant:
@@ -115,23 +123,23 @@ def find_relevant_abstracts(in_file, out_path, major_topic: bool,
                             segments[PMID_INDEX], segments[PUBYEAR_INDEX], abstract))
 
 
-def is_relevant(abstract_dict: Dict[str, bool], search_set: Set[str],
+def is_relevant(article_dict: Dict[str, bool], search_set: Set[str],
                 major_bool: bool) -> bool:
     """
-    Determine whether abstract is relevant w.r.t. the desired MeSH
+    Determine whether article is relevant w.r.t. the desired MeSH
     descriptors/keywords. Since descriptors and keywords are both
     represented as strings, this function handles either type of search set.
-    Abstract considered relevant if there is any overlap between its
+    Article considered relevant if there is any overlap between its
     descriptors/keywords and the set of desired descriptors/keywords.
     If major topic flag is True, consider only those descriptors/keywords
-    marked as major topic for this PubMed article.
-    :param abstract_dict: maps each MeSH descriptor/keyword to boolean flag
-                          indicating major topic
+    marked as major topic for this article.
+    :param article_dict: maps each MeSH descriptor/keyword to boolean flag
+                         indicating major topic
     :param search_set: set of descriptors/keywords that user specified as relevant
-    :param major_bool: if true, consider only abstract's major topics
-    :return: True if this abstract is relevant, False otherwise
+    :param major_bool: if true, consider only article's major topics
+    :return: True if this article is relevant, False otherwise
     """
-    abstract_set = set(abstract_dict.keys())
+    article_set = set(article_dict.keys())
     if major_bool:
         # Keep only the descriptors/keywords that are marked as major topics
         # Note: some entries in the input files have no descriptors marked as
@@ -140,23 +148,26 @@ def is_relevant(abstract_dict: Dict[str, bool], search_set: Set[str],
         # extract qualifiers from the .xml file. Also, most keywords are
         # marked N so it is not very useful to filter keywords by their major
         # topic flag, the result will likely be an empty set.
-        abstract_set = set(filter(lambda d: abstract_dict[d], abstract_set))
-    return not search_set.isdisjoint(abstract_set)
+        article_set = set(filter(lambda d: article_dict[d], article_set))
+    return not search_set.isdisjoint(article_set)
 
 
 @click.command()
 @click.option('-i', type=click.Path(exists=True), required=True, help='input directory')
+@click.option('-n', type=click.Path(), required=True, help='directory for nltk data')
 @click.option('-o', type=click.Path(), required=True, help='output directory')
 @click.option('-m', is_flag=True, flag_value=True, help='filter on major topics only')
 @click.argument('descriptors', callback=check_descriptors, metavar='MeSH_DESCRIPTORS', nargs=-1)
-# python filter-abstracts.py -i ../data/pubmed_txt -o ../data/pubmed_relevant -m D005796 D009369 D037102
-def main(i, o, descriptors: List[str], m: bool):
+# python filter-abstracts.py -i ../data/pubmed_txt -n ../data/nltk_data \
+#        -o ../data/pubmed_relevant -m D005796 D009369 D037102
+def main(i, n, o, descriptors: List[str], m: bool):
     """
     Filters each .txt file from input directory by MeSH descriptors/keywords.
-    Writes PMID, publication year, and abstract of relevant articles to
-    corresponding output file.
+    Writes PMID and publication year of relevant articles to corresponding
+    output file.
     """
     files_to_parse = glob.glob(join(i, '*.txt'))
+    nltk_setup(n)
     makedirs(o, exist_ok=True)
     mesh_dict = merge_descendants(descriptors)
     for f in files_to_parse:

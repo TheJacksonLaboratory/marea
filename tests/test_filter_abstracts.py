@@ -2,6 +2,8 @@ import unittest
 from os import makedirs
 from scripts.filter_abstracts import PMID_INDEX, extract_descriptors, extract_keywords, \
     find_relevant_abstracts, is_relevant
+from scripts.my_lemmatizer import MyLemmatizer
+from scripts.nlp_utils import nltk_setup
 from scripts.query_mesh import merge_descendants
 
 
@@ -19,12 +21,14 @@ class FilterAbstractsTestCase(unittest.TestCase):
                          'Extracted descriptors do not match expected.')
 
     def test_extract_keywords(self):
+        nltk_setup('testdata/nltk_data/')
+        lem = MyLemmatizer()
         keyword_str = 'Aging-related tau astrogliopathy (ARTAG) Y | Astrocytes N ' +\
                       '| Atypical Alzheimer disease N | Clinical heterogeneity N | Tau N'
-        expected = {'aging-related tau astrogliopathy (artag)': True,
-                    'astrocytes': False, 'atypical alzheimer disease': False,
+        expected = {'aging-related tau astrogliopathy ( artag )': True,
+                    'astrocyte': False, 'atypical alzheimer disease': False,
                     'clinical heterogeneity': False, 'tau': False}
-        self.assertEqual(expected, extract_keywords(keyword_str),
+        self.assertEqual(expected, extract_keywords(lem, keyword_str),
                          'Extracted keywords do not match expected.')
 
     def test_is_relevant(self):
@@ -103,19 +107,20 @@ class FilterAbstractsTestCase(unittest.TestCase):
                 ['273474', '273475', '273632', '273634', '274699', '274701',
                  '274703', '274705', '274710', '274713', '274714', '274718',
                  '274719', '274720', '274721', '31640550', '31652515',
-                 '31721357', '31723456', '31723458', '31724699', '31754330',
-                 '31778855'],
+                 '31721357', '31723456', '31723458', '31723461', '31724699',
+                 '31754330', '31778855'],
             'D005796-D009369-D037102-m':
                 ['274699', '274703', '274705', '274710', '274714', '274719',
                  '274720', '274721', '31640550', '31652515', '31721357',
-                 '31723456', '31723458', '31724699', '31754330', '31778855'],
+                 '31723456', '31723458', '31723461', '31724699', '31754330',
+                 '31778855'],
             'D009369-D037102':
                 ['273474', '273475', '273632', '273634', '274699', '274705',
                  '274718', '274721', '31640550', '31652515', '31721357',
-                 '31723456', '31723458', '31724699'],
+                 '31723456', '31723458', '31723461', '31724699'],
             'D009369-D037102-m':
                 ['274699', '274705', '274721', '31640550', '31652515',
-                 '31721357', '31723456', '31723458', '31724699'],
+                 '31721357', '31723456', '31723458', '31723461', '31724699'],
             'D005796':
                 ['274701', '274703', '274710', '274713', '274714', '274719',
                  '274720', '31754330', '31778855'],
@@ -124,8 +129,8 @@ class FilterAbstractsTestCase(unittest.TestCase):
                  '31778855'],
             'D009369':
                 ['273474', '273475', '273632', '273634', '274718',
-                 '31723456', '31723458'],
-            'D009369-m': ['31723456', '31723458'],
+                 '31723456', '31723458', '31723461'],
+            'D009369-m': ['31723456', '31723458', '31723461'],
             'D037102':
                 ['274699', '274705', '274721', '31640550', '31652515',
                  '31721357', '31724699'],

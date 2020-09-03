@@ -63,8 +63,8 @@ def extract_keywords(lemmatizer: MyLemmatizer,
         Atypical Alzheimer disease N | Clinical heterogeneity N | Tau N
     :param lemmatizer:  MyLemmatizer object
     :param keyword_str: keywords for PubMed article
-    :return: dictionary mapping each keyword (or keyword phrase), in lowercase,
-             to boolean is this keyword a major topic for this abstract
+    :return: dictionary mapping each keyword (or keyword phrase), lowercase and
+             lemmatized, to boolean is this a major topic for this abstract
     """
     retval = {}
     kwd_segments = keyword_str.split(' | ')
@@ -119,8 +119,8 @@ def find_relevant_abstracts(in_file, out_path, major_topic: bool,
                                                False)
                     # record relevant abstract in output file
                     if relevant:
-                        filtered_file.write('{}\t{}\t{}\n'.format(
-                            segments[PMID_INDEX], segments[PUBYEAR_INDEX], abstract))
+                        filtered_file.write('{}\t{}\n'.format(
+                            segments[PMID_INDEX], segments[PUBYEAR_INDEX]))
 
 
 def is_relevant(article_dict: Dict[str, bool], search_set: Set[str],

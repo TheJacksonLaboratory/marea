@@ -6,27 +6,68 @@ from os.path import join
 from typing import List, Tuple
 
 
-def add_prefix(category: str, cid: str) -> str:
-    """Add prefix (if necessary) to concept id."""
+def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
+    """
+    :param start:    start offset for this concept in article
+    :param max_len:  length in characters of title + abstract
+    :param category: concept category (Chemical, Disease, Gene, Species, etc.)
+    :param cid:      concept id (MeSH id, NCBI gene or taxon id, etc.)
+    :return:         True if this line should result in concept replacement;
+                     False otherwise
+    """
+    # Some articles in pubtator offset file have concept replacement info for the
+    # full text; we are only interested in the title and abstract.
+    # Skip over any replacement of Species 9606 (human).
+    # Skip over any DNAMutation or ProteinMutation concept replacement.
+    # Skip over any replacement that has no useful concept id.
+    return start < max_len and \
+        not (category == 'Species' and cid == '9606') and \
+        not ('Mutation' in category or cid == '' or cid == '-')
+
+
+def fix_concept_id(category: str, cid: str) -> str:
+    """
+    Add prefix (if necessary) to concept id. Replace colon with underscore,
+    e.g. in MESH:D015759. Pad id with one extra space before and after.
+    :param category: concept category (Chemical, Disease, Gene, Species, etc.)
+    :param cid:      concept id (MeSH id, NCBI gene or taxon id, etc.)
+    :return:         fixed-up concept id
+    """
     if category == 'Gene':
-        return f'NCBIGene:{cid}'
+        return f' NCBIGene_{cid} '
     elif category == 'SNP':
-        return f'SNP:{cid.lower()}'
+        return f' SNP_{cid.lower()} '
     elif category == 'Species':
-        return f'NCBITaxon:{cid}'
+        return f' NCBITaxon_{cid} '
     else:
-        return cid
+        return f" {cid.replace(':', '_')} "
+
+
+def fix_concept_ids(category: str, cid: str) -> str:
+    """
+    Separate 'id2;id2' into multiple ids with the same prefix. Fix up each
+    concept id and return the concatenation of all ids.
+    :param category:  concept category (Chemical, Disease, Gene, Species, etc.)
+    :param cid:       concept id or multiple concept ids separated by semicolon
+    :return:          fixed-up concept id (or string of multiple ids)
+    """
+    cids = cid.split(';')
+    return ''.join(map(lambda x: fix_concept_id(category, x), cids))
 
 
 def replace_all(input_dir, output_dir) -> None:
+    """
+    Process all concept annotations in the pubtator offset file.
+    :param input_dir:  directory of the pubtator offset file
+    :param output_dir: directory for output file
+    :return:           None, side effect is write output file
+    """
     pmid = title = abstract = ''
     total_len = 0
-    t_pattern = re.compile(r'(\d+)\|t\|(.+)')   # matches title
-    a_pattern = re.compile(r'(\d+)\|a\|(.*)')   # matches abstract, which might be empty
+    t_pattern = re.compile(r'(\d+)\|t\|(.+)')  # matches title
+    a_pattern = re.compile(r'(\d+)\|a\|(.*)')  # matches abstract, which might be empty
     c_pattern = re.compile(
         r'\d+\t(\d+)\t(\d+)\t[\S \n\r\f\v]+\t(\w+)\t(.*)$')
-    #         r'\d+\t(\d+)\t(\d+)\t[\S \n\r\f\v]+\t(
-    #         DNAMutation|CellLine|Chemical|Disease|Gene|ProteinMutation|Species)\t(.*)$')
     e_pattern = re.compile('^$')
     with click.open_file(join(input_dir,
                               'bioconcepts2pubtatorcentral.offset')) as infile:
@@ -42,6 +83,7 @@ def replace_all(input_dir, output_dir) -> None:
                     if m:
                         pmid = m.group(1)
                         title = m.group(2)
+                        # Separate title from abstract with a space.
                         if not title.endswith(' '):
                             title += ' '
                     else:
@@ -58,16 +100,10 @@ def replace_all(input_dir, output_dir) -> None:
                                 category = m.group(3)
                                 concept_id = m.group(4)
                                 if concept_line_ok(start, total_len, category, concept_id):
-                                    concepts.append((start, end, add_prefix(category, concept_id)))
+                                    concepts.append((start, end, fix_concept_ids(category, concept_id)))
                             else:
                                 print('Line does not match any pattern:\n{}'.format(line))
     return None
-
-
-def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
-    return start < max_len and \
-           not (category == 'DomainMotif' or 'Mutation' in category
-                or cid == '' or cid == '-')
 
 
 def replace_one(title: str, abstract: str,

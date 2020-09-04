@@ -2,5 +2,5 @@ BootStrap: docker
 From: python:latest
 
 %post
-    pip install click rdflib SPARQLWrapper
+    pip install click rdflib nltk SPARQLWrapper
 

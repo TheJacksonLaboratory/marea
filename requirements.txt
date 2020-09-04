@@ -1,6 +1,16 @@
+certifi==2020.6.20
+chardet==3.0.4
 click==7.1.2
+idna==2.10
 isodate==0.6.0
+joblib==0.16.0
+nltk==3.5
+numpy==1.19.1
 pyparsing==2.4.7
 rdflib==5.0.0
+regex==2020.7.14
+requests==2.24.0
 six==1.15.0
 SPARQLWrapper==1.8.5
+tqdm==4.48.2
+urllib3==1.25.10

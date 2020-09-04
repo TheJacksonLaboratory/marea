@@ -131,3 +131,4 @@ dmypy.json
 # specific to this project
 data/
 /tests/testdata/pubmed_rel/
+/tests/testdata/nltk_data/

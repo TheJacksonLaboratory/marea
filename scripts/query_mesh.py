@@ -110,11 +110,12 @@ def main():
     # D000238 is for Adenoma, Chromophobe
     print(get_synonyms('D000238'))
     # D009369 is for Neoplasm
-    all_descendants = get_descendants('D009369')
+    all_descendants = merge_descendants(['D009369'])
     print('\nSize of return set: {}'.format(len(all_descendants)))
     # Print the descriptors sorted by MeSH identifier
     for key, value in sorted(all_descendants.items()):
-        print('{}\t{}'.format(key, value))
+        print('{}\t'.format(key), end='')
+        print(*sorted(value), sep='; ')
 
 
 if __name__ == '__main__':

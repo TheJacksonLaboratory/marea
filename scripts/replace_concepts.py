@@ -16,7 +16,7 @@ def make_relevant_dict(rel_dir) -> Dict[str, str]:
         click.echo(basename(f))
         with click.open_file(f) as infile:
             for line in infile:
-                fields = line.split('\t')
+                fields = line.strip().split('\t')
                 relevant[fields[PMID_INDEX]] = fields[PUBYEAR_INDEX]
     return relevant
 

@@ -2,7 +2,7 @@ import unittest
 from scripts.pubtate import fix_concept_ids
 
 
-class MyTestCase(unittest.TestCase):
+class PubtateTestCase(unittest.TestCase):
 
     def test_fix_concept_ids(self):
         self.assertEqual(' NCBIGene_1019  NCBIGene_1021 ',

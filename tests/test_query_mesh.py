@@ -1,8 +1,15 @@
 import unittest
-from scripts.query_mesh import get_descendants, get_synonyms, merge_descendants
+from scripts.query_mesh import get_descendants, get_all_labels, \
+    get_preferred_synonyms, merge_descendants
 
 
 class QueryMeshTestCase(unittest.TestCase):
+
+    def test_get_all_labels(self):
+        expected = {'Adenoma, Chromophobe', 'Adenomas, Chromophobe',
+                    'Chromophobe Adenomas', 'Chromophobe Adenoma'}
+        self.assertEqual(expected, get_all_labels('D000238'),
+                         'Labels for Adenoma, Chromophobe')
 
     def test_get_descendants(self):
         expected = {
@@ -27,11 +34,13 @@ class QueryMeshTestCase(unittest.TestCase):
         self.assertEqual(expected, get_descendants('D001859'),
                          'Descendants of Bone Neoplasms')
 
-    def test_get_synonyms(self):
-        expected = {'Adenoma, Chromophobe', 'Adenomas, Chromophobe',
-                    'Chromophobe Adenomas', 'Chromophobe Adenoma'}
-        self.assertEqual(expected, get_synonyms('D000238'),
-                         'Labels for Adenoma, Chromophobe')
+    def test_get_preferred_synonyms(self):
+        expected = ('Adrenal Rest Tumor',
+                    {'Rest Tumors, Adrenal', 'Tumor, Adrenal Rest',
+                     'Tumors, Adrenal Rest', 'Adrenal Rest Tumors',
+                     'Rest Tumor, Adrenal'} )
+        self.assertEqual(expected, get_preferred_synonyms('D000314'),
+                         'Preferred label and synonyms for Adrenal Rest Tumor')
 
     def test_merge_descendants(self):
         ancestors = ['D016543', 'D011118', 'D008175']

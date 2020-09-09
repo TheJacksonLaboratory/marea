@@ -27,20 +27,20 @@ def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
 
 def fix_concept_id(category: str, cid: str) -> str:
     """
-    Add prefix (if necessary) to concept id. Replace colon with underscore,
+    Add prefix (if necessary) to concept id. Eliminate colons,
     e.g. in MESH:D015759. Pad id with one extra space before and after.
     :param category: concept category (Chemical, Disease, Gene, Species, etc.)
     :param cid:      concept id (MeSH id, NCBI gene or taxon id, etc.)
     :return:         fixed-up concept id
     """
     if category == 'Gene':
-        return f' NCBIGene_{cid} '
+        return f' NCBIGene{cid} '
     elif category == 'SNP':
-        return f' SNP_{cid.lower()} '
+        return f' SNP{cid.lower()} '
     elif category == 'Species':
-        return f' NCBITaxon_{cid} '
+        return f' NCBITaxon{cid} '
     else:
-        return f" {cid.replace(':', '_')} "
+        return f" {cid.replace(':', '')} "
 
 
 def fix_concept_ids(category: str, cid: str) -> str:

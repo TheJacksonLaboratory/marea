@@ -2,6 +2,7 @@ import warnings
 from collections import defaultdict
 from SPARQLWrapper import SPARQLWrapper, RDFXML, JSON
 from rdflib import Graph
+from time import sleep
 from typing import Dict, List, NamedTuple, Set
 
 
@@ -141,6 +142,24 @@ def merge_descendants(ancestors: List[str]) -> Dict[str, Set[str]]:
     return merge_dict
 
 
+def print_descendants_labels(ancestor: str) -> None:
+    """
+    Print MeSH descriptor, preferred label, and synonyms for the descriptor
+    passed as parameter and all its descendants.
+    :param ancestor: ancestor MeSH term
+    :return:         None
+    """
+    descendant_descriptors = set(get_descendants(ancestor).keys())
+    descendant_descriptors.add(ancestor)
+    print('\nSize of return set: {}'.format(len(descendant_descriptors)))
+    # Print the descriptors sorted by preferred label
+    for descriptor in sorted(descendant_descriptors):
+        sleep(5)  # to avoid NIH wrath for too many queries per second
+        preferred, synonyms = get_preferred_synonyms(descriptor)
+        print('{}\t{}\t'.format(descriptor, preferred), end='')
+        print(*sorted(synonyms), sep='; ')
+
+
 def main():
     # D000238 is for Adenoma, Chromophobe
     print(get_all_labels('D000238'))
@@ -148,6 +167,8 @@ def main():
     adrenal = get_preferred_synonyms('D000314')
     print('pref: {}\tsyn: {}'.format(adrenal.preferred, adrenal.synonyms))
     # D009369 is for Neoplasm
+    print_descendants_labels('D009369')
+    print_descendants_labels('D011494')
     # all_descendants = merge_descendants(['D009369'])
     # print('\nSize of return set: {}'.format(len(all_descendants)))
     # Print the descriptors sorted by MeSH identifier

@@ -99,8 +99,11 @@ def replace_all(input_dir, output_dir) -> None:
                                 end = int(m.group(2))
                                 category = m.group(3)
                                 concept_id = m.group(4)
-                                if concept_line_ok(start, total_len, category, concept_id):
-                                    concepts.append((start, end, fix_concept_ids(category, concept_id)))
+                                if concept_line_ok(start, total_len, category,
+                                                   concept_id):
+                                    concepts.append((start, end,
+                                                     fix_concept_ids(category,
+                                                                     concept_id)))
                             else:
                                 print('Line does not match any pattern:\n{}'.format(line))
     return None
@@ -108,6 +111,13 @@ def replace_all(input_dir, output_dir) -> None:
 
 def replace_one(title: str, abstract: str,
                 concepts: List[Tuple[int, int, str]]) -> str:
+    """
+    Replace concepts in one PubMed article's title and abstract.
+    :param title:     title string
+    :param abstract:  abstract string
+    :param concepts:  list of (start, end, concept_id) tuples
+    :return:          string of title+abstract after replacements
+    """
     all_text = ''.join([title, abstract])
     new_text = []
     current = 0
@@ -126,6 +136,14 @@ def replace_one(title: str, abstract: str,
 # python pubtate.py -i ../data/pubtator
 # python pubtate.py -i ../data -o ../data/pubtator
 def main(i, o):
+    """
+    For each entry in bioconcepts2pubtatorcentral.offset, perform all concept
+    replacements in title and abstract. Write result to
+    bioconcepts2pubtatorcentral.replaced.
+    :param i:  directory containing offset file
+    :param o:  directory for output file
+    :return:   none
+    """
     if o is None:
         output_dir = i
     else:

@@ -10,6 +10,12 @@ from filter_abstracts import PMID_INDEX, PUBYEAR_INDEX
 
 
 def make_relevant_dict(rel_dir) -> Dict[str, str]:
+    """
+    Create dictionary with key PMID, value publication year for all articles
+    considered relevant.
+    :param rel_dir: directory containing files of relevant PubMed articles.
+    :return:        dictionary
+    """
     relevant = {}
     files_to_process = glob.glob(join(rel_dir, '*.tsv'))
     for f in files_to_process:
@@ -22,6 +28,16 @@ def make_relevant_dict(rel_dir) -> Dict[str, str]:
 
 
 def select_articles(pubtator_file, out_dir, relevant: Dict[str, str]) -> None:
+    """
+    Write output file containing PMID, publication year, and title+abstract
+    with Pubtator Central concept replacements for all relevant articles.
+    :param pubtator_file: path to file containing PubMed articles after concept
+                          replacement
+    :param out_dir:       directory for output file
+    :param relevant:      dictionary mapping PMID to publication year for
+                          relevant articles
+    :return:              none (side effect is writing output file)
+    """
     pattern = re.compile(r'^(\d+)\t(.+)$')
     with click.open_file(join(out_dir, 'pubmed_cr.tsv'), 'w') as outfile:
         with click.open_file(pubtator_file) as pfile:
@@ -46,6 +62,14 @@ def select_articles(pubtator_file, out_dir, relevant: Dict[str, str]) -> None:
 # python replace_concepts.py -p ../data/bioconcepts2pubtatorcentral.replaced \
 #        -r ../data/pubmed_rel -o ../data/pubmed_cr
 def main(p, r, o):
+    """
+    Extract relevant articles from pre-computed file of PubMed titles and
+    abstracts with Pubtator Central concept replacements.
+    :param p: path to file containing PubMed titles and abstracts with concept ids
+    :param r: directory containing files of PMID, publication year for relevant articles
+    :param o: directory for output file of relevant articles with concept replacements
+    :return: None
+    """
     makedirs(o, exist_ok=True)
     rel_dict = make_relevant_dict(r)
     select_articles(p, o, rel_dict)

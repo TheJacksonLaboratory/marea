@@ -11,12 +11,23 @@ that matches a label or synonym of the search descriptors or their subcategories
 Requirements for the virtual environment of marea:
 
 * Python 3.8
-* click 7.1.2
-* isodate 0.6.0
-* pyparsing 2.4.7
-* rdflib 5.0.0
-* six 1.15.0
-* SPARQLWrapper 1.8.5
+* certifi==2020.6.20
+* chardet==3.0.4
+* click==7.1.2
+* idna==2.10
+* isodate==0.6.0
+* joblib==0.16.0
+* nltk==3.5
+* numpy==1.19.1
+* pyparsing==2.4.7
+* rdflib==5.0.0
+* regex==2020.7.14
+* requests==2.24.0
+* six==1.15.0
+* SPARQLWrapper==1.8.5
+* tqdm==4.48.2
+* urllib3==1.25.10
+
 
 ### 2. Download .xml files
 First, create the list of PubMed files to be downloaded from NCBI. Run _scripts/retrieve_pubmed_names.py_
@@ -64,8 +75,10 @@ _scripts/filter_abstracts.py_ filters the _.txt_ file to select articles that ar
 a user-supplied set of MeSH descriptors. An article is deemed relevant if at least one of the the article's
 descriptors is a subcategory of, or identical to, one of the specified search descriptors. If there is no
 match on MeSH descriptors, the code compares the article's keywords to the set of preferred labels and synonyms
-for all the search descriptors and subcategories. If at least one of the article's keywords is included in the set,
-the article is considered relevant.
+for all the search descriptors and their subcategories. If at least one of the article's keywords is included
+in the set, the article is considered relevant. Before making the comparison, the script applies the WordNet
+lemmatizer in **nltk**to both the labels from MeSH and the keywords from the article. The lemmatizer reduces words to their
+base form, for example plural nouns are lemmatized to the singular. 
 
 In the _.xml_ file,
 each MeSH descriptor and keyword is marked Y/N as a "major topic" for the article. The command line parameters for 
@@ -77,20 +90,22 @@ implementation respects the major topic flag for MeSH descriptors but ignores it
 Not all PubMed articles have MeSH descriptors or keywords; many have no abstract. Any article that has no abstract
 is irrelevant for the search regardless of its MeSH descriptors/keywords. 
 
-For each input _.txt_ file, _filter_abstracts.py_ writes an output _.tsv_ file containing only the PubMed ID,
-year of publication, and abstract of those articles deemed relevant. MeSH descriptors and keywords are not preserved
+For each input _.txt_ file, _filter_abstracts.py_ writes an output _.tsv_ file containing only the PubMed ID and
+year of publication of those articles deemed relevant. MeSH descriptors, keywords, and abstract are not preserved
 in the output file. For an input named _pubmed20n1014.txt_, the corresponding output file is named
 _pubmed20n1014_relevant.tsv_.
 
-_filter_abstracts.py_ has four command line parameters. The _-i_ option specifies the directory containing the
+_filter_abstracts.py_ has five command line parameters. The _-i_ option specifies the directory containing the
 text files produced in step 3. The _-o_ option names the directory for the _.tsv_ files written by 
-_filter_abstracts.py_. _-m_ is the optional flag described above that limits the search to major topic MeSH
+_filter_abstracts.py_. The _-n_ option specifies the directory where **nltk** data should be downloaded.
+_-m_ is the optional flag described above that limits the search to major topic MeSH
 descriptors only. At the end of the command line is the list of MeSH descriptors that designate relevant
 categories. These should be high-level descriptors; the software automatically includes all their subcategories in
 the search. For example,
 
 ```
-python filter_abstracts.py -m -i ../data/pubmed_txt -o ../data/pubmed_rel0 D005796 D009369 D037102
+python filter_abstracts.py -m -i ../data/pubmed_txt -n ../data/nltk_data \
+                           -o ../data/pubmed_rel D005796 D009369 D037102
 ```
 
 finds articles whose major topic descriptors fall under one or more of the categories for Genes, Neoplasms,

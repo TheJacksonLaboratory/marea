@@ -38,7 +38,6 @@ For example,
 ```
 python retrieve_pubmed_names.py -d ../data
 ```
-
 Next, run _scripts/retrieve_pubmed_files.py_ to download the files listed in the previous step. As before,
 the _-d_ command line option specifies the directory containing _medline_ftp_links.txt_. The _-x_ option specifies
 the directory to which the gzipped _.xml_ files of PubMed article abstracts and metadata should be downloaded.
@@ -109,7 +108,7 @@ finds articles whose major topic descriptors fall under one or more of the categ
 
 ### 5. Concept replacement with Pubtator Central
 [Pubtator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) from the NLM provides data for concept
-recognition in Pubmed articles for the following categories:
+recognition in PubMed articles for the following categories:
 * Gene
 * Species
 * SNP
@@ -121,7 +120,7 @@ is to download _bioconcepts2pubtatorcentral.offset.gz_ from the Pubtator Central
 ```
 ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTatorCentral
 ```
-The offset file contains the title and abstract for every Pubmed article and a list of concept replacements.
+The offset file contains the title and abstract for every PubMed article and a list of concept replacements.
 Each concept replacement line includes the concept category and concept identifier along with the start and end
 offsets (in characters) of the text to be replaced by that concept identifier. Unzip 
 _bioconcepts2pubtatorcentral.offset.gz_ before running _scripts/pubtate.py_.
@@ -132,12 +131,14 @@ _bioconcepts2pubtatorcentral.replaced_ in the directory specified by the _-o_ op
 ```
 python pubtate.py -i ../data -o ../data/pubtator
 ```
-The output directory is optional, will default to the input directory.
+The output directory is optional and will default to the input directory.
 
-_scripts/replace_concepts.py_ pulls from _bioconcepts2pubtatorcentral.replaced_ the title and
-abstract (after concept replacement) for any article that was judged relevant in step 4. Command line
-option _-p_ gives the full path to the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_.
-Option _-r_ specifies the directory containing the *
+For each article that was judged relevant in step 4, _scripts/replace_concepts.py_ writes to its
+output file the PMID, publication date, title and abstract (after concept replacement). Command line
+option _-p_ specifies the directory containing the _bioconcepts2pubtatorcentral.replaced_ file
+written by _pubtate.py_.
+Option _-r_ specifies the directory containing files of relevant articles produced by _filter_abstracts.py_.
+Option _-o_ specifies the output directory where _replace_concepts.py_ writes its output file _pubmed_cr.tsv_.
 ```
 python replace_concepts.py -p ../data/bioconcepts2pubtatorcentral.replaced \
        -r ../data/pubmed_rel -o ../data/pubmed_cr

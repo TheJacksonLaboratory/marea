@@ -7,7 +7,8 @@ from os.path import basename, join
 from typing import Dict
 
 from filter_abstracts import PMID_INDEX, PUBYEAR_INDEX
-
+from pubtate import IN_FILENAME
+OUT_FILENAME = 'pubmed_cr.tsv'
 
 def make_relevant_dict(rel_dir) -> Dict[str, str]:
     """
@@ -39,7 +40,7 @@ def select_articles(pubtator_file, out_dir, relevant: Dict[str, str]) -> None:
     :return:              none (side effect is writing output file)
     """
     pattern = re.compile(r'^(\d+)\t(.+)$')
-    with click.open_file(join(out_dir, 'pubmed_cr.tsv'), 'w') as outfile:
+    with click.open_file(join(out_dir, OUT_FILENAME), 'w') as outfile:
         with click.open_file(pubtator_file) as pfile:
             for line in pfile:
                 m = pattern.match(line)
@@ -55,12 +56,12 @@ def select_articles(pubtator_file, out_dir, relevant: Dict[str, str]) -> None:
 
 @click.command()
 @click.option('-p', type=click.Path(exists=True), required=True,
-              help='path to pubtator file with concepts replaced')
+              help='directory of pubtator file with concepts replaced')
 @click.option('-r', type=click.Path(exists=True), required=True,
               help='directory of relevant abstracts')
 @click.option('-o', type=click.Path(), required=True, help='output directory')
-# python replace_concepts.py -p ../data/bioconcepts2pubtatorcentral.replaced \
-#        -r ../data/pubmed_rel -o ../data/pubmed_cr
+# python replace_concepts.py -p ../data/pubtator -r ../data/pubmed_rel \
+#        -o ../data/pubmed_cr
 def main(p, r, o):
     """
     Extract relevant articles from pre-computed file of PubMed titles and
@@ -72,7 +73,7 @@ def main(p, r, o):
     """
     makedirs(o, exist_ok=True)
     rel_dict = make_relevant_dict(r)
-    select_articles(p, o, rel_dict)
+    select_articles(join(p, IN_FILENAME), o, rel_dict)
 
 
 if __name__ == '__main__':

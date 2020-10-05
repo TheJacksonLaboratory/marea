@@ -7,7 +7,7 @@ from os.path import basename, join
 from typing import Dict
 
 from filter_abstracts import PMID_INDEX, PUBYEAR_INDEX
-from pubtate import IN_FILENAME
+from pubtate import REPLACED_FILENAME
 OUT_FILENAME = 'pubmed_cr.tsv'
 
 def make_relevant_dict(rel_dir) -> Dict[str, str]:
@@ -73,7 +73,7 @@ def main(p, r, o):
     """
     makedirs(o, exist_ok=True)
     rel_dict = make_relevant_dict(r)
-    select_articles(join(p, IN_FILENAME), o, rel_dict)
+    select_articles(join(p, REPLACED_FILENAME), o, rel_dict)
 
 
 if __name__ == '__main__':

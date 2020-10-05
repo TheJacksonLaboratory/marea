@@ -5,8 +5,8 @@ from os import makedirs
 from os.path import join
 from typing import List, Tuple
 
-IN_FILENAME = 'bioconcepts2pubtatorcentral.offset'
-OUT_FILENAME = 'bioconcepts2pubtatorcentral.replaced'
+OFFSET_FILENAME = 'bioconcepts2pubtatorcentral.offset'
+REPLACED_FILENAME = 'bioconcepts2pubtatorcentral.replaced'
 
 
 def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
@@ -72,8 +72,8 @@ def replace_all(input_dir, output_dir) -> None:
     c_pattern = re.compile(
         r'\d+\t(\d+)\t(\d+)\t[\S \n\r\f\v]+\t(\w+)\t(.*)$')
     e_pattern = re.compile('^$')
-    with click.open_file(join(input_dir, IN_FILENAME)) as infile:
-        with click.open_file(join(output_dir, OUT_FILENAME), 'w') as outfile:
+    with click.open_file(join(input_dir, OFFSET_FILENAME)) as infile:
+        with click.open_file(join(output_dir, REPLACED_FILENAME), 'w') as outfile:
             for line in infile:
                 if e_pattern.match(line):
                     outfile.write('{}\t{}\n'.
@@ -138,8 +138,8 @@ def replace_one(title: str, abstract: str,
 # python pubtate.py -i ../data -o ../data/pubtator
 def main(i, o):
     """
-    For each entry in IN_FILENAME, perform all concept replacements in title
-    and abstract. Write result to OUT_FILENAME.
+    For each entry in OFFSET_FILENAME, perform all concept replacements in
+    title and abstract. Write result to REPLACED_FILENAME.
     :param i:  directory containing offset file
     :param o:  directory for output file
     :return:   none

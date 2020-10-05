@@ -1,20 +1,19 @@
 # marea
-Filter PubMed articles for relevance and apply Pubtator Central concept recognition to the title and abstract of
+Filter PubMed articles for relevance and apply Pubtator Central concept recognition to the titles and abstracts of
 relevant articles.
 
 ### Naive filter
-The goal of this project is to select PubMed articles based on their MeSH descriptors and keywords, then do concept
-recognition on the title and abstract of relevant articles. For filtering, the user specifies a set of high-level
-MeSH descriptors. Any article marked with at least one of these descriptors or any subcategory of these descriptors
-is considered relevant. An article is also judged relevant if it has a keyword that matches a label or synonym of
-the search descriptors or their subcategories. __marea__ relies on
-[Pubtator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) to identify the names of chemicals, diseases,
+The goal of this project is to select PubMed articles based on their MeSH descriptors and keywords, then recognize
+and replace concepts in the title and abstract of each relevant article. For filtering, the user specifies a set of
+high-level MeSH descriptors. Any article marked with at least one of these descriptors or any subcategory of these
+descriptors is considered relevant. An article is also judged relevant if it has a keyword that matches a label or
+synonym of the search descriptors or their subcategories. __marea__ relies on
+[Pubtator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) to find the names of chemicals, diseases,
 genes, etc. and replaces each phrase recognized in the title or abstract with the identifier of the
 corresponding concept.
 
 ### 1. Requirements
 Requirements for the virtual environment of __marea__:
-
 * Python 3.8
 * certifi 2020.6.20
 * chardet 3.0.4
@@ -33,6 +32,9 @@ Requirements for the virtual environment of __marea__:
 * tqdm 4.48.2
 * urllib3 1.25.10
 
+These requirements are automatically packaged into the __marea__ singularity container. All the Python code
+of steps 2-5 below can be run in the singularity container on the high performance cluster using the slurm
+scripts listed in step 6.
 
 ### 2. Download .xml files
 First, create the list of PubMed files to be downloaded from NCBI. Run _scripts/retrieve_pubmed_names.py_
@@ -99,7 +101,7 @@ _pubmed20n1014_relevant.tsv_.
 _filter_abstracts.py_ has five command line parameters. The _-i_ option specifies the directory containing the
 text files produced in step 3. The _-o_ option names the directory for the _.tsv_ files written by 
 _filter_abstracts.py_. The _-n_ option specifies the directory where **nltk** data should be downloaded.
-_-m_ is the optional flag described above that limits the search to major topic MeSH
+_-m_ is the optional flag that limits the search to major topic MeSH
 descriptors only. At the end of the command line is the list of MeSH descriptors that designate relevant
 categories. These should be high-level descriptors; the software automatically includes all their subcategories in
 the search. For example,
@@ -119,6 +121,7 @@ recognition in PubMed articles for the following categories:
 * Gene
 * SNP
 * Species
+
 (as well as other categories __marea__ does not track, such as DNAMutation and ProteinMutation). The first step
 is to download _bioconcepts2pubtatorcentral.offset.gz_ from the Pubtator Central ftp site.
 ```
@@ -128,6 +131,7 @@ The offset file contains the title and abstract for every PubMed article and a l
 Each concept replacement line includes the concept category and concept identifier along with the start and end
 offsets (in characters) of the text to be replaced by that concept identifier. Unzip 
 _bioconcepts2pubtatorcentral.offset.gz_ before running _scripts/pubtate.py_.
+
 _pubtate.py_ takes two command line options. The _-i_ option indicates the directory containing the
 Pubtator Central offset file.  _pubtate.py_ applies all the offset file's
 concept replacements to the title and abstract of each article and writes them to
@@ -154,14 +158,14 @@ marea
 ├── scripts
 │   ├── __init__.py
 │   ├── filter_abstracts.py
-│   ├── my_lemmatizer.py
-│   ├── nlp_utils.py
-│   ├── pubtate.py
-│   ├── query_mesh.py
-│   ├── replace_concepts.py
-│   ├── retrieve_pubmed_files.py
-│   ├── retrieve_pubmed_names.py
-│   └── xml2txt.py
+│   ├── my_lemmatizer.py
+│   ├── nlp_utils.py
+│   ├── pubtate.py
+│   ├── query_mesh.py
+│   ├── replace_concepts.py
+│   ├── retrieve_pubmed_files.py
+│   ├── retrieve_pubmed_names.py
+│   └── xml2txt.py
 └── singularity
     ├── concept_recog.sh
     ├── download.sh
@@ -170,16 +174,17 @@ marea
     └── marea_python.sh
 ```
 _marea_python.sh_ builds a singularity container _marea_python.sif_ from _marea_python.def_ with the latest
-version of python and other requirements listed in Section 1. _download.sh_ downloads from NCBI the gzipped
+version of python and other requirements listed in step 1. _download.sh_ downloads from NCBI the gzipped
 _.xml_ files for PubMed articles. _filter.sh_ extracts _.txt_ files from the _.xml_ and then identifies
 relevant articles according to the specified MeSH descriptors (as explained in step 4). _concept_recog.sh_
-leverages the concept recognition information from Pubtator Central to replace text with concept identifiers
+consumes the concept recognition information from Pubtator Central to replace text with concept identifiers
 in the titles and abstracts of relevant articles (step 5).
 
-Edit these scripts to change
+Edit these slurm scripts to change
 * the email address for slurm messages
 * the directories to which files are written
 * the MeSH descriptors for relevance filtering
+
 On sumner, these scripts can be run in the __singularity__ directory with
 ```
 sbatch -q batch <scriptname>.sh

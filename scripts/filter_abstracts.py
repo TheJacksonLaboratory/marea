@@ -159,12 +159,12 @@ def is_relevant(article_dict: Dict[str, bool], search_set: Set[str],
 @click.option('-m', is_flag=True, flag_value=True, help='filter on major topics only')
 @click.argument('descriptors', callback=check_descriptors, metavar='MeSH_DESCRIPTORS', nargs=-1)
 # python filter-abstracts.py -i ../data/pubmed_txt -n ../data/nltk_data \
-#        -o ../data/pubmed_relevant -m D005796 D009369 D037102
+#        -o ../data/pubmed_rel -m D005796 D009369 D037102
 def main(i, n, o, descriptors: List[str], m: bool):
     """
-    Filters each .txt file from input directory by MeSH descriptors/keywords.
-    Writes PMID and publication year of relevant articles to corresponding
-    output file.
+    Filter each .txt file from input directory by MeSH descriptors and
+    keywords. nltk data needed to lemmatize keywords before matching. Write
+    PMID and publication year of relevant articles to corresponding output file.
     """
     files_to_parse = glob.glob(join(i, '*.txt'))
     nltk_setup(n)

@@ -2,7 +2,37 @@ import warnings
 from collections import defaultdict
 from SPARQLWrapper import SPARQLWrapper, RDFXML, JSON
 from rdflib import Graph
+from time import sleep
 from typing import Dict, List, Set
+
+
+def get_all_labels(descriptor: str) -> Set[str]:
+    """
+    Return all the labels, preferred and alternate, for specified MeSH descriptor.
+    :param descriptor: MeSH identifier (e.g., 'D009918')
+    :return: set of strings
+    """
+    sparql = SPARQLWrapper("http://id.nlm.nih.gov/mesh/sparql")
+    sparql.setQuery("""
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
+        PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
+        SELECT DISTINCT ?label
+        WHERE {
+            mesh:"""
+                    + descriptor +
+                    """ meshv:preferredTerm ?term .
+                    { mesh:""" + descriptor + """ rdfs:label ?label } UNION
+                    { ?term meshv:altLabel ?label } .
+        }
+        """)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    resultset = set()
+    for result in results["results"]["bindings"]:
+        resultset.add(result["label"]["value"])
+    return resultset
 
 
 def get_descendants(ancestor: str) -> Dict[str, Set[str]]:
@@ -61,33 +91,26 @@ def get_descendants(ancestor: str) -> Dict[str, Set[str]]:
     return dict(descriptor_dict)
 
 
-def get_synonyms(descriptor: str) -> Set[str]:
+def get_preferred_label(descriptor: str) -> str:
     """
-    Return all the labels, preferred and alternate, for specified MeSH descriptor.
-    :param descriptor: MeSH identifier (e.g., 'D009918')
-    :return: set of strings
+    Return preferred label for specified MeSH descriptor.
+    :param   descriptor: MeSH identifier (e.g., 'D009918')
+    :return: preferred label in MeSH for that descriptor
     """
     sparql = SPARQLWrapper("http://id.nlm.nih.gov/mesh/sparql")
     sparql.setQuery("""
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX meshv: <http://id.nlm.nih.gov/mesh/vocab#>
         PREFIX mesh: <http://id.nlm.nih.gov/mesh/>
-        SELECT DISTINCT ?label
+        SELECT DISTINCT ?prefLabel
         WHERE {
-            mesh:"""
-                    + descriptor +
-                    """ meshv:preferredTerm ?term .
-                    { mesh:""" + descriptor + """ rdfs:label ?label } UNION
-                    { ?term meshv:altLabel ?label } .
+            mesh:""" + descriptor + """ rdfs:label ?prefLabel .
         }
         """)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
 
-    resultset = set()
-    for result in results["results"]["bindings"]:
-        resultset.add(result["label"]["value"])
-    return resultset
+    return results["results"]["bindings"][0]["prefLabel"]["value"]
 
 
 def merge_descendants(ancestors: List[str]) -> Dict[str, Set[str]]:
@@ -102,20 +125,41 @@ def merge_descendants(ancestors: List[str]) -> Dict[str, Set[str]]:
     merge_dict = {}
     for descriptor in ancestors:
         merge_dict.update(get_descendants(descriptor))
-        merge_dict[descriptor] = get_synonyms(descriptor)
+        merge_dict[descriptor] = get_all_labels(descriptor)
     return merge_dict
 
 
-def main():
-    # D000238 is for Adenoma, Chromophobe
-    print(get_synonyms('D000238'))
-    # D009369 is for Neoplasm
-    all_descendants = merge_descendants(['D009369'])
+def print_descendants_labels(ancestor: str) -> None:
+    """
+    Print MeSH descriptor, preferred label, and synonyms (if any) for the
+    descriptor passed as parameter and all its descendants.
+    :param ancestor: ancestor MeSH term
+    :return:         None
+    """
+    all_descendants = merge_descendants([ancestor])
     print('\nSize of return set: {}'.format(len(all_descendants)))
-    # Print the descriptors sorted by MeSH identifier
-    for key, value in sorted(all_descendants.items()):
-        print('{}\t'.format(key), end='')
-        print(*sorted(value), sep='; ')
+    # Print the descendants sorted by descriptor
+    for descriptor, synonyms in sorted(all_descendants.items()):
+        sleep(5)  # to avoid NIH wrath for too many queries per second
+        preferred = get_preferred_label(descriptor)
+        synonyms.discard(preferred)
+        print('{}\t{}\t'.format(descriptor, preferred), end='')
+        print(*sorted(synonyms), sep='; ')
+
+
+def main():
+    """
+    Functions that execute SPARQL queries to retrieve preferred label and
+    synonyms for MeSH descriptor ids.
+    """
+    # D000238 is for Adenoma, Chromophobe
+    print(get_all_labels('D000238'))
+    # D000314 is for Adrenal Rest Tumor
+    adrenal = get_preferred_label('D000314')
+    print('Preferred label for D000314 is {}'.format(adrenal))
+    # D009369 is for Neoplasm
+    print_descendants_labels('D009369')
+    print_descendants_labels('D011494')
 
 
 if __name__ == '__main__':

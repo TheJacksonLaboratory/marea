@@ -11,5 +11,5 @@ module load singularity
 singularity exec marea_python.sif python ../scripts/pubtate.py -i /projects/robinson-lab/marea/pubtator
 
 singularity exec marea_python.sif python ../scripts/replace_concepts.py \
--p /projects/robinson-lab/marea/pubtator/bioconcepts2pubtatorcentral.replaced \
--r /projects/robinson-lab/marea/data/pubmed_rel -o /projects/robinson-lab/marea/data/pubmed_cr
+-p /projects/robinson-lab/marea/pubtator -r /projects/robinson-lab/marea/data/pubmed_rel \
+-o /projects/robinson-lab/marea/data/pubmed_cr

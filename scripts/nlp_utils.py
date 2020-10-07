@@ -1,4 +1,5 @@
 import nltk
+from nltk.corpus import stopwords
 from os import makedirs
 from os.path import abspath
 
@@ -13,3 +14,9 @@ def nltk_setup(data_dir: str) -> None:
     except ValueError:
         raise SystemExit('nltk_setup: Error downloading nltk data to {}'.format(data_dir))
     nltk.data.path.append(abspath(data_dir))
+
+
+def remove_stop_words(phrase: str) -> str:
+    """ Remove stop words from input string, return resulting string."""
+    word_list = nltk.word_tokenize(phrase)
+    return ''.join([w for w in word_list if w not in stopwords.words('english')])

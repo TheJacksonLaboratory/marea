@@ -7,8 +7,11 @@ from os.path import basename, join
 from typing import Dict
 
 from filter_abstracts import PMID_INDEX, PUBYEAR_INDEX
+from nlp_utils import nltk_setup
 from pubtate import REPLACED_FILENAME
+
 OUT_FILENAME = 'pubmed_cr.tsv'
+
 
 def make_relevant_dict(rel_dir) -> Dict[str, str]:
     """
@@ -59,19 +62,22 @@ def select_articles(pubtator_file, out_dir, relevant: Dict[str, str]) -> None:
               help='directory of pubtator file with concepts replaced')
 @click.option('-r', type=click.Path(exists=True), required=True,
               help='directory of relevant abstracts')
+@click.option('-n', type=click.Path(), required=True, help='directory for nltk data')
 @click.option('-o', type=click.Path(), required=True, help='output directory')
 # python replace_concepts.py -p ../data/pubtator -r ../data/pubmed_rel \
-#        -o ../data/pubmed_cr
-def main(p, r, o):
+#        -n ../data/nltk_data -o ../data/pubmed_cr
+def main(p, r, n, o):
     """
     Extract relevant articles from pre-computed file of PubMed titles and
     abstracts with Pubtator Central concept replacements.
     :param p: path to file containing PubMed titles and abstracts with concept ids
     :param r: directory containing files of PMID, publication year for relevant articles
+    :param n: directory containing nltk data
     :param o: directory for output file of relevant articles with concept replacements
     :return: None
     """
     makedirs(o, exist_ok=True)
+    nltk_setup(n)
     rel_dict = make_relevant_dict(r)
     select_articles(join(p, REPLACED_FILENAME), o, rel_dict)
 

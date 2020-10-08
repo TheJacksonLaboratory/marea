@@ -1,5 +1,6 @@
 import click
 import glob
+import nlp_utils as nl
 import re
 
 from os import makedirs
@@ -7,7 +8,6 @@ from os.path import basename, join
 from typing import Dict
 
 from filter_abstracts import PMID_INDEX, PUBYEAR_INDEX
-from nlp_utils import nltk_setup
 from pubtate import REPLACED_FILENAME
 
 OUT_FILENAME = 'pubmed_cr.tsv'
@@ -52,7 +52,7 @@ def select_articles(pubtator_file, out_dir, relevant: Dict[str, str]) -> None:
                     abstract = m.group(2)
                     if pmid in relevant:
                         outfile.write('{}\t{}\t{}\n'.format(
-                            pmid, relevant[pmid], abstract))
+                            pmid, relevant[pmid], nl.remove_stop_words(abstract)))
                 else:
                     raise ValueError('Unexpected format in pubtator file:\n{}'.format(line))
 
@@ -77,7 +77,7 @@ def main(p, r, n, o):
     :return: None
     """
     makedirs(o, exist_ok=True)
-    nltk_setup(n)
+    nl.nltk_setup(n)
     rel_dict = make_relevant_dict(r)
     select_articles(join(p, REPLACED_FILENAME), o, rel_dict)
 

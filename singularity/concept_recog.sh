@@ -12,4 +12,4 @@ singularity exec marea_python.sif python ../scripts/pubtate.py -i /projects/robi
 
 singularity exec marea_python.sif python ../scripts/replace_concepts.py \
 -p /projects/robinson-lab/marea/pubtator -r /projects/robinson-lab/marea/data/pubmed_rel \
--o /projects/robinson-lab/marea/data/pubmed_cr
+-n /projects/robinson-lab/marea/data/nltk_data -o /projects/robinson-lab/marea/data/pubmed_cr

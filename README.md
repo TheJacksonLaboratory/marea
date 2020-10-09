@@ -141,16 +141,20 @@ python pubtate.py -i ../data -o ../data/pubtator
 ```
 The output directory is optional and will default to the input directory.
 
-For each article that was judged relevant in step 4, _scripts/replace_concepts.py_ writes to its
-output file the PMID, publication date, title and abstract (after concept replacement). _replace_concepts.py_
-removes stop words (as defined by **nltk**) from the title and abstract. It also deletes any hyphen that appears
-at the start or the end of a word (for example, '-induced' will become 'induced'). These odd tokens arise
-when half of a compound word gets replaced by a concept identifier. Command line
-option _-p_ specifies the directory containing the _bioconcepts2pubtatorcentral.replaced_ file
-written by _pubtate.py_.
+_scripts/replace_concepts.py_ takes as input the file produced by _pubtate.py_ and selects those articles
+that were labeled relevant by _filter_abstracts.py_ (step 4). _replace_concepts.py_ postprocesses the text
+into which _pubtate.py_ has inserted concept identifiers. _replace_concepts.py_ removes stop words (as
+defined by **nltk**) from the title and abstract. It also deletes any hyphen that appears
+at the start or at the end of a word (for example, '-induced' becomes 'induced'). These odd tokens arise
+when half of a compound word gets replaced by a concept identifier. _replace_concepts.py_ writes to its
+output file the PMID, publication date, and modified title and abstract for each relevant article.
+
+_replace_concepts.py_ takes four command line options. The command line option _-p_ specifies the directory
+containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_.
 Option _-r_ specifies the directory containing files of relevant articles produced by _filter_abstracts.py_.
 Option _-n_ specifies the directory where **nltk** data have been downloaded.
 Option _-o_ specifies the output directory where _replace_concepts.py_ writes its output file _pubmed_cr.tsv_.
+Example usage:
 ```
 python replace_concepts.py -p ../data/pubtator -r ../data/pubmed_rel \
                            -n ../data/nltk_data -o ../data/pubmed_cr

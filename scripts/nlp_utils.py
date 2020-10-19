@@ -23,7 +23,14 @@ def remove_stop_words(phrase: str) -> str:
     Tokenize input string and remove stop words. For any word that begins or
     ends with a hyphen, remove the hyphen. Glue the remaining tokens back
     together, separated by spaces. Note that word_tokenize adds space around
-    punctuation, parentheses, and brackets.
+    punctuation, parentheses, and brackets. nltk has only lowercase stop
+    words on its list. If any stop word appears at the start of a sentence,
+    it will not be removed because of the initial capital letter. I did not
+    want to make the entire input lowercase because then scientific or
+    medical abbreviations written in capital letters could be mistaken for
+    stop words (e.g., ALL for acute lymphocytic leukemia or WAS for Wiskott
+    Aldrich syndrome). One solution would be to add capitalized pronouns and
+    prepositions to the stop word list.
     """
     word_list = nltk.word_tokenize(phrase)
     return ' '.join([remove_edge_hyphen(w) for w in word_list

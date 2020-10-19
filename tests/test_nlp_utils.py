@@ -28,6 +28,25 @@ class NlpUtilsTestCase(unittest.TestCase):
                          'separation bound free NCBIGene106478911 , ',
                          'respectively , MESHD013196 .'])
         self.assertEqual(after, nl.remove_stop_words(before))
+        before = ''.join(['Outcomes of unrelated cord blood transplantation in ',
+                          'pediatric recipients. We report results of unrelated',
+                          'cord blood transplants (UCBT) in 29 pediatric ',
+                          'recipients in one center and the risk factors ',
+                          'associated with survival. Median age: 9 years ',
+                          '(0.5-20); diagnosis: ALL (9), MESHD015470 (4), ',
+                          'MESHD015464 (1), MESHD006816 (3), HLH (1), ',
+                          'MESHD008228 (3), NCBIGene9253 (2); B-thal (1), ',
+                          'FA (1), FEL (1), Krabbe (1), WAS (1), SAA (1).'])
+        after = ''.join(['Outcomes unrelated cord blood transplantation ',
+                         'pediatric recipients . We report results unrelated',
+                         'cord blood transplants ( UCBT ) 29 pediatric ',
+                         'recipients one center risk factors ',
+                         'associated survival . Median age : 9 years ',
+                         '( 0.5-20 ) ; diagnosis : ALL ( 9 ) , MESHD015470 ( 4 ) , ',
+                         'MESHD015464 ( 1 ) , MESHD006816 ( 3 ) , HLH ( 1 ) , ',
+                         'MESHD008228 ( 3 ) , NCBIGene9253 ( 2 ) ; B-thal ( 1 ) , ',
+                         'FA ( 1 ) , FEL ( 1 ) , Krabbe ( 1 ) , WAS ( 1 ) , SAA ( 1 ) .'])
+        self.assertEqual(after, nl.remove_stop_words(before))
 
     def test_remove_edge_hyphen(self):
         self.assertEqual('REP-b', nl.remove_edge_hyphen('-REP-b'))

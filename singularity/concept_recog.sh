@@ -10,6 +10,6 @@ module load singularity
 
 singularity exec marea_python.sif python ../scripts/pubtate.py -i /projects/robinson-lab/marea/pubtator
 
-singularity exec marea_python.sif python ../scripts/replace_concepts.py \
+singularity exec marea_python.sif python ../scripts/post-process.py \
 -p /projects/robinson-lab/marea/pubtator -r /projects/robinson-lab/marea/data/pubmed_rel \
--n /projects/robinson-lab/marea/data/nltk_data -o /projects/robinson-lab/marea/data/pubmed_cr
+-n /projects/robinson-lab/marea/data/nltk_data -o /projects/robinson-lab/marea/data/pubmed_cr/current

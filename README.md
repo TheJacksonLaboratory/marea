@@ -141,22 +141,22 @@ python pubtate.py -i ../data -o ../data/pubtator
 ```
 The output directory is optional and will default to the input directory.
 
-_scripts/replace_concepts.py_ takes as input the file produced by _pubtate.py_ and selects those articles
-that were labeled relevant by _filter_abstracts.py_ (step 4). _replace_concepts.py_ postprocesses the text
-into which _pubtate.py_ has inserted concept identifiers. _replace_concepts.py_ removes stop words (as
+_scripts/post_process.py_ takes as input the file produced by _pubtate.py_ and selects those articles
+that were labeled relevant by _filter_abstracts.py_ (step 4). _post_process.py_ post-processes the text
+into which _pubtate.py_ has inserted concept identifiers. _post_process.py_ removes stop words (as
 defined by **nltk**) from the title and abstract. It also deletes any hyphen that appears
 at the start or at the end of a word (for example, '-induced' becomes 'induced'). These odd tokens arise
-when half of a compound word gets replaced by a concept identifier. _replace_concepts.py_ writes to its
+when half of a compound word gets replaced by a concept identifier. _post_process.py_ writes to its
 output file the PMID, publication date, and modified title and abstract for each relevant article.
 
-_replace_concepts.py_ takes four command line options. The command line option _-p_ specifies the directory
+_post_process.py_ takes four command line options. The command line option _-p_ specifies the directory
 containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_.
 Option _-r_ specifies the directory containing files of relevant articles produced by _filter_abstracts.py_.
 Option _-n_ specifies the directory where **nltk** data have been downloaded.
-Option _-o_ specifies the output directory where _replace_concepts.py_ writes its output file _pubmed_cr.tsv_.
+Option _-o_ specifies the output directory where _post_process.py_ writes its output file _pubmed_cr.tsv_.
 Example usage:
 ```
-python replace_concepts.py -p ../data/pubtator -r ../data/pubmed_rel \
+python post_process.py -p ../data/pubtator -r ../data/pubmed_rel \
                            -n ../data/nltk_data -o ../data/pubmed_cr
 ```
 
@@ -169,11 +169,12 @@ marea
 │   ├── filter_abstracts.py
 │   ├── my_lemmatizer.py
 │   ├── nlp_utils.py
+│   ├── post_process.py
 │   ├── pubtate.py
 │   ├── query_mesh.py
-│   ├── replace_concepts.py
 │   ├── retrieve_pubmed_files.py
 │   ├── retrieve_pubmed_names.py
+│   ├── text_post_processor.py
 │   └── xml2txt.py
 └── singularity
     ├── concept_recog.sh

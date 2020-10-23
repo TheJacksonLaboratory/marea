@@ -1,6 +1,4 @@
 import nltk
-import re
-from nltk.corpus import stopwords
 from os import makedirs
 from os.path import abspath
 
@@ -16,39 +14,3 @@ def nltk_setup(data_dir: str) -> None:
     except ValueError:
         raise SystemExit('nltk_setup: Error downloading nltk data to {}'.format(data_dir))
     nltk.data.path.append(abspath(data_dir))
-
-
-def remove_stop_words(phrase: str) -> str:
-    """
-    Tokenize input string and remove stop words. For any word that begins or
-    ends with a hyphen, remove the hyphen. Glue the remaining tokens back
-    together, separated by spaces. Note that word_tokenize adds space around
-    punctuation, parentheses, and brackets. nltk has only lowercase stop
-    words on its list. If any stop word appears at the start of a sentence,
-    it will not be removed because of the initial capital letter. I did not
-    want to make the entire input lowercase because then scientific or
-    medical abbreviations written in capital letters could be mistaken for
-    stop words (e.g., ALL for acute lymphocytic leukemia or WAS for Wiskott
-    Aldrich syndrome). One solution would be to add capitalized pronouns and
-    prepositions to the stop word list.
-    """
-    word_list = nltk.word_tokenize(phrase)
-    return ' '.join([remove_edge_hyphen(w) for w in word_list
-                     if w not in stopwords.words('english')])
-
-
-def remove_edge_hyphen(token: str) -> str:
-    """
-    Check whether token begins with a hyphen followed by a letter, or
-    ends with a letter followed by a hyphen. If so, remove the hyphen
-    and return the rest of the token. Examples:
-    -induced -> induced
-    anti- -> anti
-    """
-    m = re.match(r'^-[a-z]', token, re.IGNORECASE)
-    if m:
-        token = token.lstrip('-')
-    m = re.search(r'[a-z]-$', token, re.IGNORECASE)
-    if m:
-        token = token.rstrip('-')
-    return token

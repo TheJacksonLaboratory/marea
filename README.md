@@ -142,13 +142,8 @@ python pubtate.py -i ../data -o ../data/pubtator
 The output directory is optional and will default to the input directory.
 
 _scripts/post_process.py_ takes as input the file produced by _pubtate.py_ and selects those articles
-that were labeled relevant by _filter_abstracts.py_ (step 4). _post_process.py_ post-processes the text
-into which _pubtate.py_ has inserted concept identifiers. _post_process.py_ removes stop words (as
-defined by **nltk**) from the title and abstract. It also deletes any hyphen that appears
-at the start or at the end of a word (for example, '-induced' becomes 'induced'). These odd tokens arise
-when half of a compound word gets replaced by a concept identifier. _post_process.py_ writes to its
-output file the PMID, publication date, and modified title and abstract for each relevant article.
-
+that were labeled relevant by _filter_abstracts.py_ (step 4). The script post-processes the text
+into which _pubtate.py_ has inserted concept identifiers.
 _post_process.py_ takes four command line options. The command line option _-p_ specifies the directory
 containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_.
 Option _-r_ specifies the directory containing files of relevant articles produced by _filter_abstracts.py_.
@@ -157,8 +152,14 @@ Option _-o_ specifies the output directory where _post_process.py_ writes its ou
 Example usage:
 ```
 python post_process.py -p ../data/pubtator -r ../data/pubmed_rel \
-                           -n ../data/nltk_data -o ../data/pubmed_cr
+                          -n ../data/nltk_data -o ../data/pubmed_cr
 ```
+ _post_process.py_ removes stop words (as defined by **nltk**), whether lowercase or capitalized,
+from the title and abstract. Uppercase acronyms, even those that coincide with stop words, are not
+changed. Post-processing also removes the possessive ending _'s_ and deletes any hyphen that appears 
+at the start or at the end of a word (for example, '-induced' becomes 'induced'). These odd tokens arise
+when half of a compound word gets replaced by a concept identifier. _post_process.py_ writes to its
+output file the PMID, publication date, and modified title and abstract for each relevant article.
 
 ### 6. Run pipeline on HPC
 Copy the processing pipeline scripts to the HPC file system, preserving the directory structure.

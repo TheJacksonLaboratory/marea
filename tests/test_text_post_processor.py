@@ -62,6 +62,13 @@ class TextPostProcessorTestCase(unittest.TestCase):
                           '. first randomized blinded study thymectomy '
                           'MESHD009157 designed answer 3 questions .'])
         self.assertEqual(after, TextPostProcessor.remove_stop_words(before))
+        before = ''.join(['A side effect of  NCBIGene1440 -mild  MESHD010146',
+                          ' -was observed in one patient, but it was ',
+                          'tolerable.'])
+        after = ''.join(['side effect NCBIGene1440 mild MESHD010146',
+                         ' observed one patient , ',
+                         'tolerable .'])
+        self.assertEqual(after, TextPostProcessor.remove_stop_words(before))
 
     def test_remove_edge_hyphen(self):
         self.assertEqual('REP-b', TextPostProcessor.remove_edge_hyphen('-REP-b'))

@@ -28,19 +28,20 @@ class TextPostProcessor:
     @classmethod
     def remove_stop_words(cls, phrase: str) -> str:
         """
-        Tokenize input string and remove stop words. For any word that begins or
-        ends with a hyphen, remove the hyphen. Glue the remaining tokens back
-        together, separated by spaces. Note that word_tokenize adds space around
-        punctuation, parentheses, and brackets. nltk has only lowercase stop
-        words on its list. The lowercase_first function handles the situation
-        where a stop word appears at the beginning of a sentence. I did not
-        want to make the entire input lowercase because then scientific or
-        medical abbreviations written in capital letters could be mistaken for
-        stop words (e.g., ALL for acute lymphocytic leukemia or WAS for Wiskott
+        Tokenize input string and remove stop words. For any word that begins
+        or ends with a hyphen, remove the hyphen before checking it against
+        the stop words. Glue the remaining tokens back together, separated by
+        spaces. Note that word_tokenize adds space around punctuation,
+        parentheses, and brackets. nltk has only lowercase stop words on its
+        list. The lowercase_first function handles the situation where a stop
+        word appears at the beginning of a sentence. I did not want to make
+        the entire input lowercase because then scientific or medical
+        abbreviations written in capital letters could be mistaken for stop
+        words (e.g., ALL for acute lymphocytic leukemia or WAS for Wiskott
         Aldrich syndrome).
         """
         word_list = nltk.word_tokenize(phrase)
-        return ' '.join([cls.remove_edge_hyphen(w) for w in word_list
+        return ' '.join([w for w in map(cls.remove_edge_hyphen, word_list)
                          if cls.lowercase_first(w) not in
                          TextPostProcessor.my_stop_words])
 

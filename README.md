@@ -44,9 +44,14 @@ For example,
 ```
 python retrieve_pubmed_names.py -d ../data
 ```
-Next, run _scripts/retrieve_pubmed_files.py_ to download the files listed in the previous step. As before,
-the _-d_ command line option specifies the directory containing _medline_ftp_links.txt_. The _-x_ option specifies
-the directory to which the gzipped _.xml_ files of PubMed article abstracts and metadata should be downloaded.
+Next, run _scripts/retrieve_pubmed_files.py_ to download the files listed in the previous step.
+_retrieve_pubmed_files.py_ takes two command line options.
+
+option | meaning
+-------|---------------------------
+_-d_ |  directory containing _medline_ftp_links.txt_
+_-x_ |  directory to which the gzipped _.xml_ files of PubMed article abstracts and metadata should be downloaded
+
 For example,
 ```
 python retrieve_pubmed_files.py -d ../data/ -x ../data/pubmed_xml/
@@ -62,15 +67,19 @@ formatting, and writes the result to a text file. The fields of interest are:
 * keywords (if any)
 * abstract (if any)
 
-_xml2txt.py_ takes two command line options. The _-x_ option specifies the directory containing the
-gzipped _.xml_ files downloaded in step 2. The _-t_ option names the directory for the text files produced by 
-_xml2txt.py_. There will be one _.txt_ output file for each _.xml.gz_ input file, sharing the filename.
+_xml2txt.py_ takes two command line options. 
+
+option | meaning
+-------|---------------------------
+_-x_ |  directory containing gzipped _.xml_ files downloaded in step 2
+_-t_ |  directory for text files produced by _xml2txt.py_
+
 For example,
 ```
 python xml2txt.py -x ../data/pubmed_xml -t ../data/pubmed_txt
 ```
 The _-t_ directory is optional; if absent, the _.txt_ files are written to the directory that already contains
-_.xml.gz_ files.
+_.xml.gz_ files. There will be one _.txt_ output file for each _.xml.gz_ input file, sharing the filename.
 
 ### 4. Select relevant articles from .txt files
 _scripts/filter_abstracts.py_ filters the _.txt_ file to select articles that are relevant according to
@@ -98,13 +107,18 @@ in the output file. (The abstract is recovered from the Pubtator Central offset 
 For an input named _pubmed20n1014.txt_, the corresponding output file is named
 _pubmed20n1014_relevant.tsv_.
 
-_filter_abstracts.py_ has five command line parameters. The _-i_ option specifies the directory containing the
-text files produced in step 3. The _-o_ option names the directory for the _.tsv_ files written by 
-_filter_abstracts.py_. The _-n_ option specifies the directory where **nltk** data should be downloaded.
-_-m_ is the optional flag that limits the search to major topic MeSH
-descriptors only. At the end of the command line is the list of MeSH descriptors that designate relevant
-categories. These should be high-level descriptors; the software automatically includes all their subcategories in
-the search. For example,
+_filter_abstracts.py_ has four command line options. 
+
+option | meaning
+-------|---------------------------
+_-i_ |  directory containing text files produced in step 3
+_-o_ |  directory for _.tsv_ files written by _filter_abstracts.py_
+_-n_ |  directory where **nltk** data should be downloaded
+_-m_ |  optional flag that limits the search to major topic MeSH descriptors only
+
+Following these options, at the end of the
+command line is the list of MeSH descriptors that designate relevant categories. These should be high-level
+descriptors; the software automatically includes all their subcategories in the search. For example,
 ```
 python filter_abstracts.py -m -i ../data/pubmed_txt -n ../data/nltk_data \
                            -o ../data/pubmed_rel D005796 D009369 D037102
@@ -132,27 +146,37 @@ Each concept replacement line includes the concept category and concept identifi
 offsets (in characters) of the text to be replaced by that concept identifier. Unzip 
 _bioconcepts2pubtatorcentral.offset.gz_ before running _scripts/pubtate.py_.
 
-_pubtate.py_ takes two command line options. The _-i_ option indicates the directory containing the
-Pubtator Central offset file.  _pubtate.py_ applies all the offset file's
-concept replacements to the title and abstract of each article and writes them to
-_bioconcepts2pubtatorcentral.replaced_ in the directory specified by the _-o_ option. For example,
+_scripts/pubtate.py_ applies all the offset file's concept replacements to the title and abstract 
+of each article and writes them to _bioconcepts2pubtatorcentral.replaced_.
+_pubtate.py_ takes two command line options. 
+
+option | meaning
+-------|---------------------------
+_-i_ |  directory containing Pubtator Central offset file
+_-o_ |  directory for output _bioconcepts2pubtatorcentral.replaced_
+
+For example,
 ```
 python pubtate.py -i ../data -o ../data/pubtator
 ```
 The output directory is optional and will default to the input directory.
 
 _scripts/post_process.py_ takes as input the file produced by _pubtate.py_ and selects those articles
-that were labeled relevant by _filter_abstracts.py_ (step 4). The script post-processes the text
+that were labeled relevant by _filter_abstracts.py_ (step 4). _post_process.py_ cleans up the text
 into which _pubtate.py_ has inserted concept identifiers.
-_post_process.py_ takes four command line options. The command line option _-p_ specifies the directory
-containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_.
-Option _-r_ specifies the directory containing files of relevant articles produced by _filter_abstracts.py_.
-Option _-n_ specifies the directory where **nltk** data have been downloaded.
-Option _-o_ specifies the output directory where _post_process.py_ writes its output file _pubmed_cr.tsv_.
-Example usage:
+_post_process.py_ takes four command line options.
+
+option | meaning
+-------|---------------------------
+_-p_ |  directory containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_
+_-r_ |  directory containing files of relevant articles produced by _filter_abstracts.py_
+_-n_ |  directory where **nltk** data have been downloaded
+_-o_ |  directory where _post_process.py_ writes its output file _pubmed_cr.tsv_
+
+For example,
 ```
 python post_process.py -p ../data/pubtator -r ../data/pubmed_rel \
-                          -n ../data/nltk_data -o ../data/pubmed_cr
+                       -n ../data/nltk_data -o ../data/pubmed_cr
 ```
  _post_process.py_ removes stop words (as defined by **nltk**), whether lowercase or capitalized,
 from the title and abstract. Uppercase acronyms, even those that coincide with stop words, are not
@@ -186,8 +210,8 @@ marea
 ```
 _marea_python.sh_ builds a singularity container _marea_python.sif_ from _marea_python.def_ with the latest
 version of python and other requirements listed in step 1. _download.sh_ downloads from NCBI the gzipped
-_.xml_ files for PubMed articles. _filter.sh_ extracts _.txt_ files from the _.xml_ and then identifies
-relevant articles according to the specified MeSH descriptors (as explained in step 4). _concept_recog.sh_
+_.xml_ files for PubMed articles (step 2). _filter.sh_ extracts _.txt_ files from the _.xml_ (step 3) and
+then identifies relevant articles according to the specified MeSH descriptors (step 4). _concept_recog.sh_
 consumes the concept recognition information from Pubtator Central to replace text with concept identifiers
 in the titles and abstracts of relevant articles (step 5).
 

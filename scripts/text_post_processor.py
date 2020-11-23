@@ -9,12 +9,15 @@ POST_HYPHEN = re.compile(r'[a-z]-$', re.IGNORECASE)
 
 class TextPostProcessor:
 
-    my_stop_words = set()
+    my_stop_words = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+                     'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+                     'w', 'x', 'y', 'z', "'s", 'also', 'could', 'furthermore',
+                     'however', 'may', 'might', 'thus', 'whose', 'within',
+                     'without', 'would'}
 
     def __init__(self, data_dir: str):
         nltk_setup(data_dir)
         TextPostProcessor.my_stop_words.update(stopwords.words('english'))
-        TextPostProcessor.my_stop_words.add("'s")
 
     @staticmethod
     def lowercase_first(token: str) -> str:

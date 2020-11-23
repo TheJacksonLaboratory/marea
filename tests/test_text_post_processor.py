@@ -58,9 +58,9 @@ class TextPostProcessorTestCase(unittest.TestCase):
                           '. The first randomized blinded study of thymectomy '
                           'in MESHD009157 was designed to answer 3 questions.'])
         after = ''.join(["Neurologist Perspective Thymectomy ",
-                          'MESHD009157 : Current Perspective Future Trials '
-                          '. first randomized blinded study thymectomy '
-                          'MESHD009157 designed answer 3 questions .'])
+                         'MESHD009157 : Current Perspective Future Trials '
+                         '. first randomized blinded study thymectomy '
+                         'MESHD009157 designed answer 3 questions .'])
         self.assertEqual(after, TextPostProcessor.remove_stop_words(before))
         before = ''.join(['A side effect of  NCBIGene1440 -mild  MESHD010146',
                           ' -was observed in one patient, but it was ',
@@ -68,6 +68,21 @@ class TextPostProcessorTestCase(unittest.TestCase):
         after = ''.join(['side effect NCBIGene1440 mild MESHD010146',
                          ' observed one patient , ',
                          'tolerable .'])
+        self.assertEqual(after, TextPostProcessor.remove_stop_words(before))
+        before = ''.join(['RESULTS: High levels of NCBIGene4137 -A and ',
+                          'NCBIGene4137 -C (above the median) in blood were ',
+                          'associated with lower risk of MESHD003704 and '
+                          'MESHD000544 ( NCBIGene4137 -A: MESHD003704 [95% ',
+                          'CI] = 0.85[0.70-1.04]; MESHD000544 0.71[0.52-0.98]',
+                          'and NCBIGene4137 -C: Dementia 0.84[0.70-1.00]; ',
+                          'MESHD000544 0.78[0.60-1.03]).'])
+        after = ''.join(['RESULTS : High levels NCBIGene4137 ',
+                         'NCBIGene4137 ( median ) blood ',
+                         'associated lower risk MESHD003704 '
+                         'MESHD000544 ( NCBIGene4137 : MESHD003704 [ 95 % CI ]',
+                         ' = 0.85 [ 0.70-1.04 ] ; MESHD000544 0.71 [ 0.52-0.98',
+                         ' ] NCBIGene4137 : Dementia 0.84 [ 0.70-1.00 ] ; ',
+                         'MESHD000544 0.78 [ 0.60-1.03 ] ) .'])
         self.assertEqual(after, TextPostProcessor.remove_stop_words(before))
 
     def test_remove_edge_hyphen(self):

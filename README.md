@@ -178,9 +178,10 @@ For example,
 python post_process.py -p ../data/pubtator -r ../data/pubmed_rel \
                        -n ../data/nltk_data -o ../data/pubmed_cr
 ```
- _post_process.py_ removes stop words (as defined by **nltk**), whether lowercase or capitalized,
-from the title and abstract. Uppercase acronyms of length ≥ 2, even those that coincide with
-stop words, are not changed.
+ _post_process.py_ removes stop words, whether lowercase or capitalized, from the title and abstract.
+Uppercase acronyms of length ≥ 2, even those that coincide with stop words, are not changed.
+__marea__ starts with the **nltk** stop word list for English and adds some new stop words. Any letter of the
+alphabet that occurs as a single-character token is a stop word. 
 Post-processing also removes the possessive ending _'s_ and deletes any hyphen that appears
 at the start or at the end of a word (for example, '-induced' becomes 'induced'). These odd tokens arise
 when half of a compound word gets replaced by a concept identifier. _post_process.py_ writes to its

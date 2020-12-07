@@ -37,24 +37,18 @@ of steps 2-5 below can be run in the singularity container on the high performan
 scripts listed in step 6.
 
 ### 2. Download .xml files
-First, create the list of PubMed files to be downloaded from NCBI. Run _scripts/retrieve_pubmed_names.py_
-to obtain the file _medline_ftp_links.txt_ in the directory specified on the command line with the _-d_ option.
-The output directory will be created if it does not already exist (true for all the __marea__ scripts).
-For example,
-```
-python retrieve_pubmed_names.py -d ../data
-```
-Next, run _scripts/retrieve_pubmed_files.py_ to download the files listed in the previous step.
-_retrieve_pubmed_files.py_ takes two command line options.
+_scripts/retrieve_pubmed_files.py_ downloads the PubMed files from NCBI. These are gzipped _.xml_ files
+containing article titles, abstracts, and metadata.
+_retrieve_pubmed_files.py_ takes one command line option, the output directory. This directory
+will be created if it does not already exist (true for all the __marea__ scripts).
 
 option | meaning
 -------|---------------------------
-_-d_ |  directory containing _medline_ftp_links.txt_
-_-x_ |  directory to which the gzipped _.xml_ files of PubMed article abstracts and metadata should be downloaded
+_-x_ |  directory to which gzipped _.xml_ files of PubMed articles should be downloaded
 
 For example,
 ```
-python retrieve_pubmed_files.py -d ../data/ -x ../data/pubmed_xml/
+python retrieve_pubmed_files.py -x ../data/pubmed_xml/
 ```
 
 ### 3. Extract .txt from .xml
@@ -200,7 +194,6 @@ marea
 │   ├── pubtate.py
 │   ├── query_mesh.py
 │   ├── retrieve_pubmed_files.py
-│   ├── retrieve_pubmed_names.py
 │   ├── text_post_processor.py
 │   └── xml2txt.py
 └── singularity

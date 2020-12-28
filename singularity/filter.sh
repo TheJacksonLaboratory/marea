@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --ntasks=1
 #SBATCH --qos=batch
-#SBATCH --time=23:00:00
+#SBATCH --time=48:00:00
 #SBATCH --mem-per-cpu=10G
 #SBATCH --mail-user=hannah.blau@jax.org
 #SBATCH --mail-type=END,FAIL

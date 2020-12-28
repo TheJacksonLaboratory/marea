@@ -135,6 +135,10 @@ is to download _bioconcepts2pubtatorcentral.offset.gz_ from the Pubtator Central
 ```
 ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTatorCentral
 ```
+__Nota bene:__ In late November 2020, Pubtator Central stopped publishing the
+_bioconcepts2pubtatorcentral.offset.gz_ file. This change will necessitate an overhaul of
+the concept replacement code in __marea__. Alternate solution TBD.
+
 The offset file contains the title and abstract for every PubMed article and a list of concept replacements.
 Each concept replacement line includes the concept category and concept identifier along with the start and end
 offsets (in characters) of the text to be replaced by that concept identifier. Unzip 

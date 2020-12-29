@@ -55,7 +55,7 @@ def select_articles(pubtator_file, nltk_dir, out_dir,
                     abstract = m.group(2)
                     if pmid in relevant:
                         outfile.write('{}\t{}\t{}\n'.format(
-                            pmid, relevant[pmid], tpp.remove_stop_words(abstract)))
+                            pmid, relevant[pmid], tpp.process_phrase(abstract)))
                 else:
                     raise ValueError('Unexpected format in pubtator file:\n{}'.format(line))
 

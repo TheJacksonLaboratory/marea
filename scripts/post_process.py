@@ -82,6 +82,7 @@ def main(p, r, n, o):
     makedirs(o, exist_ok=True)
     rel_dict = make_relevant_dict(r)
     select_articles(join(p, REPLACED_FILENAME), n, o, rel_dict)
+    click.echo('Highest relevant PMID is {}'.format(max(rel_dict.keys(), key=int)))
 
 
 if __name__ == '__main__':

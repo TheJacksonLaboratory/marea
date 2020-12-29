@@ -2,6 +2,7 @@ import nltk
 import re
 from nlp_utils import nltk_setup
 from nltk.corpus import stopwords
+from string import ascii_lowercase, punctuation
 
 PRE_HYPHEN = re.compile(r'^-[a-z]', re.IGNORECASE)
 POST_HYPHEN = re.compile(r'[a-z]-$', re.IGNORECASE)
@@ -9,11 +10,9 @@ POST_HYPHEN = re.compile(r'[a-z]-$', re.IGNORECASE)
 
 class TextPostProcessor:
 
-    my_stop_words = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-                     'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-                     'w', 'x', 'y', 'z', "'s", 'also', 'could', 'furthermore',
-                     'however', 'may', 'might', 'thus', 'whose', 'within',
-                     'without', 'would'}
+    my_stop_words = set(ascii_lowercase) | set(punctuation) | \
+                    {"'s", 'also', 'could', 'furthermore', 'however', 'may',
+                     'might', 'thus', 'whose', 'within', 'without', 'would'}
 
     def __init__(self, data_dir: str):
         nltk_setup(data_dir)

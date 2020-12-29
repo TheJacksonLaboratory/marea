@@ -95,7 +95,7 @@ def find_relevant_abstracts(in_file, out_path, major_topic: bool,
                        search_dict.values() for elt in subset}
     with click.open_file(in_file) as unfiltered_file:
         outfile_path = join(out_path,
-                            basename(in_file).replace('.txt', '_relevant.tsv'))
+                            basename(in_file).replace('.txt', '_rel.tsv'))
         with click.open_file(outfile_path, 'w') as filtered_file:
             for line in unfiltered_file:
                 segments = line.split('##')

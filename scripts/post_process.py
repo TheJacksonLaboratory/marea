@@ -52,12 +52,17 @@ def select_articles(pubtator_file, nltk_dir, out_dir,
                 m = pattern.match(line)
                 if m:
                     pmid = m.group(1)
-                    abstract = m.group(2)
+                    title_abstract = m.group(2)
                     if pmid in relevant:
-                        outfile.write('{}\t{}\t{}\n'.format(
-                            pmid, relevant[pmid], tpp.process_phrase(abstract)))
+                        cleaned_up = tpp.process_phrase(title_abstract)
+                        # in case the title+abstract consists solely of
+                        # punctuation and stop words, check the length
+                        if cleaned_up != '':
+                            outfile.write('{}\t{}\t{}\n'.format(
+                              pmid, relevant[pmid], cleaned_up))
                 else:
-                    raise ValueError('Unexpected format in pubtator file:\n{}'.format(line))
+                    raise ValueError('Unexpected format in pubtator file:\n{}'.
+                                     format(line))
 
 
 @click.command()

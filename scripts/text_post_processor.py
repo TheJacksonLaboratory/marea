@@ -10,8 +10,9 @@ class TextPostProcessor:
     # my_stop_words = set(ascii_lowercase) | set(punctuation) | \
     #                 {"'s", 'also', 'could', 'furthermore', 'however', 'may',
     my_stop_words = set(ascii_lowercase) | \
-                    {'also', 'could', 'furthermore', 'however', 'may',
-                     'might', 'thus', 'whose', 'within', 'without', 'would'}
+                    {'also', 'cannot', 'could', 'furthermore', 'however',
+                     'may',  'might', 'thus', 'whose', 'within', 'without',
+                     'would'}
 
     def __init__(self, data_dir: str):
         nltk_setup(data_dir)

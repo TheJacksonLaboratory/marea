@@ -167,6 +167,7 @@ def main(i, n, o, descriptors: List[str], m: bool):
     PMID and publication year of relevant articles to corresponding output file.
     """
     files_to_parse = glob.glob(join(i, '*.txt'))
+    files_to_parse.sort()
     nltk_setup(n)
     makedirs(o, exist_ok=True)
     mesh_dict = merge_descendants(descriptors)

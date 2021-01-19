@@ -88,12 +88,18 @@ def text_from_xml(filename: str, seen_pmids: Set[str]) -> List[str]:
     root = tree.getroot()
 
     parsed = []
+    # for error reporting
+    preceding_pmid = 'initial'
 
-    for article in root:
-        pmid = ''
-        for elem in article.iter('PMID'):
-            pmid = elem.text
+    # TODO: handle <DeleteCitation> tag at the end of update files,
+    # skipping over it for now
+    for article in root.iter('PubmedArticle'):
+        pmid = article.findtext('./MedlineCitation/PMID')
+        if pmid is None or pmid == '':
+            raise ValueError(f'Missing PMID in entry following {preceding_pmid}')
 
+        # for error reporting
+        preceding_pmid = pmid
         # check whether this pmid was already processed in another file
         if pmid not in seen_pmids:
             seen_pmids.add(pmid)

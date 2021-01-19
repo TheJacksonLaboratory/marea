@@ -22,6 +22,7 @@ def make_relevant_dict(rel_dir) -> Dict[str, str]:
     """
     relevant = {}
     files_to_process = glob.glob(join(rel_dir, '*.tsv'))
+    files_to_process.sort()
     for f in files_to_process:
         click.echo(basename(f))
         with click.open_file(f) as infile:

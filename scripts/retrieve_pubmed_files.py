@@ -1,5 +1,6 @@
 import click
 import subprocess
+import traceback
 
 from ftplib import FTP, all_errors
 from os import makedirs
@@ -27,10 +28,6 @@ def get_files(f: FTP, local_dir: str, remote_dir: str) -> None:
                 f.retrbinary('RETR ' + fn, gzf.write)
             with click.open_file(md5_path, 'wb') as md5f:
                 f.retrbinary('RETR ' + fn + '.md5', md5f.write)
-        except all_errors as e:
-            click.echo('Error retrieving file {}: {}'.
-                       format(fn, e.strerror))
-        try:
             output = subprocess.check_output([r"md5sum", local_path])
             mdfive = output.decode('utf-8').split()[0]
             with click.open_file(md5_path, 'r') as md5f:
@@ -42,6 +39,9 @@ def get_files(f: FTP, local_dir: str, remote_dir: str) -> None:
                            format(local_path, mdfive, should_be))
         except subprocess.CalledProcessError:
             click.echo('Error calculating md5 checksum for ' + local_path)
+        except all_errors:
+            click.echo('Error retrieving file {}'.format(fn))
+            traceback.print_exc()
     f.cwd(wd)
 
 

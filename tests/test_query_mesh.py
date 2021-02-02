@@ -48,6 +48,7 @@ class QueryMeshTestCase(unittest.TestCase):
             'D000072481',
             'D000077192',
             'D000080443',
+            'D000086002',
             'D001932',
             'D001984',
             'D002282',
@@ -85,7 +86,7 @@ class QueryMeshTestCase(unittest.TestCase):
             'D056364'
         }
         actual = merge_descendants(ancestors)
-        self.assertEqual(38, len(actual),
+        self.assertEqual(39, len(actual),
                          'Dictionary of descendants for D016543, D011118, D008175 has incorrect length.')
         self.assertEqual(expected, actual.keys(),
                          'Set of descendant descriptors for D016543, D011118, D008175 does not match.')

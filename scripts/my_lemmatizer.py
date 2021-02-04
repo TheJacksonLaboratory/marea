@@ -9,10 +9,12 @@ from nltk.stem import WordNetLemmatizer
 class MyLemmatizer(WordNetLemmatizer):
     """
     MyLemmatizer is a regular WordNetLemmatizer that can process not just a
-    single word but a sequence of words.
+    single word but a sequence of words. It remembers words it has seen before
+    to avoid recalculating the same string multiple times.
     """
 
     def __init__(self):
+        self.seen = {}
         super().__init__()
 
     @staticmethod
@@ -29,7 +31,11 @@ class MyLemmatizer(WordNetLemmatizer):
         return tag_dict.get(tag, wordnet.NOUN)
 
     def lemmatize_word(self, word) -> str:
-        return super().lemmatize(word, self.get_wordnet_pos(word))
+        lemmatized = self.seen.get(word)
+        if not lemmatized:
+            lemmatized = super().lemmatize(word, self.get_wordnet_pos(word))
+            self.seen[word] = lemmatized
+        return lemmatized
 
     def lemmatize_seq(self, seq: str) -> str:
         word_list = nltk.word_tokenize(seq)

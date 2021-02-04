@@ -95,6 +95,7 @@ class FilterAbstractsTestCase(unittest.TestCase):
         input_dir = 'testdata/pubmed_txt/'
         output_dir = 'testdata/pubmed_rel/'
         makedirs(output_dir, exist_ok=True)
+        # D005796 = Genes, D009369 = Neoplasms, D037102 = Lectins
         test_params = [
             'D005796-D009369-D037102',
             'D009369-D037102',
@@ -145,7 +146,7 @@ class FilterAbstractsTestCase(unittest.TestCase):
                 pmid_key = params + '-m' if major else params
                 find_relevant_abstracts(input_dir + test_filename + '.txt',
                                         output_dir, major, desired)
-                with open(output_dir + test_filename + '_relevant.tsv') as outfile:
+                with open(output_dir + test_filename + '_rel.tsv') as outfile:
                     output_pmids = [line.split()[PMID_INDEX] for line in outfile]
                 self.assertEqual(relevant_pmids[pmid_key], output_pmids,
                                  'Incorrect PMIDs for ' + pmid_key)

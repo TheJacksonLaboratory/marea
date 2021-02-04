@@ -15,40 +15,44 @@ corresponding concept.
 ### 1. Requirements
 Requirements for the virtual environment of __marea__:
 * Python 3.8
-* certifi 2020.6.20
-* chardet 3.0.4
+* certifi 2020.12.5
+* chardet 4.0.0
 * click 7.1.2
 * idna 2.10
 * isodate 0.6.0
-* joblib 0.16.0
+* joblib 1.0.0
 * nltk 3.5
-* numpy 1.19.1
+* numpy 1.19.5
 * pyparsing 2.4.7
 * rdflib 5.0.0
-* regex 2020.7.14
-* requests 2.24.0
+* regex 2020.11.13
+* requests 2.25.1
 * six 1.15.0
 * SPARQLWrapper 1.8.5
-* tqdm 4.48.2
-* urllib3 1.25.10
+* tqdm 4.56.0
+* urllib3 1.26.3
 
-These requirements are automatically packaged into the __marea__ singularity container. All the Python code
-of steps 2-5 below can be run in the singularity container on the high performance cluster using the slurm
-scripts listed in step 6.
+These requirements are automatically packaged into the __marea__ singularity container. All the Python
+code of steps 3-6 below can be run in the singularity container on the high performance cluster using
+the slurm scripts listed in step 7.
 
 ### 2. Download .xml files
-_scripts/retrieve_pubmed_files.py_ downloads the PubMed files from NCBI. These are gzipped _.xml_ files
-containing article titles, abstracts, and metadata.
-_retrieve_pubmed_files.py_ takes one command line option, the output directory. This directory
-will be created if it does not already exist (true for all the __marea__ scripts).
-
-option | meaning
--------|---------------------------
-_-x_ |  directory to which gzipped _.xml_ files of PubMed articles should be downloaded
-
-For example,
+NCBI's FTP site makes available gzipped _.xml_ files containing titles, abstracts, and metadata
+for all PubMed articles. NCBI releases an annual baseline in mid-December, followed by daily
+update files throughout the year. To download the PubMed files, start an interactive session
+on the high performance cluster and create the directory where you want to store your _.xml_
+files. _cd_ into the target directory. The following _wget_ commands will download
+the _.xml.gz_ files and their associated _.md5_ files.
 ```
-python retrieve_pubmed_files.py -x ../data/pubmed_xml/
+wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline/*
+wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/pubmed21n*.xml*
+```
+(The NCBI _updatefiles_ directory also contains _stats.html_ files that we do not need.) These wget
+commands run in the background and write output to a log file.
+You can change how many seconds to wait between downloads by adjusting the _w_ parameter,
+or eliminate it entirely. The following command will verify the md5 checksums, reporting any failures:
+```
+md5sum -c --quiet pubmed21n*.xml.gz.md5
 ```
 
 ### 3. Extract .txt from .xml
@@ -159,6 +163,7 @@ python pubtate.py -i ../data -o ../data/pubtator
 ```
 The output directory is optional and will default to the input directory.
 
+### 6. Text postprocessing
 _scripts/post_process.py_ takes as input the file produced by _pubtate.py_ and selects those articles
 that were labeled relevant by _filter_abstracts.py_ (step 4). _post_process.py_ cleans up the text
 into which _pubtate.py_ has inserted concept identifiers.
@@ -186,7 +191,7 @@ within words: the parts of a compound word become separate tokens. To reduce the
 The last step converts everything to lowercase. _post_process.py_ writes to its output file
  the PMID, publication date, and modified title and abstract for each relevant article.
 
-### 6. Run pipeline on HPC
+### 7. Run pipeline on HPC
 Copy the processing pipeline scripts to the HPC file system, preserving the directory structure.
 ```
 marea
@@ -198,22 +203,24 @@ marea
 │   ├── post_process.py
 │   ├── pubtate.py
 │   ├── query_mesh.py
-│   ├── retrieve_pubmed_files.py
 │   ├── text_post_processor.py
 │   └── xml2txt.py
 └── singularity
-    ├── concept_recog.sh
-    ├── download.sh
     ├── filter.sh
     ├── marea_python.def
-    └── marea_python.sh
+    ├── marea_python.sh
+    ├── post_process.sh
+    ├── pubtate.sh
+    └── xml2txt.sh
 ```
-_marea_python.sh_ builds a singularity container _marea_python.sif_ from _marea_python.def_ with the latest
-version of python and other requirements listed in step 1. _download.sh_ downloads from NCBI the gzipped
-_.xml_ files for PubMed articles (step 2). _filter.sh_ extracts _.txt_ files from the _.xml_ (step 3) and
-then identifies relevant articles according to the specified MeSH descriptors (step 4). _concept_recog.sh_
-consumes the concept recognition information from Pubtator Central to replace text with concept identifiers
-in the titles and abstracts of relevant articles (step 5).
+_marea_python.sh_ builds a singularity container _marea_python.sif_ from _marea_python.def_ with the
+latest version of python and other requirements listed in step 1. _xml2txt.sh_ extracts _.txt_ files
+from the _.xml_ (step 3). _filter.sh_ identifies relevant articles according to the specified
+MeSH descriptors (step 4). _pubtate.sh_ consumes the concept recognition information from
+Pubtator Central to replace words with concept identifiers in the titles and abstracts of 
+PubMed articles (step 5). _post_process.sh_ selects the title and abstract after concept
+replacement for articles that were judged relevant in step 4. It applies the NLP manipulations
+described in step 6 to the selected text, and writes the final output file.
 
 Edit these slurm scripts to change
 * the email address for slurm messages

@@ -31,13 +31,26 @@ class MyLemmatizer(WordNetLemmatizer):
         return tag_dict.get(tag, wordnet.NOUN)
 
     def lemmatize_word(self, word) -> str:
+        """
+        Lemmatize input word.
+        :param word:  String to lemmatize with WordNet lemmatizer.
+        :return:      String of lemmatized form (may be identical to input)
+        """
+        # if word has been seen already, pull lemmatized form from dictionary
         lemmatized = self.seen.get(word)
+        # if get returned None the word is new, calculate its lemmatized form
+        # and record it in dictionary
         if not lemmatized:
             lemmatized = super().lemmatize(word, self.get_wordnet_pos(word))
             self.seen[word] = lemmatized
         return lemmatized
 
     def lemmatize_seq(self, seq: str) -> str:
+        """
+        Lemmatize a sequence of words.
+        :param seq: String of one or more words
+        :return:    String of lemmatized form for each word in input phrase
+        """
         word_list = nltk.word_tokenize(seq)
         lemmatized_output = ' '.join([self.lemmatize_word(w) for w in word_list])
         return lemmatized_output

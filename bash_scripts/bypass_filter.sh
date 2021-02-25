@@ -16,12 +16,12 @@ shopt -s nullglob
 
 # the purpose of this regex is to isolate the basename of the .txt file so it
 # can be reused for the output filename
-regex='^.*/*(.+)\.[[:alnum:]]{3}$'
+regex='^(.+/)*(.+)\.[[:alnum:]]{3}$'
 for f in "$1"/*
 do
   if [[ $f =~ $regex ]]
   then
-    awk -v FS="##" -v OFS="\t" '{print $1,$2}' $f > "$2/${BASH_REMATCH[1]}_rel.tsv"
+    awk -v FS="##" -v OFS="\t" '{print $1,$2}' $f > "$2/${BASH_REMATCH[2]}_rel.tsv"
     echo "$f"
   else
     echo "regex failure for $f"

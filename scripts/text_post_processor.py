@@ -65,16 +65,16 @@ class TextPostProcessor:
         :return:        None
         """
         with click.open_file(join(outdir, 'alphabetical.txt'), 'w') as alphafile:
+            alphafile.write('{0:<25s}\t{1:<25s}\t{2:>20s}\n'.
+                            format('Word', 'Lemmatized', 'Frequency'))
             for word, (lemmatized, count) in sorted(self.lem.lexicon.items()):
-                alphafile.write('{0:<20s}\t{1:<20s}\t{2:>9s}\n'.
-                                format('Word', 'Lemmatized', 'Frequency'))
-                alphafile.write('{0:<20s}\t{1:<20s}\t{2:>9d}\n'.
+                alphafile.write('{0:<25s}\t{1:<25s}\t{2:>20d}\n'.
                                 format(word, lemmatized, count))
         with click.open_file(join(outdir, 'wordfreq.txt'), 'w') as freqfile:
+            freqfile.write('{0:<25s}\t{1:<25s}\t{2:>20s}\n'.
+                           format('Word', 'Lemmatized', 'Frequency'))
             for word, (lemmatized, count) in sorted(self.lem.lexicon.items(),
                                                     reverse=True,
                                                     key=lambda item: item[1][1]):
-                freqfile.write('{0:<20s}\t{1:<20s}\t{2:>9s}\n'.
-                               format('Word', 'Lemmatized', 'Frequency'))
-                freqfile.write('{0:<20s}\t{1:<20s}\t{2:>9d}\n'.
+                freqfile.write('{0:<25s}\t{1:<25s}\t{2:>20d}\n'.
                                format(word, lemmatized, count))

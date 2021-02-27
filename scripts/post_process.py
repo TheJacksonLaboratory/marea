@@ -37,10 +37,11 @@ def select_articles(pubtator_file, nltk_dir, out_dir,
     """
     Write output file containing PMID, publication year, and title+abstract
     with Pubtator Central concept replacements for all relevant articles.
+    Write lexicon files to same output directory.
     :param pubtator_file: path to file containing PubMed articles after concept
                           replacement
     :param nltk_dir:      directory containing nltk data
-    :param out_dir:       directory for output file
+    :param out_dir:       directory for output files
     :param relevant:      dictionary mapping PMID to publication year for
                           relevant articles
     :return:              none (side effect is writing output file)
@@ -64,6 +65,7 @@ def select_articles(pubtator_file, nltk_dir, out_dir,
                 else:
                     raise ValueError('Unexpected format in pubtator file:\n{}'.
                                      format(line))
+    tpp.report_lexicon(out_dir)
 
 
 @click.command()

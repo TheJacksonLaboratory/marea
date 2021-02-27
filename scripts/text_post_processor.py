@@ -66,11 +66,15 @@ class TextPostProcessor:
         """
         with click.open_file(join(outdir, 'alphabetical.txt'), 'w') as alphafile:
             for word, (lemmatized, count) in sorted(self.lem.lexicon.items()):
-                alphafile.write('{0:<20g}\t{1:<20g}\t{2:>6d}\n'.
+                alphafile.write('{0:<20s}\t{1:<20s}\t{2:>9s}\n'.
+                                format('Word', 'Lemmatized', 'Frequency'))
+                alphafile.write('{0:<20s}\t{1:<20s}\t{2:>9d}\n'.
                                 format(word, lemmatized, count))
         with click.open_file(join(outdir, 'wordfreq.txt'), 'w') as freqfile:
             for word, (lemmatized, count) in sorted(self.lem.lexicon.items(),
                                                     reverse=True,
                                                     key=lambda item: item[1][1]):
-                freqfile.write('{0:<20g}\t{1:<20g}\t{2:>6d}\n'.
+                freqfile.write('{0:<20s}\t{1:<20s}\t{2:>9s}\n'.
+                               format('Word', 'Lemmatized', 'Frequency'))
+                freqfile.write('{0:<20s}\t{1:<20s}\t{2:>9d}\n'.
                                format(word, lemmatized, count))

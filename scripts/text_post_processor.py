@@ -1,7 +1,10 @@
+import click
+
 from my_lemmatizer import MyLemmatizer
 from nlp_utils import nltk_setup
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
+from os.path import join
 from string import ascii_lowercase
 
 
@@ -19,6 +22,9 @@ class TextPostProcessor:
         TextPostProcessor.my_stop_words.update(stopwords.words('english'))
         self.lem = MyLemmatizer()
         # copied from https://github.com/nltk/nltk/issues/1900
+        # this tokenizer removes all punctuation symbols, including underscore,
+        # whether they occur within a word or between words => hyphenated
+        # words become two separate tokens
         self.rt = RegexpTokenizer(r'[^\W_]+|[^\W_\s]+')
 
     @staticmethod
@@ -49,3 +55,26 @@ class TextPostProcessor:
         return ' '.join([self.lem.lemmatize_word(w).lower()
                          for w in word_map
                          if w not in TextPostProcessor.my_stop_words])
+
+    def report_lexicon(self, outdir: str) -> None:
+        """
+        Writes lexicon to two files, one in alphabetical order and one in
+        decreasing order of word frequency. Each line has one word, its
+        lemmatized form, and its frequency count.
+        :param outdir:  output directory for writing lexicon files
+        :return:        None
+        """
+        with click.open_file(join(outdir, 'alphabetical.txt'), 'w') as alphafile:
+            alphafile.write('{0:<25s}\t{1:<25s}\t{2:>20s}\n'.
+                            format('Word', 'Lemmatized', 'Frequency'))
+            for word, (lemmatized, count) in sorted(self.lem.lexicon.items()):
+                alphafile.write('{0:<25s}\t{1:<25s}\t{2:>20d}\n'.
+                                format(word, lemmatized, count))
+        with click.open_file(join(outdir, 'wordfreq.txt'), 'w') as freqfile:
+            freqfile.write('{0:<25s}\t{1:<25s}\t{2:>20s}\n'.
+                           format('Word', 'Lemmatized', 'Frequency'))
+            for word, (lemmatized, count) in sorted(self.lem.lexicon.items(),
+                                                    reverse=True,
+                                                    key=lambda item: item[1][1]):
+                freqfile.write('{0:<25s}\t{1:<25s}\t{2:>20d}\n'.
+                               format(word, lemmatized, count))

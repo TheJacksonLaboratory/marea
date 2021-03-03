@@ -10,11 +10,12 @@ class MyLemmatizer(WordNetLemmatizer):
     """
     MyLemmatizer is a regular WordNetLemmatizer that can process not just a
     single word but a sequence of words. It remembers words it has seen before
-    to avoid recalculating the same string multiple times.
+    to avoid recalculating the same string multiple times. It also tracks word
+    frequency and can return a lexicon of words it has lemmatized.
     """
 
     def __init__(self):
-        self.seen = {}
+        self.lexicon = {}
         super().__init__()
 
     @staticmethod
@@ -32,17 +33,20 @@ class MyLemmatizer(WordNetLemmatizer):
 
     def lemmatize_word(self, word) -> str:
         """
-        Lemmatize input word.
+        Lemmatize input word, update count for that word in lexicon.
         :param word:  String to lemmatize with WordNet lemmatizer.
         :return:      String of lemmatized form (may be identical to input)
         """
-        # if word has been seen already, pull lemmatized form from dictionary
-        lemmatized = self.seen.get(word)
-        # if get returned None the word is new, calculate its lemmatized form
-        # and record it in dictionary
-        if not lemmatized:
+        if word in self.lexicon:
+            # if word has been seen already, pull lemmatized form from dictionary
+            # and increment the number of times that word has been seen
+            lemmatized, count = self.lexicon[word]
+            self.lexicon[word] = lemmatized, count + 1
+        else:
+            # if the word is new, calculate its lemmatized form and record it in
+            # dictionary
             lemmatized = super().lemmatize(word, self.get_wordnet_pos(word))
-            self.seen[word] = lemmatized
+            self.lexicon[word] = lemmatized, 1
         return lemmatized
 
     def lemmatize_seq(self, seq: str) -> str:
@@ -54,3 +58,11 @@ class MyLemmatizer(WordNetLemmatizer):
         word_list = nltk.word_tokenize(seq)
         lemmatized_output = ' '.join([self.lemmatize_word(w) for w in word_list])
         return lemmatized_output
+
+    @property
+    def lexicon(self):
+        return self.__lexicon
+
+    @lexicon.setter
+    def lexicon(self, value):
+        self.__lexicon = value

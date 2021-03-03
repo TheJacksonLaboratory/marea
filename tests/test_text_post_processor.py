@@ -64,10 +64,10 @@ class TextPostProcessorTestCase(unittest.TestCase):
                          'question'])
         self.assertEqual(after, tp.process_phrase(before))
         before = ''.join(['A side effect of  NCBIGene1440 -mild  MESHD010146',
-                          ' -was observed in one patient, but it was ',
+                          ' -was observed in one patient, but it was assess ',
                           'tolerable.'])
         after = ''.join(['side effect ncbigene1440 mild meshd010146',
-                         ' observe one patient ',
+                         ' observe one patient ass ',
                          'tolerable'])
         self.assertEqual(after, tp.process_phrase(before))
         before = ''.join(['RESULTS: High levels of  NCBIGene4137 -A and  ',

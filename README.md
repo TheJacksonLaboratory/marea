@@ -233,7 +233,7 @@ MeSH descriptors (step 4). _pubtate.sh_ consumes the concept recognition informa
 Pubtator Central to replace words with concept identifiers in the titles and abstracts of 
 PubMed articles (step 5). _post_process.sh_ selects the title and abstract after concept
 replacement for articles that were judged relevant in step 4. It applies the NLP manipulations
-described in step 6 to the selected text, and writes the final output file.
+described in step 6 to the selected text, and writes the final output files.
 
 Edit these slurm scripts to change
 * the email address for slurm messages

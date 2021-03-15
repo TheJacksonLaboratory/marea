@@ -157,7 +157,7 @@ def main():
     # D000314 is for Adrenal Rest Tumor
     adrenal = get_preferred_label('D000314')
     print('Preferred label for D000314 is {}'.format(adrenal))
-    # D009369 is for Neoplasm, D011494 is for Protein Kinases
+    # D009369 is for Neoplasms, D011494 is for Protein Kinases
     # print_descendants_labels('D009369')
     # print_descendants_labels('D011494')
     # D007938 is for Leukemia, D010051 is for Ovarian Neoplasms

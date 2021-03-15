@@ -1,5 +1,5 @@
 # marea
-Filter PubMed articles for relevance and apply Pubtator Central concept recognition to the titles and abstracts of
+Filter PubMed articles for relevance and apply PubTator Central concept recognition to the titles and abstracts of
 relevant articles.
 
 ### Naive filter
@@ -8,7 +8,7 @@ and replace concepts in the title and abstract of each relevant article. For fil
 high-level MeSH descriptors. Any article marked with at least one of these descriptors or any subcategory of these
 descriptors is considered relevant. An article is also judged relevant if it has a keyword that matches a label or
 synonym of the search descriptors or their subcategories. __marea__ relies on
-[Pubtator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) to find the names of chemicals, diseases,
+[PubTator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) to find the names of chemicals, diseases,
 genes, etc. and replaces each phrase recognized in the title or abstract with the identifier of the
 corresponding concept.
 
@@ -101,7 +101,7 @@ is irrelevant for the search regardless of its MeSH descriptors or keywords.
 
 For each input _.txt_ file, _filter_abstracts.py_ writes an output _.tsv_ file containing only the PubMed ID and
 year of publication for those articles deemed relevant. MeSH descriptors, keywords, and abstract are not preserved
-in the output file. (The abstract is recovered from the Pubtator Central offset file described in step 5.)
+in the output file. (The abstract is recovered from the PubTator Central offset file described in step 5.)
 For an input named _pubmed20n1014.txt_, the corresponding output file is named
 _pubmed20n1014_relevant.tsv_.
 
@@ -124,8 +124,8 @@ python filter_abstracts.py -m -i ../data/pubmed_txt -n ../data/nltk_data \
 finds articles whose major topic descriptors fall under one or more of the categories for Genes, Neoplasms,
  and Lectins.
 
-### 5. Concept replacement with Pubtator Central
-[Pubtator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) from the NLM provides data for concept
+### 5. Concept replacement with PubTator Central
+[PubTator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) from the NLM provides data for concept
 recognition in PubMed articles for the following categories:
 * CellLine
 * Chemical
@@ -135,11 +135,11 @@ recognition in PubMed articles for the following categories:
 * Species
 
 (as well as other categories __marea__ does not track, such as DNAMutation and ProteinMutation). The first step
-is to download _bioconcepts2pubtatorcentral.offset.gz_ from the Pubtator Central ftp site.
+is to download _bioconcepts2pubtatorcentral.offset.gz_ from the PubTator Central ftp site.
 ```
 ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTatorCentral
 ```
-__Nota bene:__ In late November 2020, Pubtator Central stopped publishing the
+__Nota bene:__ In late November 2020, PubTator Central stopped publishing the
 _bioconcepts2pubtatorcentral.offset.gz_ file. This change will necessitate an overhaul of
 the concept replacement code in __marea__. Alternate solution TBD.
 
@@ -230,7 +230,7 @@ _marea_python.sh_ builds a singularity container _marea_python.sif_ from _marea_
 latest version of python and other requirements listed in step 1. _xml2txt.sh_ extracts _.txt_ files
 from the _.xml_ (step 3). _filter.sh_ identifies relevant articles according to the specified
 MeSH descriptors (step 4). _pubtate.sh_ consumes the concept recognition information from
-Pubtator Central to replace words with concept identifiers in the titles and abstracts of 
+PubTator Central to replace words with concept identifiers in the titles and abstracts of 
 PubMed articles (step 5). _post_process.sh_ selects the title and abstract after concept
 replacement for articles that were judged relevant in step 4. It applies the NLP manipulations
 described in step 6 to the selected text, and writes the final output files.

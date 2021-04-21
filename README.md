@@ -2,7 +2,10 @@
 Filter PubMed articles for relevance and apply PubTator Central concept recognition to the titles and abstracts of
 relevant articles.
 
-### Naive filter
+### What does marea stand for?
+**m**area **a**damantly **r**esists **e**gregious **a**cronyms
+
+### Overview
 The goal of this project is to select PubMed articles based on their MeSH descriptors and keywords, then recognize
 and replace concepts in the title and abstract of each relevant article. For filtering, the user specifies a set of
 high-level MeSH descriptors. Any article marked with at least one of these descriptors or any subcategory of these
@@ -10,7 +13,8 @@ descriptors is considered relevant. An article is also judged relevant if it has
 synonym of the search descriptors or their subcategories. __marea__ relies on
 [PubTator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) to find the names of chemicals, diseases,
 genes, etc. and replaces each phrase recognized in the title or abstract with the identifier of the
-corresponding concept.
+corresponding concept. The final step of the pipeline cleans up the text by deleting punctuation, removing stop
+words, and lemmatizing the remaining words.
 
 ### 1. Requirements
 Requirements for the virtual environment of __marea__:
@@ -141,7 +145,7 @@ ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTatorCentral
 ```
 __Nota bene:__ In late November 2020, PubTator Central stopped publishing the
 _bioconcepts2pubtatorcentral.offset.gz_ file. This change will necessitate an overhaul of
-the concept replacement code in __marea__. Alternate solution TBD.
+the concept replacement code in __marea__. Alternate solution not yet implemented.
 
 The offset file contains the title and abstract for every PubMed article and a list of concept replacements.
 Each concept replacement line includes the concept category and concept identifier along with the start and end

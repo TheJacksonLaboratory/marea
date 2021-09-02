@@ -244,7 +244,7 @@ Edit these slurm scripts to change
 * the directories to which files are written
 * the MeSH descriptors for relevance filtering
 
-On sumner, these scripts can be run in the __singularity__ directory with
+These scripts can be run in the __singularity__ directory with
 ```
 sbatch -q batch <scriptname>.sh
 ```

@@ -19,22 +19,23 @@ words, and lemmatizing the remaining words.
 ### 1. Requirements
 Requirements for the virtual environment of __marea__:
 * Python 3.8
-* certifi 2020.12.5
-* chardet 4.0.0
-* click 7.1.2
-* idna 2.10
-* isodate 0.6.0
-* joblib 1.0.0
-* nltk 3.5
-* numpy 1.19.5
-* pyparsing 2.4.7
-* rdflib 5.0.0
-* regex 2020.11.13
-* requests 2.25.1
-* six 1.15.0
-* SPARQLWrapper 1.8.5
-* tqdm 4.56.0
-* urllib3 1.26.3
+* certifi >= 2021.10.8
+* chardet >= 4.0.0
+* charset-normalizer >= 2.0.6
+* click >= 8.0.2
+* idna >= 3.2
+* isodate >= 0.6.0
+* joblib >= 1.1.0
+* nltk >= 3.6.4
+* numpy >= 1.21.2
+* pyparsing >= 2.4.7
+* rdflib >= 6.0.1
+* regex >= 2021.10.8
+* requests >= 2.26.0
+* six >= 1.16.0
+* SPARQLWrapper >= 1.8.5
+* tqdm >= 4.62.3
+* urllib3 >= 1.26.7
 
 These requirements are automatically packaged into the __marea__ singularity container. All the Python
 code of steps 3-6 below can be run in the singularity container on the high performance cluster using
@@ -165,7 +166,7 @@ For example,
 ```
 python pubtate.py -i ../data -o ../data/pubtator
 ```
-The output directory is optional and will default to the input directory.
+The output directory is optional and defaults to the input directory.
 
 ### 6. Text postprocessing
 _scripts/post_process.py_ takes as input the file produced by _pubtate.py_ and selects those articles

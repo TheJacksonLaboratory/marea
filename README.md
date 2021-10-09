@@ -166,7 +166,7 @@ For example,
 ```
 python pubtate.py -i ../data -o ../data/pubtator
 ```
-The output directory is optional and will default to the input directory.
+The output directory is optional and defaults to the input directory.
 
 ### 6. Text postprocessing
 _scripts/post_process.py_ takes as input the file produced by _pubtate.py_ and selects those articles

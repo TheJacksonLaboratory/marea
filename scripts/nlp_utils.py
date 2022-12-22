@@ -8,6 +8,7 @@ def nltk_setup(data_dir: str) -> None:
     makedirs(data_dir, exist_ok=True)
     try:
         nltk.download('averaged_perceptron_tagger', download_dir=data_dir, raise_on_error=True)
+        nltk.download('omw-1.4', download_dir=data_dir, raise_on_error=True)
         nltk.download('punkt', download_dir=data_dir, raise_on_error=True)
         nltk.download('stopwords', download_dir=data_dir, raise_on_error=True)
         nltk.download('wordnet', download_dir=data_dir, raise_on_error=True)

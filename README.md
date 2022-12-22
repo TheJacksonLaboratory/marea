@@ -50,14 +50,14 @@ files. _cd_ into the target directory. The following _wget_ commands will downlo
 the _.xml.gz_ files and their associated _.md5_ files.
 ```
 wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline/*
-wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/pubmed21n*.xml*
+wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/pubmed*.xml*
 ```
 (The NCBI _updatefiles_ directory also contains _stats.html_ files that we do not need.) These wget
 commands run in the background and write output to a log file.
 You can change how many seconds to wait between downloads by adjusting the _w_ parameter,
 or eliminate it entirely. The following command will verify the md5 checksums, reporting any failures:
 ```
-md5sum -c --quiet pubmed21n*.xml.gz.md5
+md5sum -c --quiet pubmed*.xml.gz.md5
 ```
 
 ### 3. Extract .txt from .xml
@@ -72,10 +72,10 @@ formatting, and writes the result to a text file. The fields of interest are:
 
 _xml2txt.py_ takes two command line options. 
 
-option | meaning
--------|---------------------------
-_-x_ |  directory containing gzipped _.xml_ files downloaded in step 2
-_-t_ |  directory for text files produced by _xml2txt.py_
+| option | meaning                                                        |
+|--------|----------------------------------------------------------------|
+| _-x_   | directory containing gzipped _.xml_ files downloaded in step 2 |
+| _-t_   | directory for text files produced by _xml2txt.py_              |
 
 For example,
 ```
@@ -112,12 +112,12 @@ _pubmed20n1014_relevant.tsv_.
 
 _filter_abstracts.py_ has four command line options. 
 
-option | meaning
--------|---------------------------
-_-i_ |  directory containing text files produced in step 3
-_-o_ |  directory for _.tsv_ files written by _filter_abstracts.py_
-_-n_ |  directory where **nltk** data should be downloaded
-_-m_ |  optional flag that limits the search to major topic MeSH descriptors only
+| option | meaning                                                                   |
+|--------|---------------------------------------------------------------------------|
+| _-i_   | directory containing text files produced in step 3                        |
+| _-o_   | directory for _.tsv_ files written by _filter_abstracts.py_               |
+| _-n_   | directory where **nltk** data should be downloaded                        |
+| _-m_   | optional flag that limits the search to major topic MeSH descriptors only |
 
 Following these options, at the end of the
 command line is the list of MeSH descriptors that designate relevant categories. These should be high-level
@@ -153,10 +153,10 @@ _scripts/pubtate.py_ applies all the offset file's concept replacements to the t
 of each article and writes them to _bioconcepts2pubtatorcentral.replaced_.
 _pubtate.py_ takes two command line options. 
 
-option | meaning
--------|---------------------------
-_-i_ |  directory containing _bioconcepts2pubtatorcentral.offset_ file
-_-o_ |  directory where _pubtate.py_ writes its output file _bioconcepts2pubtatorcentral.replaced_
+| option | meaning                                                                                    |
+|--------|--------------------------------------------------------------------------------------------|
+| _-i_   | directory containing _bioconcepts2pubtatorcentral.offset_ file                             |
+| _-o_   | directory where _pubtate.py_ writes its output file _bioconcepts2pubtatorcentral.replaced_ |
 
 For example,
 ```
@@ -170,12 +170,12 @@ that were labeled relevant by _filter_abstracts.py_ (step 4). _post_process.py_ 
 into which _pubtate.py_ has inserted concept identifiers.
 _post_process.py_ takes four command line options.
 
-option | meaning
--------|---------------------------
-_-p_ |  directory containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_
-_-r_ |  directory containing files of relevant articles produced by _filter_abstracts.py_
-_-n_ |  directory where **nltk** data have been downloaded
-_-o_ |  directory where _post_process.py_ writes its output file _pubmed_cr.tsv_
+| option | meaning                                                                                      |
+|--------|----------------------------------------------------------------------------------------------|
+| _-p_   | directory containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_ |
+| _-r_   | directory containing files of relevant articles produced by _filter_abstracts.py_            |
+| _-n_   | directory where **nltk** data have been downloaded                                           |
+| _-o_   | directory where _post_process.py_ writes its output file _pubmed_cr.tsv_                     |
 
 For example,
 ```

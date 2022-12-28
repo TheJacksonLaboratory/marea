@@ -194,13 +194,13 @@ The last step converts everything to lowercase.
 _post_process.py_ writes three output files:
 * _pubmed_cr.tsv_ contains the PMID, publication date, and modified title and abstract for
   each relevant article;
-* _alphabetical.txt_ contains an alphabetical listing of all tokens encountered before
-  they get lemmatized and lowercased;
-* _wordfreq.txt_ contains the same tokens listed by their frequency of occurrence, in
-decreasing order.
+* _lemmatized_alpha.txt_ contains an alphabetical listing of all lemmatized tokens,
+* _lemmatized_freq.txt_ contains the same lemmatized tokens listed by their frequency
+of occurrence, in decreasing order.
   
-The two vocabulary files give the lemmatized form for each token along with the number 
-of occurrences. Note that _post_process.py_ does not do anything special with
+The two vocabulary files give the lemmatized token along with its frequency of occurrence
+and the list of words that lemmatize to that token. Note that _post_process.py_ does not do
+anything special with
 numerical tokens, so the alphabetical list starts with (possibly thousands of) 
 tokens that are numbers or consist of digits followed by a mix of digits and letters. 
 All of these numerical tokens precede words that begin with the letter __a__.

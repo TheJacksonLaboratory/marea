@@ -175,21 +175,23 @@ _post_process.py_ takes four command line options.
 | _-p_   | directory containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_ |
 | _-r_   | directory containing files of relevant articles produced by _filter_abstracts.py_            |
 | _-n_   | directory where **nltk** data have been downloaded                                           |
-| _-o_   | directory where _post_process.py_ writes its output file _pubmed_cr.tsv_                     |
+| _-o_   | directory where _post_process.py_ writes its output files (_pubmed_cr.tsv_ and lexicons)     |
 
 For example,
 ```
 python post_process.py -p ../data/pubtator -r ../data/pubmed_rel \
                        -n ../data/nltk_data -o ../data/pubmed_cr
 ```
- _post_process.py_ removes stop words, whether lowercase or capitalized, from the title and abstract.
-Uppercase acronyms of length ≥ 2, even those that coincide with stop words, are not changed.
-__marea__ starts with the **nltk** stop word list for English and adds some new stop words. Any
- letter of the alphabet that occurs as a single-character token is a stop word. 
-Post-processing also removes all punctuation symbols, including hyphens and underscores
-within words: the parts of a compound word become separate tokens. To reduce the size of the
- vocabulary, the remaining tokens are lemmatized with the __WordNetLemmatizer__ from **nltk**.
-The last step converts everything to lowercase.
+Post-processing removes all punctuation symbols, including hyphens and underscores
+within words: the parts of a compound word become separate tokens. _post_process.py_ 
+also removes stop words, whether lowercase or capitalized, from the title and abstract.
+Uppercase acronyms of length ≥ 2, even those that coincide with stop words, are kept.
+__marea__ starts with the **nltk** stop word list for English and adds some new stop words. 
+Any letter of the alphabet that occurs as a single-character token is a stop word. Numerical
+tokens (including those that start with a digit but contain some letters) are discarded 
+unless they appear on a short list of "interesting" numbers (1-10 and a few others). 
+To reduce the size of the vocabulary, the remaining tokens are lemmatized with the 
+__WordNetLemmatizer__ from **nltk**. The last step converts everything to lowercase.
  
 _post_process.py_ writes three output files:
 * _pubmed_cr.tsv_ contains the PMID, publication date, and modified title and abstract for
@@ -199,11 +201,7 @@ _post_process.py_ writes three output files:
 of occurrence, in decreasing order.
   
 The two vocabulary files give the lemmatized token along with its frequency of occurrence
-and the list of words that lemmatize to that token. Note that _post_process.py_ does not do
-anything special with
-numerical tokens, so the alphabetical list starts with (possibly thousands of) 
-tokens that are numbers or consist of digits followed by a mix of digits and letters. 
-All of these numerical tokens precede words that begin with the letter __a__.
+and the list of words that lemmatize to that token.
 
 ### 7. Run pipeline on HPC
 Copy the processing pipeline scripts to the HPC file system, preserving the directory structure.

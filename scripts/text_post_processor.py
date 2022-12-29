@@ -9,12 +9,13 @@ from string import ascii_lowercase
 
 
 class TextPostProcessor:
-    # my_stop_words = set(ascii_lowercase) | set(punctuation) | \
-    #                 {"'s", 'also', 'could', 'furthermore', 'however', 'may',
     my_stop_words = set(ascii_lowercase) | \
                     {'also', 'cannot', 'could', 'furthermore', 'however',
-                     'may', 'might', 'thus', 'whose', 'within', 'without',
-                     'would'}
+                     'may', 'might', 'non', 'thus', 'whose', 'within',
+                     'without', 'would'}
+
+    interesting_numbers = {'001', '01', '05', '0', '1', '2', '3', '4', '5', '6',
+                           '7', '8', '9', '10', '95', '99', '100'}
 
     def __init__(self, data_dir: str):
         nltk_setup(data_dir)
@@ -25,8 +26,9 @@ class TextPostProcessor:
         self.lemlex = {}
         # copied from https://github.com/nltk/nltk/issues/1900
         # this tokenizer removes all punctuation symbols, including underscore,
-        # whether they occur within a word or between words => hyphenated
-        # words become two separate tokens
+        # whether they occur within a word or between words => any hyphenated
+        # word becomes two separate tokens, and any decimal number loses its
+        # decimal point and becomes two integers
         self.rt = RegexpTokenizer(r'[^\W_]+|[^\W_\s]+')
 
     def _build_lemlex(self) -> None:
@@ -61,22 +63,23 @@ class TextPostProcessor:
     def process_phrase(self, phrase: str) -> str:
         """
         Tokenize input string, which eliminates punctuation symbols. Remove
-        stop words. nltk has only lowercase stop words on its list. The
-        lowercase_first function handles the situation where a stop word
-        appears at the beginning of a sentence. I avoided lowercasing the
-        entire token before stop word removal because I did not want scientific
-        or medical abbreviations written in capital letters to be mistaken for
-        stop words (e.g., ALL for acute lymphocytic leukemia or WAS for Wiskott
-        Aldrich syndrome). Lemmatize the remaining tokens. The lemmatizer does
-        not change any token that starts with an uppercase letter, so acronyms
-        are preserved. Finally, convert the list of tokens to lowercase and
-        glue them back together, separated by spaces.
+        stop words and uninteresting numerical tokens. nltk has only lowercase
+        stop words on its list. The lowercase_first function handles the
+        situation where a stop word appears at the beginning of a sentence.
+        I avoided lowercasing the entire token before stop word removal because
+        I did not want scientific or medical abbreviations written in capital
+        letters to be mistaken for stop words (e.g., ALL for acute lymphocytic
+        leukemia or WAS for Wiskott Aldrich syndrome). Lemmatize the remaining
+        tokens. The lemmatizer does not change any token that contains uppercase
+        letters, so acronyms are preserved. Finally, convert the list of tokens
+        to lowercase and glue them back together, separated by spaces.
+        :param phrase: input string
+        :return:       processed input string
         """
-        word_list = self.rt.tokenize(phrase)
-        word_map = map(TextPostProcessor.lowercase_first, word_list)
         return ' '.join([self.lem.lemmatize_word(w).lower()
-                         for w in word_map
-                         if w not in TextPostProcessor.my_stop_words])
+                         for w in map(TextPostProcessor.lowercase_first,
+                                      self.rt.tokenize(phrase))
+                         if TextPostProcessor._to_keep(w)])
 
     def report_lexicon(self, outdir: str) -> None:
         """
@@ -89,12 +92,12 @@ class TextPostProcessor:
         """
         self._build_lemlex()
         with click.open_file(join(outdir, 'lemmatized_alpha.txt'), 'w') as alphafile:
-            self._write_lex_header(alphafile)
+            TextPostProcessor._write_lex_header(alphafile)
             for (lemmatized, (total_count, word_dict)) in sorted(self.lemlex.items()):
-                self._write_lex_line(alphafile, lemmatized, total_count,
-                                     sorted(word_dict.items()))
+                TextPostProcessor._write_lex_line(alphafile, lemmatized, total_count,
+                                                  sorted(word_dict.items()))
         with click.open_file(join(outdir, 'lemmatized_freq.txt'), 'w') as freqfile:
-            self._write_lex_header(freqfile)
+            TextPostProcessor._write_lex_header(freqfile)
             # The lamda expression sorts in descending order of frequency, then in
             # ascending alphabetical order among tokens that have the same frequency.
             # Taking the negative of frequency is equivalent to sorting on frequency
@@ -102,9 +105,26 @@ class TextPostProcessor:
             for (lemmatized, (total_count, word_dict)) in sorted(
                     self.lemlex.items(),
                     key=lambda item: (-item[1][0], item[0])):
-                self._write_lex_line(freqfile, lemmatized, total_count,
-                                     sorted(word_dict.items(),
-                                            key=lambda item: (-item[1], item[0])))
+                TextPostProcessor._write_lex_line(freqfile, lemmatized, total_count,
+                                                  sorted(
+                                                      word_dict.items(),
+                                                      key=lambda item: (-item[1], item[0])))
+
+    @staticmethod
+    def _to_keep(token: str) -> bool:
+        """
+        Decide whether to keep or discard this token: is it a stopword or an uninteresting
+        numerical token? Any token that starts with a digit (even if the rest of the
+        string includes some letters) is treated as numerical and discarded if it is not
+        one of the interesting numbers (defined above as a class variable).
+        :param token: string to be examined
+        :return:      True if token should be kept, False otherwise.
+        """
+        if token[0].isnumeric():
+            keep = token in TextPostProcessor.interesting_numbers
+        else:
+            keep = token not in TextPostProcessor.my_stop_words
+        return keep
 
     @staticmethod
     def _write_lex_header(outfile) -> None:

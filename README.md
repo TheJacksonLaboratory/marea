@@ -189,7 +189,7 @@ Uppercase acronyms of length ≥ 2, even those that coincide with stop words, ar
 __marea__ starts with the **nltk** stop word list for English and adds some new stop words. 
 Any letter of the alphabet that occurs as a single-character token is a stop word. Numerical
 tokens (including those that start with a digit but contain some letters) are discarded 
-unless they appear on a short list of "interesting" numbers (1-10 and a few others). 
+unless they appear on a short list of "interesting" numbers (0-10 and a few others). 
 To reduce the size of the vocabulary, the remaining tokens are lemmatized with the 
 __WordNetLemmatizer__ from **nltk**. The last step converts everything to lowercase.
  

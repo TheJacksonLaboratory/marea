@@ -132,3 +132,4 @@ dmypy.json
 data/
 /tests/testdata/pubmed_rel/
 /tests/testdata/nltk_data/
+/tests/testdata/lexicons/

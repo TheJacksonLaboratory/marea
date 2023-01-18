@@ -142,7 +142,7 @@ recognition in PubMed articles for the following categories:
 (as well as other categories __marea__ does not track, such as DNAMutation and ProteinMutation). The first step
 is to download _bioconcepts2pubtatorcentral.offset.gz_ from the PubTator Central ftp site.
 ```
-ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTatorCentral
+wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTatorCentral/bioconcepts2pubtatorcentral.offset.gz
 ```
 The offset file contains the title and abstract for every PubMed article and a list of concept replacements.
 Each concept replacement line includes the concept category and concept identifier along with the start and end

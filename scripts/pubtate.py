@@ -122,7 +122,7 @@ def replace_one(title: str, abstract: str,
     all_text = ''.join([title, abstract])
     new_text = []
     current = 0
-    for (start, end, cid) in concepts:
+    for (start, end, cid) in sorted(concepts):
         new_text.append(all_text[current:start])
         new_text.append(cid)
         current = end

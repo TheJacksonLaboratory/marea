@@ -1,20 +1,22 @@
 # marea
-Filter PubMed articles for relevance and apply PubTator Central concept recognition to the titles and abstracts of
-relevant articles.
+Filter PubMed articles for relevance, or include all articles. Apply PubTator Central concept recognition to the titles
+and abstracts of included articles. Remove punctuation and uninformative tokens with standard NLP techniques.
 
 ### What does marea stand for?
 **m**area **a**damantly **r**esists **e**gregious **a**cronyms
 
 ### Overview
-The goal of this project is to select PubMed articles based on their MeSH descriptors and keywords, then recognize
-and replace concepts in the title and abstract of each relevant article. For filtering, the user specifies a set of
-high-level MeSH descriptors. Any article marked with at least one of these descriptors or any subcategory of these
-descriptors is considered relevant. An article is also judged relevant if it has a keyword that matches a label or
-synonym of the search descriptors or their subcategories. __marea__ relies on
+The goal of this project is to collect a set of PubMed articles, recognize and replace concepts in
+the title and abstract of each article, and finally tokenize and clean up the resulting text. The user can
+run the pipeline on all PubMed articles, or (s)he can
+filter articles by specifying a set of high-level MeSH descriptors.
+Any article marked with at least one of these descriptors or any subcategory of these
+descriptors is considered relevant. An article is also judged relevant if it has a keyword that matches a
+label or synonym of the search descriptors or their subcategories. __marea__ relies on
 [PubTator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) to find the names of chemicals, diseases,
 genes, etc. and replaces each phrase recognized in the title or abstract with the identifier of the
-corresponding concept. The final step of the pipeline cleans up the text by deleting punctuation, removing stop
-words, and lemmatizing the remaining words.
+corresponding concept. The final stage of the pipeline cleans up the text by deleting punctuation, removing stop
+words and most numerical tokens, and lemmatizing the remaining words.
 
 ### 1. Requirements
 Requirements for the virtual environment of __marea__:
@@ -38,8 +40,8 @@ Requirements for the virtual environment of __marea__:
 * urllib3 >= 1.26.7
 
 These requirements are automatically packaged into the __marea__ singularity container. All the Python
-code of steps 3-6 below can be run in the singularity container on the high performance cluster using
-the slurm scripts listed in step 7.
+code of Sections 3-6 below can be run in the singularity container on a high performance cluster using
+the slurm scripts listed in Section 7.
 
 ### 2. Download .xml files
 NCBI's FTP site makes available gzipped _.xml_ files containing titles, abstracts, and metadata
@@ -85,8 +87,11 @@ The _-t_ directory is optional; if absent, the _.txt_ files are written to the d
 _.xml.gz_ files. There will be one _.txt_ output file for each _.xml.gz_ input file, sharing the filename.
 
 ### 4. Select relevant articles from .txt files
+You can filter PubMed articles by their content (4.1), or bypass the filtering step and treat all
+articles as relevant for further processing (4.2). 
+#### 4.1 Filter by MeSH descriptors
 _scripts/filter_abstracts.py_ filters the _.txt_ file to select articles that are relevant according to
-a user-supplied set of MeSH descriptors. An article is deemed relevant if at least one of the the article's
+a user-supplied set of MeSH descriptors. An article is deemed relevant if at least one of the article's
 descriptors is a subcategory of, or identical to, one of the specified search descriptors. If there is no
 match on MeSH descriptors, the code compares the article's keywords to the set of preferred labels and synonyms
 in MeSH for all the search descriptors and their subcategories. If at least one of the article's keywords is
@@ -102,13 +107,13 @@ are marked as major topics. Many articles have no MeSH descriptors or keywords m
 implementation respects the major topic flag for MeSH descriptors but ignores it for keywords.
 
 Not all PubMed articles have MeSH descriptors or keywords; many have no abstract. Any article that has no abstract
-is irrelevant for the search regardless of its MeSH descriptors or keywords. 
+is filtered out regardless of its MeSH descriptors or keywords. 
 
 For each input _.txt_ file, _filter_abstracts.py_ writes an output _.tsv_ file containing only the PubMed ID and
 year of publication for those articles deemed relevant. MeSH descriptors, keywords, and abstract are not preserved
-in the output file. (The abstract is recovered from the PubTator Central offset file described in step 5.)
-For an input named _pubmed20n1014.txt_, the corresponding output file is named
-_pubmed20n1014_relevant.tsv_.
+in the output file. (The abstract is recovered from the PubTator Central offset file described in Section 5.)
+For an input named _pubmed21n1014.txt_, the corresponding output file is named
+_pubmed21n1014_rel.tsv_.
 
 _filter_abstracts.py_ has four command line options. 
 
@@ -128,6 +133,20 @@ python filter_abstracts.py -m -i ../data/pubmed_txt -n ../data/nltk_data \
 ```
 finds articles whose major topic descriptors fall under one or more of the categories for Genes, Neoplasms,
  and Lectins.
+
+#### 4.2 Consider all PubMed articles to be relevant
+If you want to include every PubMed article in your output, you can avoid the filtering step by running 
+_bash_scripts/bypass_filter.sh_ in an interactive session on the high performance cluster.
+_bypass_filter.sh_ takes two command line parameters: the input directory of _.txt_ files, and the
+output directory for __rel.tsv_ files. For example,
+```
+./bypass_filter.sh ../data/pubmed_txt ../data/pubmed_all_rel
+```
+Do not put a final slash on the directories passed as parameters to the script. For each _.txt_ file in
+the input directory, _bypass_filter.sh_ writes the corresponding __rel.tsv_ file to the output
+directory, just as _filter_abstracts.py_ does. The difference is that _bypass_filter.sh_ simply copies every
+article from input to output without any consideration of MeSH descriptors or keywords. You can then continue
+to the next stage of the processing pipeline.
 
 ### 5. Concept replacement with PubTator Central
 [PubTator Central](https://www.ncbi.nlm.nih.gov/research/pubtator/) from the NLM provides data for concept
@@ -166,14 +185,14 @@ The output directory is optional and defaults to the input directory.
 
 ### 6. Text postprocessing
 _scripts/post_process.py_ takes as input the file produced by _pubtate.py_ and selects those articles
-that were labeled relevant by _filter_abstracts.py_ (step 4). _post_process.py_ cleans up the text
-into which _pubtate.py_ has inserted concept identifiers.
+listed in the __rel.tsv_ files produced by step 4 of the pipeline. _post_process.py_ cleans
+up the text into which _pubtate.py_ has inserted concept identifiers.
 _post_process.py_ takes four command line options.
 
 | option | meaning                                                                                      |
 |--------|----------------------------------------------------------------------------------------------|
 | _-p_   | directory containing the _bioconcepts2pubtatorcentral.replaced_ file written by _pubtate.py_ |
-| _-r_   | directory containing files of relevant articles produced by _filter_abstracts.py_            |
+| _-r_   | directory containing files written by either _filter_abstracts.py_ or _bypass_filter.sh_     |
 | _-n_   | directory where **nltk** data have been downloaded                                           |
 | _-o_   | directory where _post_process.py_ writes its output files (_pubmed_cr.tsv_ and lexicons)     |
 
@@ -185,13 +204,15 @@ python post_process.py -p ../data/pubtator -r ../data/pubmed_rel \
 Post-processing removes all punctuation symbols, including hyphens and underscores
 within words: the parts of a compound word become separate tokens. _post_process.py_ 
 also removes stop words, whether lowercase or capitalized, from the title and abstract.
-Uppercase acronyms of length ≥ 2, even those that coincide with stop words, are kept.
+Uppercase acronyms of length ≥ 2, even those that coincide with stop words, are kept. For
+example, 'all' and 'All' will be treated as stop words but 'ALL' will not.
 __marea__ starts with the **nltk** stop word list for English and adds some new stop words. 
 Any letter of the alphabet that occurs as a single-character token is a stop word. Numerical
 tokens (including those that start with a digit but contain some letters) are discarded 
 unless they appear on a short list of "interesting" numbers (0-10 and a few others). 
 To reduce the size of the vocabulary, the remaining tokens are lemmatized with the 
-__WordNetLemmatizer__ from **nltk**. The last step converts everything to lowercase.
+__WordNetLemmatizer__ from **nltk**. The last step converts everything (including
+acronyms) to lowercase.
  
 _post_process.py_ writes three output files:
 * _pubmed_cr.tsv_ contains the PMID, publication date, and modified title and abstract for
@@ -204,7 +225,10 @@ The two vocabulary files give the lemmatized token along with its frequency of o
 and the list of words that lemmatize to that token.
 
 ### 7. Run pipeline on HPC
-Copy the processing pipeline scripts to the HPC file system, preserving the directory structure.
+Copy the processing pipeline scripts to the HPC file system, preserving the directory structure. If you
+don't want to filter articles by MeSH descriptors, you can skip over _scripts/filter_abstracts.py_ and 
+_singularity/filter.sh_ and instead copy _bash_scripts/bypass_filter.sh_ to the HPC so you can
+run it interactively.
 ```
 marea
 ├── scripts
@@ -226,13 +250,13 @@ marea
     └── xml2txt.sh
 ```
 _marea_python.sh_ builds a singularity container _marea_python.sif_ from _marea_python.def_ with the
-latest version of python and other requirements listed in step 1. _xml2txt.sh_ extracts _.txt_ files
-from the _.xml_ (step 3). _filter.sh_ identifies relevant articles according to the specified
-MeSH descriptors (step 4). _pubtate.sh_ consumes the concept recognition information from
+latest version of python and other requirements listed in Section 1. _xml2txt.sh_ extracts _.txt_ files
+from the _.xml_ (Section 3). _filter.sh_ identifies relevant articles according to the specified
+MeSH descriptors (Section 4.1). _pubtate.sh_ consumes the concept recognition information from
 PubTator Central to replace words with concept identifiers in the titles and abstracts of 
-PubMed articles (step 5). _post_process.sh_ selects the title and abstract after concept
-replacement for articles that were judged relevant in step 4. It applies the NLP manipulations
-described in step 6 to the selected text, and writes the final output files.
+PubMed articles (Section 5). _post_process.sh_ selects the title and abstract after concept
+replacement for articles that were included in step 4. It applies the NLP manipulations
+described in Section 6 to the selected text, and writes the final output files.
 
 Edit these slurm scripts to change
 * the email address for slurm messages

@@ -3,7 +3,7 @@ import re
 
 from os import makedirs
 from os.path import join
-from typing import List, Tuple
+from typing import List, Set, Tuple
 
 OFFSET_FILENAME = 'bioconcepts2pubtatorcentral.offset'
 REPLACED_FILENAME = 'bioconcepts2pubtatorcentral.replaced'
@@ -26,6 +26,18 @@ def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
     return start < max_len and \
         not (category == 'Species' and cid == '9606') and \
         not ('Mutation' in category or cid == '' or cid == '-')
+
+
+def desired_concept(desired_concepts: Set[str], cid: str) -> bool:
+    """
+    Check whether specified concept id is contained in desired_concepts.
+    :param desired_concepts: set of concept ids
+    :param cid:              concept id (MeSH id, NCBI gene or taxon id, etc.)
+    :return:                 True if cid is a member of desired_concepts (or
+                             desired_concepts is None)
+                             False otherwise
+    """
+    return desired_concepts is None or cid in desired_concepts
 
 
 def fix_concept_id(category: str, cid: str) -> str:
@@ -58,7 +70,20 @@ def fix_concept_ids(category: str, cid: str) -> str:
     return ''.join(map(lambda x: fix_concept_id(category, x), cids))
 
 
-def replace_all(input_dir, output_dir) -> None:
+def read_concept_set(path) -> Set[str]:
+    """
+    Create set of concept ids read from specified file.
+    :param path: path to file containing concept ids of interest, one per line
+    :return:     set of concept ids read from file
+    """
+    concept_set = set()
+    with click.open_file(path) as concept_file:
+        for concept in concept_file:
+            concept_set.add(concept.strip())
+    return concept_set
+
+
+def replace_all(input_dir, output_dir, desired_concepts: Set[str]) -> None:
     """
     Process all concept annotations in the pubtator offset file.
     :param input_dir:  directory of the pubtator offset file
@@ -100,8 +125,8 @@ def replace_all(input_dir, output_dir) -> None:
                                 end = int(m.group(2))
                                 category = m.group(3)
                                 concept_id = m.group(4)
-                                if concept_line_ok(start, total_len, category,
-                                                   concept_id):
+                                if desired_concept(desired_concepts, concept_id) and \
+                                   concept_line_ok(start, total_len, category, concept_id):
                                     concepts.append((start, end,
                                                      fix_concept_ids(category,
                                                                      concept_id)))
@@ -134,9 +159,11 @@ def replace_one(title: str, abstract: str,
 @click.option('-i', type=click.Path(exists=True), required=True,
               help='directory of pubtator offset file')
 @click.option('-o', type=click.Path(), help='output directory, defaults to input directory')
+@click.option('-c', type=click.Path(exists=True),
+              help='file of concept ids to replace')
 # python pubtate.py -i ../data/pubtator
 # python pubtate.py -i ../data -o ../data/pubtator
-def main(i, o):
+def main(i, o, c):
     """
     For each entry in OFFSET_FILENAME, perform all concept replacements in
     title and abstract. Write result to REPLACED_FILENAME.
@@ -149,7 +176,11 @@ def main(i, o):
     else:
         makedirs(o, exist_ok=True)
         output_dir = o
-    replace_all(i, output_dir)
+    if c is None:
+        concept_set = None
+    else:
+        concept_set = read_concept_set(c)
+    replace_all(i, output_dir, concept_set)
 
 
 if __name__ == '__main__':

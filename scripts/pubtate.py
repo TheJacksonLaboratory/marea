@@ -72,23 +72,26 @@ def fix_concept_ids(category: str, cid: str) -> str:
 
 def read_concept_set(path) -> Set[str]:
     """
-    Create set of concept ids read from specified file.
+    Create set of concept ids by reading contents from specified file.
     :param path: path to file containing concept ids of interest, one per line
     :return:     set of concept ids read from file
     """
     concept_set = set()
     with click.open_file(path) as concept_file:
         for concept in concept_file:
-            concept_set.add(concept.strip())
+            cid = concept.strip()
+            if cid != '':
+                concept_set.add(cid)
     return concept_set
 
 
 def replace_all(input_dir, output_dir, desired_concepts: Set[str]) -> None:
     """
     Process all concept annotations in the pubtator offset file.
-    :param input_dir:  directory of the pubtator offset file
-    :param output_dir: directory for output file
-    :return:           None, side effect is write output file
+    :param input_dir:         directory of the pubtator offset file
+    :param output_dir:        directory for output file
+    :param desired_concepts:  set of concept ids to be replaced
+    :return:                  None, side effect is to write output file
     """
     pmid = title = abstract = ''
     total_len = 0
@@ -169,6 +172,7 @@ def main(i, o, c):
     title and abstract. Write result to REPLACED_FILENAME.
     :param i:  directory containing offset file
     :param o:  directory for output file
+    :param c:  file of concept ids to replace
     :return:   none
     """
     if o is None:

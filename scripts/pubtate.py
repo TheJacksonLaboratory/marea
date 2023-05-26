@@ -28,16 +28,19 @@ def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
         not ('Mutation' in category or cid == '' or cid == '-')
 
 
-def desired_concept(desired_concepts: Set[str], cid: str) -> bool:
+def desired_concept(desired_concepts: Set[Tuple[str, str]],
+                    category: str, cid: str) -> bool:
     """
-    Check whether specified concept id is contained in desired_concepts.
-    :param desired_concepts: set of concept ids
+    Check whether specified concept (MeSH id, NCBI gene or taxon id, etc.)
+    is contained in desired_concepts.
+    :param desired_concepts: set of (concept category, concept id) tuples
+    :param category:         concept category (Chemical, Disease, Gene, Species, etc.)
     :param cid:              concept id (MeSH id, NCBI gene or taxon id, etc.)
-    :return:                 True if cid is a member of desired_concepts (or
-                             desired_concepts is None)
+    :return:                 True if (category, cid) tuple is a member of
+                                  desired_concepts (or desired_concepts is None)
                              False otherwise
     """
-    return desired_concepts is None or cid in desired_concepts
+    return desired_concepts is None or (category, cid) in desired_concepts
 
 
 def fix_concept_id(category: str, cid: str) -> str:
@@ -70,22 +73,30 @@ def fix_concept_ids(category: str, cid: str) -> str:
     return ''.join(map(lambda x: fix_concept_id(category, x), cids))
 
 
-def read_concept_set(path) -> Set[str]:
+def read_concept_set(path) -> Set[Tuple[str, str]]:
     """
-    Create set of concept ids by reading contents from specified file.
-    :param path: path to file containing concept ids of interest, one per line
-    :return:     set of concept ids read from file
+    Create set of (concept category, concept id) tuples by reading contents
+    from specified file.
+    :param path:  path to file containing one category, id pair per line
+    :return:      set of (category, id) tuples read from file
+
+    File format: no header, 2 fields per line, separated by a tab character
+                 category<tab>id
+    Concept categories and concept ids must match the contents of the
+    bioconcepts2pubtatorcentral.offset file from PubTator Central
     """
     concept_set = set()
     with click.open_file(path) as concept_file:
-        for concept in concept_file:
-            cid = concept.strip()
-            if cid != '':
-                concept_set.add(cid)
+        for line in concept_file:
+            concept = line.split('\t')
+            if len(concept) == 2:
+                category = concept[0].strip()
+                cid = concept[1].strip()
+                concept_set.add((category, cid))
     return concept_set
 
 
-def replace_all(input_dir, output_dir, desired_concepts: Set[str]) -> None:
+def replace_all(input_dir, output_dir, desired_concepts: Set[Tuple[str, str]]) -> None:
     """
     Process all concept annotations in the pubtator offset file.
     :param input_dir:         directory of the pubtator offset file
@@ -128,8 +139,8 @@ def replace_all(input_dir, output_dir, desired_concepts: Set[str]) -> None:
                                 end = int(m.group(2))
                                 category = m.group(3)
                                 concept_id = m.group(4)
-                                if desired_concept(desired_concepts, concept_id) and \
-                                   concept_line_ok(start, total_len, category, concept_id):
+                                if desired_concept(desired_concepts, category, concept_id) \
+                                   and concept_line_ok(start, total_len, category, concept_id):
                                     concepts.append((start, end,
                                                      fix_concept_ids(category,
                                                                      concept_id)))
@@ -163,7 +174,7 @@ def replace_one(title: str, abstract: str,
               help='directory of pubtator offset file')
 @click.option('-o', type=click.Path(), help='output directory, defaults to input directory')
 @click.option('-c', type=click.Path(exists=True),
-              help='file of concept ids to replace')
+              help='file of concepts to replace')
 # python pubtate.py -i ../data/pubtator
 # python pubtate.py -i ../data -o ../data/pubtator
 def main(i, o, c):
@@ -172,7 +183,7 @@ def main(i, o, c):
     title and abstract. Write result to REPLACED_FILENAME.
     :param i:  directory containing offset file
     :param o:  directory for output file
-    :param c:  file of concept ids to replace
+    :param c:  file of concept category, concept id pairs to replace
     :return:   none
     """
     if o is None:

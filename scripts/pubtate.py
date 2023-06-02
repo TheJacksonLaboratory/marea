@@ -24,8 +24,8 @@ def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
     # Skip over any DNAMutation or ProteinMutation concept replacement.
     # Skip over any replacement that has no useful concept id.
     return start < max_len and \
-        not (category == 'Species' and cid == '9606') and \
-        not ('Mutation' in category or cid == '' or cid == '-')
+           not (category == 'Species' and cid == '9606') and \
+           not ('Mutation' in category or cid == '' or cid == '-')
 
 
 def desired_concept(desired_concepts: Set[Tuple[str, str]],
@@ -40,7 +40,15 @@ def desired_concept(desired_concepts: Set[Tuple[str, str]],
                                   desired_concepts (or desired_concepts is None)
                              False otherwise
     """
-    return desired_concepts is None or (category, cid) in desired_concepts
+    # Some concept ids in the PubTator offset file are actually a list of
+    # multiple ids separated by semicolons, as in
+    # 36414742	14048	14053	AE1/3	Gene	6521;6508
+    # 36414742	17039	17047	CDKN2A/B	Gene	1029;1030
+    # if any one of the multiple ids is in the set of desired concepts,
+    # the entire list will be replaced
+    cids = cid.split(';')
+    return desired_concepts is None or \
+        any((category, concept) in desired_concepts for concept in cids)
 
 
 def fix_concept_id(category: str, cid: str) -> str:
@@ -140,7 +148,7 @@ def replace_all(input_dir, output_dir, desired_concepts: Set[Tuple[str, str]]) -
                                 category = m.group(3)
                                 concept_id = m.group(4)
                                 if desired_concept(desired_concepts, category, concept_id) \
-                                   and concept_line_ok(start, total_len, category, concept_id):
+                                        and concept_line_ok(start, total_len, category, concept_id):
                                     concepts.append((start, end,
                                                      fix_concept_ids(category,
                                                                      concept_id)))

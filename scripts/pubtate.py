@@ -109,7 +109,7 @@ def replace_all(input_dir, output_dir, desired_concepts: Set[Tuple[str, str]]) -
     Process all concept annotations in the pubtator offset file.
     :param input_dir:         directory of the pubtator offset file
     :param output_dir:        directory for output file
-    :param desired_concepts:  set of concept ids to be replaced
+    :param desired_concepts:  set of (category, id) tuples for concepts to be replaced
     :return:                  None, side effect is to write output file
     """
     pmid = title = abstract = ''
@@ -139,7 +139,9 @@ def replace_all(input_dir, output_dir, desired_concepts: Set[Tuple[str, str]]) -
                         if m:
                             abstract = m.group(2)
                             total_len = len(title) + len(abstract)
-                            concepts = []
+                            # Using set for the concept replacements instead of list because
+                            # the PubtatorCentral offset file contains duplicate replacements
+                            concepts = set()
                         else:
                             m = c_pattern.match(line)
                             if m:
@@ -148,10 +150,9 @@ def replace_all(input_dir, output_dir, desired_concepts: Set[Tuple[str, str]]) -
                                 category = m.group(3)
                                 concept_id = m.group(4)
                                 if desired_concept(desired_concepts, category, concept_id) \
-                                        and concept_line_ok(start, total_len, category, concept_id):
-                                    concepts.append((start, end,
-                                                     fix_concept_ids(category,
-                                                                     concept_id)))
+                                   and concept_line_ok(start, total_len, category, concept_id):
+                                    concepts.add((start, end,
+                                                  fix_concept_ids(category, concept_id)))
                             else:
                                 print('Line does not match any pattern:\n{}'.format(line))
     return None

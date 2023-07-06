@@ -25,7 +25,7 @@ def concept_line_ok(start: int, max_len: int, category: str, cid: str) -> bool:
     # Skip over any replacement that has no useful concept id.
     return start < max_len and \
            not (category == 'Species' and cid == '9606') and \
-           not ('Mutation' in category or cid == '' or cid == '-')
+           not ('Mutation' in category or cid == '' or cid == '-' or cid == 'None')
 
 
 def desired_concept(desired_concepts: Set[Tuple[str, str]],

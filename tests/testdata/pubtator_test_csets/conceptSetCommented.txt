@@ -1,0 +1,34 @@
+This is an explanation of the test concept set file, conceptSet.txt. The concept set contains concepts
+from several different PubTator Central categories, including some that are not replaced by marea
+(DNAMutation and ProteinMutation). The test bioconcepts2pubtatorcentral.offset file contains annotations
+for 60 PubMed articles. The last column below says how many of these 60 articles contain occurrences
+of the corresponding concept. Some of the concepts have no occurrences within the test articles.
+
+Example text		Category	Concept id			Number of articles
+------------		------------	------------			------------
+mast                        CellLine	CVCL_M374;NCBITaxID:9606	no example
+PFC                         CellLine            CVCL_6F45;NCBITaxID:9823           no example
+methanol                    Chemical            MESH:D000432                       no example
+Glucose                     Chemical            MESH:D005947                       10 articles
+nitrogen                    Chemical            MESH:D009584                       no example
+6-OHDA                      Chemical            MESH:D016627                       1 article
+COVID-19                    Disease             MESH:C000657245                    4 articles
+dementia                    Disease             MESH:D003704                       2 articles
+Diabetes                    Disease             MESH:D003920                       1 article
+Hypertension                Disease             MESH:D006973                       no example
+Spinal Muscular Atrophy     Disease             MESH:D009134                       1 article
+tumors                      Disease             MESH:D009369                       5 articles
+osteoporosis                Disease             MESH:D010024                       no example
+pain                        Disease             MESH:D010146                       no example
+c.1108C>T                   DNAMutation         c.1108C>T;RS#:45517159             1 article
+mTOR			Gene		2475				2 articles
+insulin			Gene		3630				1 article
+tau			Gene		4137				2 articles
+tryptophanase		Gene		56720				no example
+p.Gln370*                   ProteinMutation     p.Q370*;CorrespondingGene:7249     1 article
+bees			Species		7460				no example
+pig			Species		9823				no example
+mouse			Species		10090				7 articles
+rat			Species		10116				1 article
+Escherichia coli K-12	Species		83333				2 articles
+SARS-CoV-2		Species		2697049				1 article

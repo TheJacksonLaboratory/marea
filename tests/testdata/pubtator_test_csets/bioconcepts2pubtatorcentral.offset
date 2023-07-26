@@ -1,0 +1,984 @@
+8066824|t|Microvasculature in brain biopsy specimens from patients with Alzheimer's disease: an immunohistochemical and ultrastructural study.
+8066824|a|Brain biopsy specimens from five patients with Alzheimer's disease obtained in the course of a trial of intracerebroventricular bethanechol were studied by immunohistochemical (antibody to A4 peptide) and ultrastructural techniques, with particular emphasis on the microvessels. In some cases, numbers of A4-immunoreactive lesions (senile plaques) correlated well with numbers of plaques demonstrable by silver stains. Prominent A4-immunoreactive amyloid angiopathy was seen in one patient. The patient with severe cerebral amyloid angiopathy (CAA) showed extensive arteriolar deposition of amyloid filaments with apparent destruction of the media but remarkably intact endothelium. A cell of origin for amyloid filaments was not apparent, although close proximity to smooth muscle cell remnants in the arteriolar media suggested this as one possible cell of origin. Frequent vessels showed medial or adventitial collagen deposition, even when the amount of amyloid was minimal or negligible. Thus relatively severe CAA can exist in the absence of overt endothelial injury, although related studies on this tissue indicate definite abnormalities of the blood-brain barrier. Conversely, destruction of smooth muscle cells and collagen deposition in vessel walls may be the cellular correlates of arteriolar weakening that can lead to CAA-related brain hemorrhage.
+8066824	48	56	patients	Species	9606
+8066824	62	81	Alzheimer's disease	Disease	MESH:D000544
+8066824	166	174	patients	Species	9606
+8066824	180	199	Alzheimer's disease	Disease	MESH:D000544
+8066824	261	272	bethanechol	Chemical	MESH:D018723
+8066824	537	543	silver	Chemical	MESH:D012834
+8066824	588	598	angiopathy	Disease	MESH:D001018
+8066824	615	622	patient	Species	9606
+8066824	628	635	patient	Species	9606
+8066824	648	675	cerebral amyloid angiopathy	Disease	MESH:D016657
+8066824	1265	1297	abnormalities of the blood-brain	Disease	MESH:D006402
+8066824	1478	1494	brain hemorrhage	Disease	MESH:D020300
+
+18264009|t|Cognitive impairment no dementia - neuropsychological and neuroimaging characterization of an amnestic subgroup.
+18264009|a|BACKGROUND/AIMS: Cognitive impairment no dementia (CIND) describes individuals whose cognitive functioning falls below normal but who do not meet dementia criteria. An important goal within CIND is to identify subgroups that will predictably progress to Alzheimer disease. CIND with amnestic deficits has been associated with high risk of Alzheimer disease but has until now been investigated on a retrospective basis. In this study a prospectively defined amnestic CIND group was characterized on a detailed neuropsychological test battery and on structural magnetic resonance imaging (MRI) measures. METHODS: Amnestic CIND was defined as meeting at least 1 but not all DSM-IV-TR criteria for dementia, scoring > or =1 SD below norms on Rey Auditory Verbal Learning Test delayed recall, having a Clinical Dementia Rating score of 0.5 and a Mini-Mental State Exam score > or =24. This cross-sectional study compared subjects meeting these criteria (n = 25) to age- and education-matched controls (n = 26). The neuropsychological battery included memory and nonmemory measures that were analyzed as continuous variables and dichotomized into impaired (> or =1 SD below controls) versus nonimpaired. MRI scans were evaluated with a global-brain volumetric measure [brain fractional ratio (BFR)] and with visually based medial temporal lobe atrophy (MTA) ratings. RESULTS: Amnestic CIND had neuropsychological impairment in the episodic memory domain and also in nonmemory domains. There were 80% of CIND subjects with multidomain impairment. The most clear-cut nonmemory impairment was in the verbal ability domain, with 64% of subjects affected and a moderate effect size (d = 0.7). On MRI, BFR was lower (74.5 +/- 4.6 vs. 75.5 +/- 4.4) and MTA higher (72 vs. 38% with MTA > or =1) in CIND than in control subjects. BFR correlated with MTA (r = -0.45) and with a composite memory score (r = 0.296). CONCLUSION: A prospective amnestic CIND grouping appears to identify individuals with a multidomain pattern of neuropsychological impairment and with both medial temporal lobe and global brain atrophy.
+18264009	0	32	Cognitive impairment no dementia	Disease	MESH:D003072
+18264009	130	162	Cognitive impairment no dementia	Disease	MESH:D003072
+18264009	164	168	CIND	Disease	
+18264009	259	267	dementia	Disease	MESH:D003704
+18264009	303	307	CIND	Disease	
+18264009	367	384	Alzheimer disease	Disease	MESH:D000544
+18264009	386	390	CIND	Disease	
+18264009	396	413	amnestic deficits	Disease	MESH:D000647
+18264009	452	469	Alzheimer disease	Disease	MESH:D000544
+18264009	570	583	amnestic CIND	Disease	MESH:D000647
+18264009	724	737	Amnestic CIND	Disease	MESH:D000647
+18264009	807	815	dementia	Disease	MESH:D003704
+18264009	1446	1458	lobe atrophy	Disease	MESH:D001284
+18264009	1483	1553	Amnestic CIND had neuropsychological impairment in the episodic memory	Disease	MESH:D008569
+18264009	1610	1614	CIND	Disease	
+18264009	1897	1901	CIND	Disease	
+18264009	2037	2050	amnestic CIND	Disease	MESH:D000647
+18264009	2198	2211	brain atrophy	Disease	MESH:C566985
+
+28221304|t|Outcome Measures in Myasthenia Gravis: Incorporation Into Clinical Practice.
+28221304|a|The development of validated assessment tools for evaluating disease status and response to interventions in patients with myasthenia gravis (MG) has been driven by clinical studies of emerging MG therapies. However, only a small proportion of MG-focused neurology practices have adopted these assessment tools for routine clinical use. This article reviews the suitability of 5 assessment instruments for incorporation into clinical practice, which should be driven by their ability to contribute to improved patient outcomes, and to be implemented within practice personnel and resource constraints. It is recommended that assessments based on both physician-evaluated and patient-reported outcomes be selected, to adequately evaluate both point-in-time symptom load and functional impact of MG symptoms over time. Provider resource allocation and reimbursement issues may be the most significant roadblocks to successful ongoing use of these tools; to that end, the addition of regular assessments to MG standards of care is recommended.
+28221304	20	37	Myasthenia Gravis	Disease	MESH:D009157
+28221304	186	194	patients	Species	9606
+28221304	200	217	myasthenia gravis	Disease	MESH:D009157
+28221304	587	594	patient	Species	9606
+28221304	752	759	patient	Species	9606
+
+23122961|t|Targeting of XJB-5-131 to mitochondria suppresses oxidative DNA damage and motor decline in a mouse model of Huntington's disease.
+23122961|a|Oxidative damage and mitochondrial dysfunction are implicated in aging and age-related neurodegenerative diseases, including Huntington's disease (HD). Many naturally occurring antioxidants have been tested for their ability to correct for deleterious effects of reactive oxygen species, but often they lack specificity, are tissue variable, and have marginal efficacy in human clinical trials. To increase specificity and efficacy, we have designed a synthetic antioxidant, XJB-5-131, to target mitochondria. We demonstrate in a mouse model of HD that XJB-5-131 has remarkably beneficial effects. XJB-5-131 reduces oxidative damage to mitochondrial DNA, maintains mitochondrial DNA copy number, suppresses motor decline and weight loss, enhances neuronal survival, and improves mitochondrial function. The findings poise XJB-5-131 as a promising therapeutic compound.
+23122961	13	22	XJB-5-131	Chemical	MESH:C523959
+23122961	94	99	mouse	Species	10090
+23122961	109	129	Huntington's disease	Disease	MESH:D006816
+23122961	152	177	mitochondrial dysfunction	Disease	MESH:D028361
+23122961	218	244	neurodegenerative diseases	Disease	MESH:D019636
+23122961	256	276	Huntington's disease	Disease	MESH:D006816
+23122961	278	280	HD	Disease	MESH:D006816
+23122961	394	417	reactive oxygen species	Chemical	MESH:D017382
+23122961	503	508	human	Species	9606
+23122961	606	615	XJB-5-131	Chemical	MESH:C523959
+23122961	661	666	mouse	Species	10090
+23122961	676	678	HD	Disease	MESH:D006816
+23122961	684	693	XJB-5-131	Chemical	MESH:C523959
+23122961	729	738	XJB-5-131	Chemical	MESH:C523959
+23122961	856	867	weight loss	Disease	MESH:D015431
+23122961	953	962	XJB-5-131	Chemical	MESH:C523959
+
+19763528|t|[Car driving ability of patients with frontotemporal lobar degeneration and Alzheimer's disease].
+19763528|a|BACKGROUND: The following study presents in detail newly occurring changes in driving ability of patients with Alzheimer's disease (AD) and dementia due to frontotemporal lobar degeneration (FTLD). PATIENTS AND METHODS: The caregivers of 30 patients with FTLD (20 with FTD, 10 with SD) and 26 matched patients with AD were interviewed on potential alterations in driving ability using a standardized questionnaire. RESULTS: Of the patients 90% with FTLD and 58% with AD showed changes in driving behavior. In AD the predominating alteration was an unsteady style of driving with increased lack of orientation. Patients with FTLD presented an aggressive and risky style of driving including various traffic rule violations. Significant differences between the two groups were observed regarding speeding, disregarding red traffic lights, inappropriate behavior and driving despite being forbidden by the family Of the patients with FTLD 37% were responsible for at least one accident since disease onset in comparison to 19% of patients with AD (p=0.24). Most patients with AD showed a reasonable attitude to their change in driving behavior, however the majority of patients with FTLD showed a lack of understanding for the fact that their style of driving presented a potential risk and did not accept the need to stop driving (p=0.023). CONCLUSION: Patients with FTLD should cease driving as soon as possible in the course of the disease. With patients suffering from mild AD an individual assessment should be made.
+19763528	24	32	patients	Species	9606
+19763528	59	71	degeneration	Disease	MESH:D012162
+19763528	76	95	Alzheimer's disease	Disease	MESH:D000544
+19763528	195	203	patients	Species	9606
+19763528	209	228	Alzheimer's disease	Disease	MESH:D000544
+19763528	230	232	AD	Disease	MESH:D000544
+19763528	238	246	dementia	Disease	MESH:D003704
+19763528	269	287	lobar degeneration	Disease	MESH:D057174
+19763528	289	293	FTLD	Disease	MESH:D057174
+19763528	296	304	PATIENTS	Species	9606
+19763528	339	347	patients	Species	9606
+19763528	353	357	FTLD	Disease	MESH:D057174
+19763528	399	407	patients	Species	9606
+19763528	413	415	AD	Disease	MESH:D000544
+19763528	529	537	patients	Species	9606
+19763528	547	551	FTLD	Disease	MESH:D057174
+19763528	565	567	AD	Disease	MESH:D000544
+19763528	607	609	AD	Disease	MESH:D000544
+19763528	708	716	Patients	Species	9606
+19763528	722	726	FTLD	Disease	MESH:D057174
+19763528	1015	1023	patients	Species	9606
+19763528	1029	1033	FTLD	Disease	MESH:D057174
+19763528	1125	1133	patients	Species	9606
+19763528	1139	1141	AD	Disease	MESH:D000544
+19763528	1157	1165	patients	Species	9606
+19763528	1171	1173	AD	Disease	MESH:D000544
+19763528	1264	1272	patients	Species	9606
+19763528	1278	1282	FTLD	Disease	MESH:D057174
+19763528	1449	1457	Patients	Species	9606
+19763528	1463	1467	FTLD	Disease	MESH:D057174
+19763528	1544	1552	patients	Species	9606
+19763528	1573	1575	AD	Disease	MESH:D000544
+
+12467823|t|Video-assisted thymectomy for myasthenia gravis: an update of a single institution experience.
+12467823|a|OBJECTIVE: Video-assisted thymectomy was introduced in 1992 as a minimally invasive alternative for the treatment of myasthenia gravis. As experience with this technique is limited and follow-up short, we present this expanded and updated experience for purposes of validation of the technique. METHODS: Thirty-eight video-assisted thymectomies for myasthenia gravis were performed in our institution between March 1992 and March 2002. Two patients were lost to follow-up. We analyzed clinical results of 36 patients (14 males and 22 females) with a mean age of 41.2 years. Preoperative clinical staging was assessed by the newly recommended Myasthenia Gravis Foundation of America Clinical Classification. Clinical status at follow-up was assessed by the Myasthenia Gravis Foundation of America Postintervention Status classification. RESULTS: There was no perioperative mortality or long-term morbidity. One of 38 (2.6%) patients required conversion to limited thoracotomy for bleeding. The mean length of hospital stay was 1.64 days (range 0-8 days) with a median stay of 1 day. The mean length of follow-up is 53.24 months (range 4-126 months). Overall clinical improvement at follow-up was observed in 30 of 36 (83.0%) patients, with five of 36 (14.0%) patients in complete stable remission. CONCLUSIONS: Video-assisted thymectomy for myasthenia gravis provides acceptable clinical long-term results by a minimally invasive approach comparable to standard surgical approaches to the disease. The presented data is reported in accordance with the new guidelines by Myasthenia Gravis Foundation of America Task Force for valid comparison with future studies.
+12467823	30	47	myasthenia gravis	Disease	MESH:D009157
+12467823	212	229	myasthenia gravis	Disease	MESH:D009157
+12467823	444	461	myasthenia gravis	Disease	MESH:D009157
+12467823	535	543	patients	Species	9606
+12467823	603	611	patients	Species	9606
+12467823	737	754	Myasthenia Gravis	Disease	MESH:D009157
+12467823	851	868	Myasthenia Gravis	Disease	MESH:D009157
+12467823	967	976	mortality	Disease	MESH:D003643
+12467823	1018	1026	patients	Species	9606
+12467823	1074	1082	bleeding	Disease	MESH:D006470
+12467823	1319	1327	patients	Species	9606
+12467823	1353	1361	patients	Species	9606
+12467823	1435	1452	myasthenia gravis	Disease	MESH:D009157
+12467823	1664	1681	Myasthenia Gravis	Disease	MESH:D009157
+
+32600496|t|New onset severe right ventricular failure associated with COVID-19 in a young infant without previous heart disease.
+32600496|a|We present our recent experience with a 6-month-old infant with a personal history of short bowel syndrome that presented with fever, cyanosis, and cardiogenic shock secondary to severe pulmonary hypertension and right ventricular failure without pulmonary thromboembolism. He did not present signs of toxin-mediated disease or Kawasaki disease. He was finally diagnosed with SARS-CoV-2 infection. If this presentation is confirmed in future research, the severe cardiovascular impairment in children with COVID-19 could be also attributable to the primary pulmonary infection, not only to a multisystem inflammatory syndrome but also in children without heart disease.
+32600496	17	42	right ventricular failure	Disease	MESH:D018497
+32600496	59	67	COVID-19	Disease	MESH:C000657245
+32600496	103	116	heart disease	Disease	MESH:D006331
+32600496	204	224	short bowel syndrome	Disease	MESH:D012778
+32600496	245	250	fever	Disease	MESH:D005334
+32600496	252	260	cyanosis	Disease	MESH:D003490
+32600496	266	283	cardiogenic shock	Disease	MESH:D012770
+32600496	304	326	pulmonary hypertension	Disease	MESH:D006976
+32600496	331	356	right ventricular failure	Disease	MESH:D018497
+32600496	365	390	pulmonary thromboembolism	Disease	MESH:D011655
+32600496	446	462	Kawasaki disease	Disease	MESH:D009080
+32600496	494	514	SARS-CoV-2 infection	Disease	MESH:C000657245
+32600496	581	606	cardiovascular impairment	Disease	MESH:D002318
+32600496	610	618	children	Species	9606
+32600496	624	632	COVID-19	Disease	MESH:C000657245
+32600496	675	694	pulmonary infection	Disease	MESH:D012141
+32600496	710	743	multisystem inflammatory syndrome	Disease	MESH:D056587
+32600496	756	764	children	Species	9606
+32600496	773	786	heart disease	Disease	MESH:D006331
+
+32451002|t|Implications of the current COVID-19 pandemic for communication in healthcare.
+32451002|a|
+32451002	28	36	COVID-19	Disease	MESH:C000657245
+
+23160423|t|Enhancing clinical trials in neurodegenerative disorders:  lessons from amyotrophic lateral sclerosis.
+23160423|a|PURPOSE OF REVIEW: This review article is focused on strategies that may enhance clinical trial efficiency in neurodegenerative disorders, as demonstrated within the research field of amyotrophic lateral sclerosis (ALS). RECENT FINDINGS: Unravelling ALS pathophysiology will result in an increased number of candidate therapeutics. Recent ALS clinical trials have employed novel study designs that expedite the drug development process and limit sample size, including futility, lead-in, selection, adaptive and sequential designs. The search for sensitive and specific biomarkers in ALS continues to develop, and they are essential in accelerating the drug discovery process. Several candidate cerebrospinal fluid (CSF), neuroimaging and electrophysiological biomarkers have been recently described in ALS, and some have been successfully employed as secondary outcome measures in clinical trials. The advent of web-based technologies has provided a complementary platform to expedite clinical trials, through electronic data capture, teleconferencing and online registries. In addition, the formation of ALS consortia has enhanced collaborative multicentre studies. SUMMARY: ALS research studies have employed novel strategies to accelerate the efficiency and pace of drug discovery. The importance of adapting to novel measures that enhance study efficiency is not unique to ALS and can be applied to other neurodegenerative diseases in search of effective treatments.
+23160423	29	56	neurodegenerative disorders	Disease	MESH:D019636
+23160423	72	101	amyotrophic lateral sclerosis	Disease	MESH:D000690
+23160423	213	240	neurodegenerative disorders	Disease	MESH:D019636
+23160423	287	316	amyotrophic lateral sclerosis	Disease	MESH:D000690
+23160423	1209	1222	ALS consortia	Disease	MESH:D008113
+23160423	1513	1539	neurodegenerative diseases	Disease	MESH:D019636
+
+32145190|t|Liver injury in COVID-19: management and challenges.
+32145190|a|
+32145190	0	12	Liver injury	Disease	MESH:D017093
+32145190	16	24	COVID-19	Disease	MESH:C000657245
+
+3881207|t|Abnormal regulation of venous alanine after glucose ingestion in myotonic dystrophy.
+3881207|a|The concentration of amino acids in whole blood was measured before and during standard 5 h oral glucose tolerance testing in six male patients with myotonic dystrophy and five normal males. The plasma levels of insulin and glucose were also determined. From 90 to 240 min after glucose ingestion there was a striking decline in venous alanine concentration in the patients with myotonic dystrophy in contrast to a slight rise in alanine in the normal group. The patients displayed normal glucose tolerance, and there was a sustained fall in the venous concentration of the insulin-sensitive amino acids comparable with that seen in the normal controls. However, the patients showed a threefold increase of plasma insulin after glucose. These data indicate an abnormal regulation of alanine in myotonic dystrophy which may be the result of an alteration in muscle synthesis of this amino acid. This defect in alanine synthesis may be due to a decreased availability of intracellular pyruvate caused by the insulin resistance that exists in these patients.
+3881207	30	37	alanine	Chemical	MESH:D000409
+3881207	44	51	glucose	Chemical	MESH:D005947
+3881207	65	83	myotonic dystrophy	Disease	MESH:D009223
+3881207	182	189	glucose	Chemical	MESH:D005947
+3881207	220	228	patients	Species	9606
+3881207	234	252	myotonic dystrophy	Disease	MESH:D009223
+3881207	297	304	insulin	Gene	3630
+3881207	309	316	glucose	Chemical	MESH:D005947
+3881207	364	371	glucose	Chemical	MESH:D005947
+3881207	421	428	alanine	Chemical	MESH:D000409
+3881207	450	458	patients	Species	9606
+3881207	464	482	myotonic dystrophy	Disease	MESH:D009223
+3881207	515	522	alanine	Chemical	MESH:D000409
+3881207	548	556	patients	Species	9606
+3881207	574	581	glucose	Chemical	MESH:D005947
+3881207	659	666	insulin	Gene	3630
+3881207	752	760	patients	Species	9606
+3881207	799	806	insulin	Gene	3630
+3881207	813	820	glucose	Chemical	MESH:D005947
+3881207	868	875	alanine	Chemical	MESH:D000409
+3881207	879	897	myotonic dystrophy	Disease	MESH:D009223
+3881207	994	1001	alanine	Chemical	MESH:D000409
+3881207	1068	1076	pyruvate	Chemical	MESH:D019289
+3881207	1091	1098	insulin	Gene	3630
+3881207	1131	1139	patients	Species	9606
+
+32780290|t|The microbial coinfection in COVID-19.
+32780290|a|The severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2), a novel beta-coronavirus, is the main pathogenic agent of the rapidly spreading pneumonia called coronavirus disease 2019 (COVID-19). SARS-CoV-2 infects much more people, especially the elder population, around the world than other coronavirus, such as SARS-CoV and MERS-CoV, which is challenging current global public health system. Beyond the pathogenesis of SARS-CoV-2, microbial coinfection plays an important role in the occurrence and development of SARS-CoV-2 infection by raising the difficulties of diagnosis, treatment, prognosis of COVID-19, and even increasing the disease symptom and mortality. We summarize the coinfection of virus, bacteria and fungi with SARS-CoV-2, their effects on COVID-19, the reasons of coinfection, and the diagnosis to emphasize the importance of microbial coinfection in COVID-19. KEY POINTS:   Microbial coinfection is a nonnegligible factor in COVID-19.   Microbial coinfection exacerbates the processes of the occurrence, development and prognosis of COVID-19, and the difficulties of clinical diagnosis and treatment.   Different virus, bacteria, and fungi contributed to the coinfection with SARS-CoV-2.
+32780290	14	25	coinfection	Disease	MESH:D060085
+32780290	29	37	COVID-19	Disease	MESH:C000657245
+32780290	43	90	severe acute respiratory syndrome coronavirus 2	Species	2697049
+32780290	92	102	SARS-CoV-2	Species	2697049
+32780290	113	129	beta-coronavirus	Species	694002
+32780290	185	194	pneumonia	Disease	MESH:D011014
+32780290	202	226	coronavirus disease 2019	Disease	MESH:C000657245
+32780290	228	236	COVID-19	Disease	MESH:C000657245
+32780290	239	249	SARS-CoV-2	Species	2697049
+32780290	268	274	people	Species	9606
+32780290	337	348	coronavirus	Species	11118
+32780290	358	366	SARS-CoV	Species	694009
+32780290	371	379	MERS-CoV	Species	1335626
+32780290	466	476	SARS-CoV-2	Species	2697049
+32780290	488	499	coinfection	Disease	MESH:D060085
+32780290	561	581	SARS-CoV-2 infection	Disease	MESH:C000657245
+32780290	648	656	COVID-19	Disease	MESH:C000657245
+32780290	702	711	mortality	Disease	MESH:D003643
+32780290	730	741	coinfection	Disease	MESH:D060085
+32780290	776	786	SARS-CoV-2	Species	2697049
+32780290	805	813	COVID-19	Disease	MESH:C000657245
+32780290	830	841	coinfection	Disease	MESH:D060085
+32780290	902	913	coinfection	Disease	MESH:D060085
+32780290	917	925	COVID-19	Disease	MESH:C000657245
+32780290	951	962	coinfection	Disease	MESH:D060085
+32780290	992	1000	COVID-19	Disease	MESH:C000657245
+32780290	1014	1025	coinfection	Disease	MESH:D060085
+32780290	1100	1108	COVID-19	Disease	MESH:C000657245
+32780290	1226	1237	coinfection	Disease	MESH:D060085
+32780290	1243	1253	SARS-CoV-2	Species	2697049
+
+30043511|t|A Semi-Mechanistic Population Pharmacokinetic Model of Nusinersen: An Antisense Oligonucleotide for the Treatment of Spinal Muscular Atrophy.
+30043511|a|A pharmacokinetic (PK) model was developed for nusinersen, an antisense oligonucleotide (ASO) that is the first approved treatment for spinal muscular atrophy (SMA). The model was built with data from 92 nonhuman primates (NHPs) following intrathecal doses (0.3-7 mg) and characterized the PK in cerebrospinal fluid (CSF), plasma, total spinal cord, brain, and pons. The estimated volumes were 13.6, 937, 4.5, 53.8, and 2.11 mL, respectively. Global sensitivity analysis demonstrated that the CSF-to-plasma drug distribution rate (0.09 hour-1 ) is a major determinant of the maximum nusinersen concentration in central nervous system (CNS) tissues. Physiological age-based and body weight-based allometric scaling was implemented with exponent values of -0.08 and 1 for the rate constants and the volume of distribution, respectively. Simulations of the scaled model were in agreement with clinical observations from 52 pediatric phase I PK profiles. The developed model can be used to guide the design of clinical trials with ASOs.
+30043511	80	95	Oligonucleotide	Chemical	MESH:D009841
+30043511	117	140	Spinal Muscular Atrophy	Disease	MESH:D009134
+30043511	214	229	oligonucleotide	Chemical	MESH:D009841
+30043511	231	234	ASO	Chemical	MESH:D016376
+30043511	277	300	spinal muscular atrophy	Disease	MESH:D009134
+
+4112340|t|Familial rectal pain.
+4112340|a|
+4112340	0	20	Familial rectal pain	Disease	MESH:C563475
+
+12820329|t|Ki-67 proliferation-index (MIB-1) of neurofibromas in neurofibromatosis type 1 patients.
+12820329|a|OBJECTIVE: The aim of this study was to analyse the proliferation rate of neurofibromas, in neurofibromatosis type 1 (NF1) patients in order to find out whether tumor growth can be correlated with the different subtypes, size and localisation of tumors, or gender. Large tumors and those localisations that do not allow a complete resection, e.g. the trigeminal branch plexiform neurofibromas, often require repeated surgical interventions. Therefore, the question whether partial resection is associated with alterations of the tumor type and proliferation is of great interest. MATERIALS AND METHODS: We investigated 317 specimens of 96 patients. Twenty-five specimens were identified as local recurrences, all of them being consecutive resections in the previously operated area. All patients were NF 1-affected individuals who fulfilled the US National Institute of Health consensus criteria for defining the disease. The proliferation index (PI) was assessed on formalin-fixed, paraffin-embedded tissue stained with the MIB- 1 antibody (Ki-67 antigen). The PI was evaluated in three high-power fields (0.1 square millimeter) in the area with the highest proliferative activity. The correlations were calculated according to Spearman-Rho. RESULTS: Men were more often surgically treated in the head and neck than women (p < 0.02). Plexiform neurofibromas were more frequently operated on in the head and neck than in other regions (p < 0.01). Older patients were more often treated for the diffuse cutaneous type of neurofibromas (p < 0.0001). The type of tumor did not differ from primaries to recurrent tumors. The MIB- 1 PI showed no association with any of the clinical parameters. In particular, there was no difference of the MIB-1 index between primaries and recurrent tumors. DISCUSSION: This study showed, for the first time, that proliferation in neurofibromas is not enhanced in previously partially resected neurofibromas. Hence, the argument that trauma or surgery for neurofibromas might promote proliferation, especially in the plexiform neurofibroma, is not supported by the results of the present study. Further this analysis demonstrated interdependencies between tumor type, localisation, age and gender indicative of the social difficulties encountered by the NF1 patients which may be helpful for the advising practitioner.
+12820329	27	32	MIB-1	Gene	57534
+12820329	37	50	neurofibromas	Disease	MESH:D009455
+12820329	54	78	neurofibromatosis type 1	Gene	4763
+12820329	79	87	patients	Species	9606
+12820329	163	176	neurofibromas	Disease	MESH:D009455
+12820329	181	205	neurofibromatosis type 1	Gene	4763
+12820329	207	210	NF1	Gene	4763
+12820329	212	220	patients	Species	9606
+12820329	250	255	tumor	Disease	MESH:D009369
+12820329	335	341	tumors	Disease	MESH:D009369
+12820329	360	366	tumors	Disease	MESH:D009369
+12820329	440	481	trigeminal branch plexiform neurofibromas	Disease	MESH:D018318
+12820329	618	623	tumor	Disease	MESH:D009369
+12820329	728	736	patients	Species	9606
+12820329	876	884	patients	Species	9606
+12820329	890	894	NF 1	Gene	4763
+12820329	1056	1064	formalin	Chemical	MESH:D005557
+12820329	1072	1080	paraffin	Chemical	MESH:D010232
+12820329	1114	1120	MIB- 1	Gene	57534
+12820329	1341	1344	Men	Species	9606
+12820329	1406	1411	women	Species	9606
+12820329	1424	1447	Plexiform neurofibromas	Disease	MESH:D018318
+12820329	1542	1550	patients	Species	9606
+12820329	1609	1622	neurofibromas	Disease	MESH:D009455
+12820329	1649	1654	tumor	Disease	MESH:D009369
+12820329	1698	1704	tumors	Disease	MESH:D009369
+12820329	1825	1830	MIB-1	Gene	57534
+12820329	1869	1875	tumors	Disease	MESH:D009369
+12820329	1950	1963	neurofibromas	Disease	MESH:D009455
+12820329	2013	2026	neurofibromas	Disease	MESH:D009455
+12820329	2053	2059	trauma	Disease	MESH:D014947
+12820329	2075	2088	neurofibromas	Disease	MESH:D009455
+12820329	2146	2158	neurofibroma	Disease	MESH:D009455
+12820329	2275	2280	tumor	Disease	MESH:D009369
+12820329	2373	2376	NF1	Gene	4763
+12820329	2377	2385	patients	Species	9606
+
+1962340|t|Platelet aggregation in patients with Parkinson's disease.
+1962340|a|
+1962340	24	32	patients	Species	9606
+1962340	38	57	Parkinson's disease	Disease	MESH:D010300
+
+17633106|t|[Pathological study on abducent paralysis of the vocal cord in a patient having multiple system atrophy with nasogastric intubation].
+17633106|a|A 74-year-old man developed instability of gait from age 64, difficulty in writing from age 66 and dysarthria-hypohidrosis from around age 67. These symptoms progressed slowly accompanied with orthostatic hypotension and dysarthria, which decline his ADL. At age 71, he was admitted to our hospital and underwent nasogastric intubation. After admission, he also showed the decrease in his voluntary activities, accidental ingestion and loud snoring during sleep. He died of accidental aspiration pneumonia at age 74. Postmortem examination revealed severe pathological changes as multiple system atrophy (MSA) in the central nervous system. There was a small ulcer in the hypopharyngeal region, and acute inflammation of the ulcer came down to the posterior cricoarytenoid muscle. Combined with severe neurogenic atropy due to MSA, local inflammation of the ulcer associated with nasogastric intubation appeared to have resulted in severe damage of the posterior cricoarytenoid muscle.
+17633106	32	41	paralysis	Disease	MESH:D010243
+17633106	65	72	patient	Species	9606
+17633106	96	103	atrophy	Disease	MESH:D001284
+17633106	233	256	dysarthria-hypohidrosis	Disease	MESH:D007007
+17633106	327	350	orthostatic hypotension	Disease	MESH:D007024
+17633106	355	365	dysarthria	Disease	MESH:D004401
+17633106	385	388	ADL	Gene	6442
+17633106	608	639	accidental aspiration pneumonia	Disease	MESH:D000081084
+17633106	730	737	atrophy	Disease	MESH:D001284
+17633106	793	798	ulcer	Disease	MESH:D014456
+17633106	839	851	inflammation	Disease	MESH:D007249
+17633106	859	864	ulcer	Disease	MESH:D014456
+17633106	936	953	neurogenic atropy	Disease	MESH:D018319
+17633106	972	997	inflammation of the ulcer	Disease	MESH:D014456
+
+20394760|t|Biomarkers in translational research of Alzheimer's disease.
+20394760|a|The identification and characterization of amyloid-beta (Abeta) and tau as the main pathological substrates of Alzheimer's disease (AD) have driven many efforts in search for suitable biomarkers for AD. In the last decade, research in this area has focused on developing a better understanding of the principles that govern protein deposition, mechanisms that link aggregation to toxicity and neuronal death, and a better understanding of protein dynamics in brain tissue, interstitial fluid and CSF. While Abeta and tau represent the two key pathological mediators of disease, other aspects of this multifaceted disease (e.g. oxidative stress, calcium-mediated toxicity, and neuroinflammation) are being unraveled, with the hope to develop a more comprehensive approach in exploring disease mechanisms. This has not only expanded possible areas for disease-modifying therapies, but has also allowed the introduction of novel, and potentially useful, fluid and radiological markers for the presence and progression of AD pathology. There is no doubt that the identification of several fluid and imaging biomarkers that can reliably detect the early stages of AD will have great implications in the design of clinical trials, in the selection of homogenous research populations, and in the assessment of disease outcomes. Markers with good diagnostic specificity will aid researchers in differentiating individuals with preclinical and probable AD from individuals who do not have AD pathology or have other dementing disorders. Markers that change with disease progression may offer utility in assessing the rates of disease progression and the efficacy of potential therapeutic agents on AD pathology. For both of these purposes, CSF Abeta42, amyloid imaging, and CSF tau appear to be very good markers of the presence of AD pathology as well as predictive of who will progress from MCI to AD. Volumetric MRI is also good at separating individuals with MCI and AD from controls and is predictive of who will progress from MCI to AD. Perhaps the most important role biomarkers will have, and the most needed at this time, lies in the identification of individuals who are cognitively normal, and yet have evidence of AD pathology (i.e. preclinical AD). Such individuals, it appears, can be identified with CSF Abeta42, amyloid imaging, and CSF tau. Such individuals are the most likely to benefit from future disease modifying/prevention therapies as they become available, and therefore represent the population in which the field can make the biggest therapeutic impact.
+20394760	40	59	Alzheimer's disease	Disease	MESH:D000544
+20394760	104	116	amyloid-beta	Gene	351
+20394760	118	123	Abeta	Gene	351
+20394760	129	132	tau	Gene	4137
+20394760	172	191	Alzheimer's disease	Disease	MESH:D000544
+20394760	441	449	toxicity	Disease	MESH:D064420
+20394760	454	468	neuronal death	Disease	MESH:D009410
+20394760	568	573	Abeta	Gene	351
+20394760	578	581	tau	Gene	4137
+20394760	706	713	calcium	Chemical	MESH:D002118
+20394760	723	731	toxicity	Disease	MESH:D064420
+20394760	2405	2408	tau	Gene	4137
+
+25300327|t|Perhaps the subject of the questionnaire was too sensitive: Do we expect too much too soon? Wishes for the end of life in Huntington's Disease - the perspective of European physicians.
+25300327|a|
+25300327	122	142	Huntington's Disease	Disease	MESH:D006816
+
+6783517|t|Neurofibromatosis of the bladder in children.
+6783517|a|
+6783517	0	32	Neurofibromatosis of the bladder	Disease	MESH:D001745
+6783517	36	44	children	Species	9606
+
+28756309|t|Activation of brain glucose metabolism ameliorating cognitive impairment in APP/PS1 transgenic mice by electroacupuncture.
+28756309|a|An essential feature of Alzheimer's disease (AD) is implicated in brain energy metabolic impairment that is considered underlying pathogenesis of cognitive impairment. Therefore, therapeutic interventions to allay cognitive deficits that target energy metabolism may be an efficacy strategy in AD. In this study, we found that electroacupuncture (EA) at the DU20 acupoint obviously increased glucose metabolism in specific brain regions such as cortex, hippocampus, cingulate gyrus, basal forebrain septum, brain stem, and cerebellum in APP/PS1 transgenic mice by animal 18F-Fluoro-2-deoxy-D-Glucose (18F-FDG)/positron emission tomography (PET) imaging, accompanied by cognitive improvements in the spatial reference learning and memory and memory flexibility and novel object recognition performances. Further evidence shown energy metabolism occurred in neurons or non-neuronal cells of the cortex and hippocampus in terms of the co-location of GLUT3/NeuN and GLUT1/GFAP. Simultaneously, metabolic homeostatic factors were critical for glucose metabolism, including phosphorylated adenosine monophosphate-activated protein kinase (AMPK) and AKT serine/threonine kinase. Furthermore, EA-induced phosphorylated AMPK and AKT inhibited the phosphorylation level of the mammalian target of rapamycin (mTOR) to decrease the accumulation of amyloid-beta (Abeta) in the cortex and hippocampus. These findings are concluded that EA is a potential therapeutic target for delaying memory decline and Abeta deposition of AD. The AMPK and AKT are implicated in the EA-induced cortical and hippocampal energy metabolism, which served as a contributor to improving cognitive function and Abeta deposition in a transgenic mouse model of AD.
+28756309	14	72	brain glucose metabolism ameliorating cognitive impairment	Disease	MESH:D003072
+28756309	80	83	PS1	Gene	19164
+28756309	84	99	transgenic mice	Species	10090
+28756309	147	166	Alzheimer's disease	Disease	MESH:D000544
+28756309	168	170	AD	Disease	MESH:D000544
+28756309	189	222	brain energy metabolic impairment	Disease	MESH:D001928
+28756309	269	289	cognitive impairment	Disease	MESH:D003072
+28756309	331	355	allay cognitive deficits	Disease	MESH:D003072
+28756309	417	419	AD	Disease	MESH:D000544
+28756309	515	533	glucose metabolism	Disease	MESH:D044882
+28756309	612	628	forebrain septum	Disease	MESH:C566067
+28756309	664	667	PS1	Gene	19164
+28756309	668	683	transgenic mice	Species	10090
+28756309	715	722	Glucose	Chemical	MESH:D005947
+28756309	724	731	18F-FDG	Chemical	-
+28756309	840	882	learning and memory and memory flexibility	Disease	MESH:D008569
+28756309	1070	1075	GLUT3	Gene	20527
+28756309	1076	1080	NeuN	Gene	52897
+28756309	1085	1090	GLUT1	Gene	20525
+28756309	1091	1095	GFAP	Gene	14580
+28756309	1161	1179	glucose metabolism	Disease	MESH:D044882
+28756309	1206	1215	adenosine	Chemical	MESH:D000241
+28756309	1256	1260	AMPK	Gene	5563
+28756309	1266	1269	AKT	Gene	11651
+28756309	1270	1276	serine	Chemical	MESH:D012694
+28756309	1334	1338	AMPK	Gene	5563
+28756309	1343	1346	AKT	Gene	207
+28756309	1390	1419	mammalian target of rapamycin	Gene	2475
+28756309	1421	1425	mTOR	Gene	2475
+28756309	1459	1471	amyloid-beta	Gene	351
+28756309	1473	1478	Abeta	Gene	351
+28756309	1595	1609	memory decline	Disease	MESH:D003072
+28756309	1614	1619	Abeta	Gene	11820
+28756309	1634	1636	AD	Disease	MESH:D000544
+28756309	1642	1646	AMPK	Gene	5563
+28756309	1651	1654	AKT	Gene	11651
+28756309	1798	1803	Abeta	Gene	11820
+28756309	1820	1830	transgenic	Species	10090
+28756309	1831	1836	mouse	Species	10090
+28756309	1846	1848	AD	Disease	MESH:D000544
+
+30336374|t|Autopsy case of right ventricular rhabdomyoma in tuberous sclerosis complex.
+30336374|a|Tuberous sclerosis complex (TSC) is a genetic multisystem disorder characterized by widespread hamartomas in several organs, including the brain, heart, skin, eyes, kidney, lung, and liver. Rhabdomyoma is the most common cardiac tumor diagnosed in fetuses, neonates and infants, and is closely linked to TSC. Here we describe an autopsy case of right ventricular rhabdomyoma in TSC. The deceased was a 3-month-old male infant, and TSC with a cardiac tumor had been diagnosed before his death. Since the cardiac tumor had not been physically blocking the blood flow, he had not undergone surgical intervention. At autopsy, the patient's height was 62 cm and his body weight was 6 kg. The heart weighed 37.3 g and the right ventricle was filled with the tumor. The tumor measured 2.1 cm x 1.6 cm, being a fusion of multiple tumors with several attachment sites to the myocardium. Histologically, the tumor was diagnosed as a rhabdomyoma, and was positive for mammalian target of rapamycin (mTOR). The brain weighed 795.0 g, without hydrocephalus. The cut surface of the brain revealed multiple cortical tubers and subependymal nodules. Through screening for the TSC1 (hamartin) and TSC2 (tuberin) genes, a nonsense mutation, c.1108C>T:p.Gln370*, was detected in the TSC2 gene. Immediate cause of death was determined to be ventricular obstruction by a cardiac rhabdomyoma with insidious growth. This case highlights the need for forensic pathologists to perform a complete autopsy to determine the cause of sudden death with cardiac tumor, including genetic examination.
+30336374	22	45	ventricular rhabdomyoma	Disease	MESH:D012207
+30336374	49	67	tuberous sclerosis	Disease	MESH:D014402
+30336374	77	95	Tuberous sclerosis	Disease	MESH:D014402
+30336374	105	108	TSC	Gene	7248;7249
+30336374	115	143	genetic multisystem disorder	Disease	MESH:D030342
+30336374	172	182	hamartomas	Disease	MESH:D006222
+30336374	267	278	Rhabdomyoma	Disease	MESH:D012207
+30336374	298	311	cardiac tumor	Disease	MESH:D006338
+30336374	347	354	infants	Species	9606
+30336374	381	384	TSC	Gene	7248;7249
+30336374	428	451	ventricular rhabdomyoma	Disease	MESH:D012207
+30336374	455	458	TSC	Gene	7248;7249
+30336374	508	511	TSC	Gene	7248;7249
+30336374	519	532	cardiac tumor	Disease	MESH:D006338
+30336374	563	568	death	Disease	MESH:D003643
+30336374	580	593	cardiac tumor	Disease	MESH:D006338
+30336374	703	710	patient	Species	9606
+30336374	829	834	tumor	Disease	MESH:D009369
+30336374	840	845	tumor	Disease	MESH:D009369
+30336374	899	905	tumors	Disease	MESH:D009369
+30336374	975	980	tumor	Disease	MESH:D009369
+30336374	1000	1011	rhabdomyoma	Disease	MESH:D012207
+30336374	1034	1063	mammalian target of rapamycin	Gene	2475
+30336374	1065	1069	mTOR	Gene	2475
+30336374	1107	1120	hydrocephalus	Disease	MESH:D006849
+30336374	1189	1209	subependymal nodules	Disease	MESH:D018315
+30336374	1237	1241	TSC1	Gene	7248
+30336374	1243	1251	hamartin	Gene	7248
+30336374	1257	1261	TSC2	Gene	7249
+30336374	1263	1270	tuberin	Gene	7249
+30336374	1300	1309	c.1108C>T	DNAMutation	c.1108C>T;RS#:45517159
+30336374	1310	1319	p.Gln370*	ProteinMutation	p.Q370*;CorrespondingGene:7249
+30336374	1341	1345	TSC2	Gene	7249
+30336374	1371	1376	death	Disease	MESH:D003643
+30336374	1398	1421	ventricular obstruction	Disease	MESH:D014694
+30336374	1427	1446	cardiac rhabdomyoma	Disease	MESH:D006331
+30336374	1582	1594	sudden death	Disease	MESH:D003645
+30336374	1600	1613	cardiac tumor	Disease	MESH:D006338
+
+26061669|t|Multimodal Discrimination of Alzheimer's Disease Based on Regional Cortical Atrophy and Hypometabolism.
+26061669|a|Structural MR image (MRI) and 18F-Fluorodeoxyglucose-positron emission tomography (FDG-PET) have been widely employed in diagnosis of both Alzheimer's disease (AD) and mild cognitive impairment (MCI) pathology, which has led to the development of methods to distinguish AD and MCI from normal controls (NC). Synaptic dysfunction leads to a reduction in the rate of metabolism of glucose in the brain and is thought to represent AD progression. FDG-PET has the unique ability to estimate glucose metabolism, providing information on the distribution of hypometabolism. In addition, patients with AD exhibit significant neuronal loss in cerebral regions, and previous AD research has shown that structural MRI can be used to sensitively measure cortical atrophy. In this paper, we introduced a new method to discriminate AD from NC based on complementary information obtained by FDG and MRI. For accurate classification, surface-based features were employed and 12 predefined regions were selected from previous studies based on both MRI and FDG-PET. Partial least square linear discriminant analysis was employed for making diagnoses. We obtained 93.6% classification accuracy, 90.1% sensitivity, and 96.5% specificity in discriminating AD from NC. The classification scheme had an accuracy of 76.5% and sensitivity and specificity of 46.5% and 89.6%, respectively, for discriminating MCI from AD. Our method exhibited a superior classification performance compared with single modal approaches and yielded parallel accuracy to previous multimodal classification studies using MRI and FDG-PET. 
+26061669	29	48	Alzheimer's Disease	Disease	MESH:D000544
+26061669	76	102	Atrophy and Hypometabolism	Disease	MESH:D001284
+26061669	134	156	18F-Fluorodeoxyglucose	Chemical	MESH:D019788
+26061669	243	262	Alzheimer's disease	Disease	MESH:D000544
+26061669	264	266	AD	Disease	MESH:D000544
+26061669	277	297	cognitive impairment	Disease	MESH:D003072
+26061669	374	376	AD	Disease	MESH:D000544
+26061669	483	490	glucose	Chemical	MESH:D005947
+26061669	532	534	AD	Disease	MESH:D000544
+26061669	591	609	glucose metabolism	Disease	MESH:D044882
+26061669	656	670	hypometabolism	Disease	
+26061669	685	693	patients	Species	9606
+26061669	699	701	AD	Disease	MESH:D000544
+26061669	722	735	neuronal loss	Disease	MESH:D009410
+26061669	770	772	AD	Disease	MESH:D000544
+26061669	856	863	atrophy	Disease	MESH:D001284
+26061669	923	925	AD	Disease	MESH:D000544
+26061669	1340	1342	AD	Disease	MESH:D000544
+26061669	1497	1499	AD	Disease	MESH:D000544
+26061669	1688	1691	FDG	Chemical	MESH:D019788
+
+11526627|t|[Electrooculographic findings in patients with neurofibromatosis].
+11526627|a|Neurofibromatosis are frequent genetic syndromes, with the electrooculographic examination (EOG) as an useful tool in their evaluation. We present the EOG findings of 16 patients with this entity which were seen at our Department between 1969 and 1991. Mean of age was 31 years. Nine patients were female (56%). The most frequent pathologic findings were: spontaneous nystagmus (37.5%) and abnormalities in the pursuit tracking test (31.2%). These results are discussed and the main literature concerning this matter is reviewed.
+11526627	33	41	patients	Species	9606
+11526627	47	64	neurofibromatosis	Disease	MESH:C537392
+11526627	67	84	Neurofibromatosis	Disease	MESH:C537392
+11526627	237	245	patients	Species	9606
+11526627	351	359	patients	Species	9606
+11526627	435	444	nystagmus	Disease	MESH:D009759
+
+27775758|t|Dietary Factors and Amyotrophic Lateral Sclerosis.
+27775758|a|
+27775758	20	49	Amyotrophic Lateral Sclerosis	Disease	MESH:D000690
+
+29880811|t|Loss of Drosha underlies dopaminergic neuron toxicity in models of Parkinson's disease.
+29880811|a|MiRNAs, a group of powerful modulator of gene expression, participate in multiple cellular processes under physiological and pathological conditions. Emerging evidence shows that Drosha, which controls the initial step in canonical miRNA biogenesis, is involved in modulating cell survival and death in models of several diseases. However, the role of Drosha in Parkinson's disease (PD) has not been well established. Here, we show that the level of Drosha decreases in 6-OHDA-induced cellular and animal models of PD. 6-OHDA induced a p38 MAPK-dependent phosphorylation of Drosha. This triggered Drosha degradation. Enhancing the level of Drosha protected the dopaminergic (DA) neurons from 6-OHDA-induced toxicity in both in vitro and in vivo models of PD and alleviated the motor deficits of PD mice. These findings reveal that Drosha plays a critical role in the survival of DA neurons and suggest that stress-induced destabilization of Drosha may be part of the pathological process in PD.
+29880811	8	14	Drosha	Gene	14000
+29880811	45	53	toxicity	Disease	MESH:D064420
+29880811	67	86	Parkinson's disease	Disease	MESH:D010300
+29880811	267	273	Drosha	Gene	14000
+29880811	382	387	death	Disease	MESH:D003643
+29880811	440	446	Drosha	Gene	14000
+29880811	450	469	Parkinson's disease	Disease	MESH:D010300
+29880811	471	473	PD	Disease	MESH:D010300
+29880811	538	544	Drosha	Gene	14000
+29880811	558	564	6-OHDA	Chemical	MESH:D016627
+29880811	603	605	PD	Disease	MESH:D010300
+29880811	607	613	6-OHDA	Chemical	MESH:D016627
+29880811	624	632	p38 MAPK	Gene	26416
+29880811	662	668	Drosha	Gene	14000
+29880811	685	691	Drosha	Gene	14000
+29880811	728	734	Drosha	Gene	14000
+29880811	780	786	6-OHDA	Chemical	MESH:D016627
+29880811	795	803	toxicity	Disease	MESH:D064420
+29880811	843	845	PD	Disease	MESH:D010300
+29880811	883	885	PD	Disease	MESH:D010300
+29880811	886	890	mice	Species	10090
+29880811	919	925	Drosha	Gene	14000
+29880811	967	969	DA	Chemical	MESH:D004298
+29880811	1029	1035	Drosha	Gene	14000
+29880811	1079	1081	PD	Disease	MESH:D010300
+
+24529525|t|The incretin hormones glucagonlike peptide 1 and glucose-dependent insulinotropic polypeptide are neuroprotective in mouse models of Alzheimer's disease.
+24529525|a|The incretin hormones glucagonlike peptide 1 and glucose-dependent insulinotropic polypeptide (GIP) have been developed to treat type 2 diabetes and also act as growth factors. We have tested several long-acting incretin mimetics in the amyloid precursor protein (APP)(Swe)/presenilin 1 (PS1)(DeltaE9) model of Alzheimer's disease (AD). We found that liraglutide, lixisenatide, and D-Ala2-GIP cross the blood-brain barrier and prevent the impairment in memory formation and synaptic plasticity, increase synapse numbers, reduce amyloid plaque load and soluble amyloid-beta levels, reduce oxidative stress and the chronic inflammation response in the brain, enhance the proliferation of neuronal progenitor cells, and increase neurogenesis in the dentate gyrus. In an (18)fluorodeoxyglucoe positron emission tomographic/computed tomographic imaging study in PLB1-triple mice, a mouse model that expresses human mutated APP, PS1, and tau proteins, glucose metabolism was found to be normalized in forebrain areas after liraglutide treatment, demonstrating that neuronal metabolic activity was normalized. A clinical trial testing liraglutide in patients with AD is currently ongoing.
+24529525	49	93	glucose-dependent insulinotropic polypeptide	Gene	14607
+24529525	117	122	mouse	Species	10090
+24529525	133	152	Alzheimer's disease	Disease	MESH:D000544
+24529525	203	247	glucose-dependent insulinotropic polypeptide	Gene	14607
+24529525	249	252	GIP	Gene	14607
+24529525	290	298	diabetes	Disease	MESH:D003920
+24529525	391	416	amyloid precursor protein	Gene	11820
+24529525	428	440	presenilin 1	Gene	19164
+24529525	442	445	PS1	Gene	19164
+24529525	465	484	Alzheimer's disease	Disease	MESH:D000544
+24529525	486	488	AD	Disease	MESH:D000544
+24529525	518	530	lixisenatide	Chemical	MESH:C479460
+24529525	543	546	GIP	Gene	14607
+24529525	775	787	inflammation	Disease	MESH:D007249
+24529525	1011	1015	PLB1	Gene	665270
+24529525	1023	1027	mice	Species	10090
+24529525	1031	1036	mouse	Species	10090
+24529525	1058	1063	human	Species	9606
+24529525	1077	1080	PS1	Gene	5663
+24529525	1086	1089	tau	Gene	4137
+24529525	1100	1118	glucose metabolism	Disease	MESH:D044882
+24529525	1297	1305	patients	Species	9606
+24529525	1311	1313	AD	Disease	MESH:D000544
+
+163811|t|Isolation and characterization of catabolite-resistant mutants in the D-serine deaminase system of Escherichia coli K-12.
+163811|a|Two classes of D-serine deaminase (Dsdase)-specific secondary mutants of Escherichia coli K-12 were isolated from a Dsdase low constitutive nonhyperinducible mutant as types which could grow in the presence of both D-serine and glucose. These strains contain cis dominant, nonsuppressible mutations in the dsdO (operator-initiator) region. In the first class of mutants (e.g., FB4010), Dsdase synthesis is completely insensitive to catabolite repression, and synthesis occurs at a high constitutive rate in the absence of cyclic adenosine 5'-monophosphate. In the second class (e.g., FB4005), Dsdase synthesis is partially insensitive to catabolite repression, and catabolite repression is reversed by the addition of cyclic adenosine 5'-monophosphate. Dsdase synthesis in strain FB4005 is partially independent of the cyclic adenosine 5'-monophosphate binding protein, as constitutive synthesis is reduced only 65% (relative to the cap+ strain) in strains unable to synthesize the cyclic adenosine 5'-monophosphate binding protein. Surprisingly, the constitutive rate of Dsdase synthesis is fourfold higher in all mutants of both classes than in the parent, indicating a close interrelationship between the sites of response to induction and catabolite repression.
+163811	99	120	Escherichia coli K-12	Species	83333
+163811	195	216	Escherichia coli K-12	Species	83333
+163811	337	345	D-serine	Chemical	-
+163811	350	357	glucose	Chemical	MESH:D005947
+163811	554	564	catabolite	Chemical	-
+163811	644	677	cyclic adenosine 5'-monophosphate	Chemical	-
+163811	760	770	catabolite	Chemical	-
+163811	787	797	catabolite	Chemical	-
+163811	840	873	cyclic adenosine 5'-monophosphate	Chemical	-
+163811	941	974	cyclic adenosine 5'-monophosphate	Chemical	-
+163811	1104	1137	cyclic adenosine 5'-monophosphate	Chemical	-
+163811	1365	1375	catabolite	Chemical	-
+
+163812|t|Effect of tsl mutations in decreasing radiation sensitivity of a recA- strain of Escherichia coli K-12.
+163812|a|It has been shown previously that the radiation sensitivity of lexA- strains of Escherichia coli K-12 can be suppressed by thermosensitive mutations (designated tsl) that are closely linked to the lexA locus and are thought to be intragenic suppressors of lexA mutations (Mount et al., 1973). When a recA mutation is crossed into a suppressed tsl- strain, the extreme radiation sensitivity usually conferred by a recA mutation is decreased, but there is no detectable change in genetic recombination deficiency. Increased resistance to UV in the tsl-reA-strains depends upon ability to synthesize active uvrA+ product.
+163812	81	102	Escherichia coli K-12	Species	83333
+163812	184	205	Escherichia coli K-12	Species	83333
+
+163813|t|Isolation of a catabolite repression mutant of yeast as a revertant of a strain that is maltose negative in the respiratory-deficient state.
+163813|a|A character originating from Saccharomyces cerevisiae 1403-7A is described which interferes with maltose growth in the respiratory-deficient state. This character is inherited in an apparently non-Mendelian way, but at present no statement can be made concerning the localization of this character on a plasmid or the involvement of multiple genes. As a revertant of this character, a flaky mutant was isolated, showing a heavy flocculation during growth on liquid medium and resistance to catabolite repression for maltase, alpha-methyl-glucosidase, invertase, and succinate dehydrogenase. In wild-type cells, repression (caused by growth on 2% glucose) and derepression (caused by growth on 2% galactose) can be correlated with a lower and a higher level of cyclic 3',5'-adenosine monophosphate (cAMP), respectively. In cells of flaky mutant, growth on these carbon sources results in the same levels of cAMP as observed for the wild type. Consequently, in this mutant derepression in the presence of 2% glucose is not reflected in a higher level of cAMP.
+163813	15	25	catabolite	Chemical	-
+163813	47	52	yeast	Species	4932
+163813	88	95	maltose	Chemical	MESH:D008320
+163813	112	133	respiratory-deficient	Disease	MESH:D012131
+163813	170	194	Saccharomyces cerevisiae	Species	4932
+163813	238	245	maltose	Chemical	MESH:D008320
+163813	260	281	respiratory-deficient	Disease	MESH:D012131
+163813	787	794	glucose	Chemical	MESH:D005947
+163813	837	846	galactose	Chemical	MESH:D005690
+163813	901	937	cyclic 3',5'-adenosine monophosphate	Chemical	-
+163813	939	943	cAMP	Chemical	-
+163813	1002	1008	carbon	Chemical	MESH:D002244
+163813	1047	1051	cAMP	Chemical	-
+163813	1147	1154	glucose	Chemical	MESH:D005947
+163813	1193	1197	cAMP	Chemical	-
+
+163814|t|Control of expression of the pyr genes in Salmonella typhimurium: effects of variations in uridine and cytidine nucleotide pools.
+163814|a|The differential rate of synthesis of five of the pyrimidine biosynthetic enzymes coded for by pyrB-F, and the endogenous concentrations of the individual pyrimidine nucleotides were determined in specially constructed mutants of Salmonella typhimurium. In the mutants employed the different pyrimidine nucleotide pools may be manipulated individually during exponential growth. The results obtained indicate the following. (i) The expression of pyrB, pyrE, and pyrF is controlled by a uridine nucleotide in a noncoordinate manner. (ii) The expression of pyrC and pyrD is regulated predominantly by a cytidine nucleotide. Under all conditions investigated, their expression seems to be coordinated, even though the genes are not contiguous on the chromosome. (iii) The low-molecular-weight effectors involved in controlling the expression of the pyr genes are neither uridine 5'-monophosphate nor cytidine 5'-monophosphate, but rather the corresponding di- or triphosphates.
+163814	42	64	Salmonella typhimurium	Species	90371
+163814	91	98	uridine	Chemical	MESH:D014529
+163814	103	122	cytidine nucleotide	Chemical	-
+163814	180	190	pyrimidine	Chemical	MESH:C030986
+163814	285	307	pyrimidine nucleotides	Chemical	MESH:D011742
+163814	360	382	Salmonella typhimurium	Species	90371
+163814	422	443	pyrimidine nucleotide	Chemical	MESH:D011742
+163814	616	634	uridine nucleotide	Chemical	MESH:D014500
+163814	731	750	cytidine nucleotide	Chemical	-
+163814	998	1022	uridine 5'-monophosphate	Chemical	MESH:D014542
+163814	1027	1052	cytidine 5'-monophosphate	Chemical	MESH:D003568
+163814	1083	1103	di- or triphosphates	Chemical	-
+
+163815|t|Regulatory factors affecting alpha-amylase production in bacillus licheniformis.
+163815|a|Possible factors regulating alpha-mylase synthesis in wild-type Bacillus licheniformis and in mutants producing elevated levels of the enzyme were studied in terms of catabolite repression, apparent temperature-sensitive repression, induction, and culture age. The synthesis of alpha-amylase in the parent strain occurred long after the culture reached the stationary phase of growth as a result of de novo protein synthesis, occurred only at high temperature around 50 C and not below 45 C, appeared to be induced in the presence of oligosaccharides with some linkage of alpha-1,4-, beta-1,4, beta-1,6-glucosyl glucose, or alpha-1,6-galactosyl glucose, and was repressed by the addition of exogenous glucose or low-molecular-weight metabolites. The addition of cyclic adenosine 3',5'-monophosphate stimulated alpha-amylase accumulation in growing cultures of the parent strain, but neither shortened the long lap period prior to the start of alpha-amylase synthesis nor mitigated the repressive effect of glucose. Mutant strains derived from the parent strain showed variation in the pattern of alpha-amylase synthesis, and some of them such as F-12s and F-14 produced alpha-amylase constitutively and without sensitivity to catabolite repression or transient repression from the moment of cell growth. These results are discussed in relation to possible regulatory mechanisms that might account for the observed characteristics of alpha-amylase synthesis in this facultative thermophilic microorganism.
+163815	57	79	bacillus licheniformis	Species	1402
+163815	145	167	Bacillus licheniformis	Species	1402
+163815	248	258	catabolite	Chemical	-
+163815	615	631	oligosaccharides	Chemical	MESH:D009844
+163815	653	700	alpha-1,4-, beta-1,4, beta-1,6-glucosyl glucose	Chemical	-
+163815	713	733	6-galactosyl glucose	Disease	MESH:D005953
+163815	782	789	glucose	Chemical	MESH:D005947
+163815	843	879	cyclic adenosine 3',5'-monophosphate	Chemical	MESH:D000242
+163815	1087	1094	glucose	Chemical	MESH:D005947
+163815	1307	1317	catabolite	Chemical	-
+
+163816|t|Kinectics of beta-galactosidase synthesis in Escherichia coli at 5 C.
+163816|a|The defect in protein synthesis that is observed in Escherichia coli after transfer to low temperature was studied. For the enzyme beta-galactosidase, the elongation reactions of transcription and translation can take place slowly but normally at 5 C. The time necessary to complete the coupled synthesis of the beta-galactosidase messenger ribonucleic acid and polypeptide chain was found to be about 80 min at 5 C. From this result and from the known length of the beta-galactosidase monomer, it is possible to calculate that at 5 C one amino acid is added to the growing polypeptide chain every 4 s. The initiation of transcription of the beta-galactosidase messenger is inhibited after transfer to 5 C. This fact alone, however, cannot account for all of the phenomena observed at 5 C, because a given amount of messenger yields less enzyme at 5 C than it does at 37 C. Furthermore, in cells induced for short periods at 37 C, the capacity to synthesize beta-galactosidase after transfer to 5 C was found to accumulate linearily with the square of the time of induction. Two alternative models could account for these data. If all ribosomes that initiate translation at 37 C yield complete beta-galactosidase polypeptide chains at 5 C, then an inhibition of translation initiation after transfer to 5 C must be invoked to explain the results. If, on the other hand, a substantial portion of the ribosomes that initiate translation at 37 C do not yield complete beta-galactosidase polypeptides at 5 C, then intracistronic polarity could account for the data, and there is no need to invoke an inhibition of translation initiation at 5 C.
+163816	45	61	Escherichia coli	Species	562
+163816	122	138	Escherichia coli	Species	562
+
+163817|t|6-Phosphogluconate dehydratase deficiency in pleiotropic carbohydrate-negative mutant strains of Pseudomonas aeruginosa.
+163817|a|Mutants of Pseudomonas aeruginosa, strain PAO, have been isolated that are unable to grow on mannitol, glucose, gluconate, or 2-ketogluconate, cut that exhibit wild-type growth on pyruvate, lactate, citrate, succinate, or acetate. Although some of these mutants were also unable to grow on glycerol, the mutations formed a single linkage group by quantitative transductional analysis with phage F116 on glucose minimal agar medium. Cell extracts of all mutant strains were either lacking or severely deficient in 6-phosphogluconate dehydratase activity. Glu+ transductants derived from mutant strains that retained the wild-type ability for growth at the expense of glycerol also regained the ability to grow on all C-6 compounds. Although a role for the pentose phosphate pathway in the catabolism of C6 substrates was not found, a functional Entner-Doudoroff pathway appears to be essential for the catabolism of mannitol, glucose, gluconate, and 2-ketogluconate.
+163817	19	41	dehydratase deficiency	Disease	MESH:C562618
+163817	57	69	carbohydrate	Chemical	MESH:D002241
+163817	97	119	Pseudomonas aeruginosa	Species	287
+163817	132	155	Pseudomonas aeruginosa,	Species	287
+163817	214	222	mannitol	Chemical	MESH:D008353
+163817	224	231	glucose	Chemical	MESH:D005947
+163817	233	242	gluconate	Chemical	MESH:C030691
+163817	247	262	2-ketogluconate	Chemical	MESH:C008229
+163817	301	309	pyruvate	Chemical	MESH:D019289
+163817	311	318	lactate	Chemical	MESH:D019344
+163817	320	327	citrate	Chemical	MESH:D019343
+163817	329	338	succinate	Chemical	MESH:D019802
+163817	343	350	acetate	Chemical	MESH:D000085
+163817	411	419	glycerol	Chemical	MESH:D005990
+163817	524	531	glucose	Chemical	MESH:D005947
+163817	540	544	agar	Chemical	MESH:D000362
+163817	675	678	Glu	Chemical	MESH:D018698
+163817	787	795	glycerol	Chemical	MESH:D005990
+163817	876	893	pentose phosphate	Chemical	MESH:D010428
+163817	972	981	Doudoroff	Chemical	-
+163817	1036	1044	mannitol	Chemical	MESH:D008353
+163817	1046	1053	glucose	Chemical	MESH:D005947
+163817	1055	1064	gluconate	Chemical	MESH:C030691
+163817	1070	1085	2-ketogluconate	Chemical	MESH:C008229
+
+163818|t|Biosynthesis of branched-chain amino acids in yeast: effect of carbon source on leucine biosynthetic enzymes.
+163818|a|The three enzymes in the leucine biosynthetic pathway of yeast do not exhibit coordinate repression and derepression in response to the carbon source available in the culture medium. Growth in an acetate medium results in derepression of the first enzyme in the pathway, alpha-isopropylmalate synthase, and repression of the second two enzymes, alpha-isopropylmalate isomerase and beta-isopropylmalate dehydrogenase, relative to the levels found in glucose-grown cells. The role of endogenous leucine pools as a mediator of these differences was investigated. The leucine pools did not differ significantly between acetate-grown and glucose-grown cells. However, an elevated endogenous leucine pool, caused by exogenous leucine in the growth medium, did decrease the rate of decay of alpha-isopropylmalate synthase activity observed when acetate-grown cells were shifted to glucose. Evidence is provided suggesting that an elevated endogenous leucine pool may increase the in vivo stability of alpha-isopropylmalate synthase under several different conditions. Studies on the kinetics of alpha-isopropylmalate synthase decay in vivo and sensitivity to leucine inhibition indicate that there are two classes of the enzyme in acetate-grown yeast cells.
+163818	16	42	branched-chain amino acids	Chemical	MESH:D000597
+163818	46	51	yeast	Species	4932
+163818	63	69	carbon	Chemical	MESH:D002244
+163818	80	87	leucine	Chemical	MESH:D007930
+163818	135	142	leucine	Chemical	MESH:D007930
+163818	167	172	yeast	Species	4932
+163818	246	252	carbon	Chemical	MESH:D002244
+163818	306	313	acetate	Chemical	MESH:D000085
+163818	559	566	glucose	Chemical	MESH:D005947
+163818	674	681	leucine	Chemical	MESH:D007930
+163818	725	732	acetate	Chemical	MESH:D000085
+163818	743	750	glucose	Chemical	MESH:D005947
+163818	796	803	leucine	Chemical	MESH:D007930
+163818	830	837	leucine	Chemical	MESH:D007930
+163818	948	955	acetate	Chemical	MESH:D000085
+163818	984	991	glucose	Chemical	MESH:D005947
+163818	1053	1060	leucine	Chemical	MESH:D007930
+163818	1334	1341	acetate	Chemical	MESH:D000085
+163818	1348	1353	yeast	Species	4932
+
+163819|t|Regulation of dihydrodipicolinate synthase and aspartate kinase in Bacillus subtilis.
+163819|a|The regulation of dihydrodipicolinate synthase (EC 4.2.1.52) and aspartate kinase (EC 2.7.2.4) was studied in Bacillus subtilis 168. Starvation for lysine gave depression of one aspartate kinase isoenzyme but not of dihydrodipicolinate synthase. Strains resistant to growth inhibition by the lysine analogue thiosine exhibited constitutively derepressed synthesis of one aspartate kinase isoenzyme but had normal levels of dihydrodipicolinate synthase. The data provide strong evidence that lysine is not the signal for derepression of dihydrodipicolinate synthase. Nevertheless, dihydrodipicolinate synthase specific activity increased during sporulation, and it is suggested that this increase may result, in part, from resistance to proteolysis of that enzyme.
+163819	67	84	Bacillus subtilis	Species	1423
+163819	196	217	Bacillus subtilis 168	Species	224308
+163819	234	240	lysine	Chemical	MESH:D008239
+163819	246	256	depression	Disease	MESH:D000275
+163819	378	384	lysine	Chemical	MESH:D008239
+163819	394	402	thiosine	Chemical	MESH:C000204
+163819	577	583	lysine	Chemical	MESH:D008239
+
+163820|t|Coenzyme interaction with horse liver alcohol dehydrogenase. Evidence for allosteric coenzyme binding sites from thermodynamic equilibrium studies.
+163820|a|The techniques of fluorescence enhancement, fluorescence quenching, fluorescence polarization, and equilibrium dialysis are utilized to study the binding properties of coenzyme to horse liver alcohol dehydrogenase. Polarization of fluorescence and equilibrium dialysis show that NADH binds to alcohol dehydrogenase with a stoichiometry of 6 mol per mol of enzyme, in contrast to the value of 2 determined from fluorescence enhancement measurements. NAD+ also binds with a stoichiometry of six as was determined by equilibrium dialysis. The two NADH sites which bind coenzyme more tightly and which are revealed by fluorescence enhancement measurements are designated the catalytic sites. Binding of coenzyme to the four ancillary sites does not alter the quantum yield of NADH but results in a 20% contribution to quenching of enzyme's tryptophan fluorescence. From the emission anisotropy of bound NADH of 24.0% for the additional sites and 28.1% for the catalytic sites and their relative fluorescence lifetimes at the same wavelengths of excitation and emmision, we conclude that the nicotinamide ring of NADH bound to the additional sites exhibits a freedom of motion independent of the macromolecule, while that bound to the catalytic sites is more rigidly held. Polarization of fluorescence yields negative intrinsic free energies of 9.2 and 7.5 Cal M-1 for NADH interaction with the catalytic and additional sites, respectively. Although these values are 1.3 to 2.0 Cal higher than those determined by fluorescence quenching and equilibrium dialysis, the mean Hill coefficient of 1.76 plus or minus 0.06, the titration span of 2.4 logarithmic units and coupling free energies (in magnitude and sign) are the same for all these techniques. The above difference in the intrinsic free energies are attributed largely to the different modes of interaction of excited and unexcited NADH molecules with alcohol dehydrogenase.
+163820	26	31	horse	Species	9796
+163820	328	333	horse	Species	9796
+163820	427	431	NADH	Chemical	MESH:D009243
+163820	597	601	NAD+	Chemical	MESH:D009243
+163820	692	696	NADH	Chemical	MESH:D009243
+163820	920	924	NADH	Chemical	MESH:D009243
+163820	984	994	tryptophan	Chemical	MESH:D014364
+163820	1047	1051	NADH	Chemical	MESH:D009243
+163820	1235	1247	nicotinamide	Chemical	MESH:D009536
+163820	1256	1260	NADH	Chemical	MESH:D009243
+163820	1512	1516	NADH	Chemical	MESH:D009243
+163820	2032	2036	NADH	Chemical	MESH:D009243
+
+163821|t|A study of the cytoplasmic receptors for glucocorticoids in intestine of pre- and postweanling rats.
+163821|a|Glucocorticoids cause both enzymic and morphologic changes in the rat intestine during the time of weaning. To obtain information regarding the mechanism of these actions, we examined the cytoplasmic fraction of intestines from 18-day-old rats for the presence of specific glucocorticoid-binding proteins which are characteristics of target tissues. Incubation of slices of intestine with [3H]dexamethasone in a physiological medium at 2 degrees showed the presence of a cytoplasmic binding macromolecule with high specificity for steroids having glucocorticoid activity. The binding reaction was saturable (concentration of binding sites equals 0.24 pmol per mg of protein) and of high affinity (dissociation constant equals 9.3 nM). Binding was reversible on addition of nonlabeled dexamethasone (t 1/2 equals 5.2 hours), indicating that the usual assay procedure measured both corticosterone-filled and unoccupied binding sites. Sucrose density gradient centrifugation showed that the receptor-dexamethasone complex from intestinal cytosol sedimented at the same rate as that from liver (8.2 S). The receptor-dexamethasone complex was stable at 2 degrees for at least 24 hours in intestinal slices, but in isolated cytosol fractions there was considerable loss of binding even in the presence of high concentrations of [3H]dexamethasone. Furthermore, mixing experiments showed that the presence of cytosol from intestinal mucosa (but not from the muscle layers) caused a dissociation of dexamethasone from receptors of liver cytosol. This suggested the presence of some interfering factor in isolated mucosal cytosol and meant that quantitative studies had to be confined to intact slices. Although the reasons for the instability of steroid-receptor complexes in the presence of isolated intestinal cytosol are not understood, the instability is believed to be associated with homogenization and, therefore, is believed to have no physiological significance. Finally, the ontogenesis of cytoplasmic glucocorticoid receptors in intestinal slices was examined and the pattern compared with that in liver and lung. Receptor activity was present in intestine from late fetal life through adulthood, but concentrations were significantly higher during the first two postnatal weeks than at all other times. By contrast, receptor activity detected in cytosol prepared from rat lung was high around the time of birth, while that in liver rose steadily during the first postnatal week and remained at high levels. Thus specific receptors for glucocorticoids are present in the rat intestine during periods of both responsiveness and unresponsiveness. This suggests that although corticosteroids exert their effects through the cytoplasmic receptors, this early event in glucocorticoid action may not be a controlling step for changes in responsiveness during development.
+163821	95	99	rats	Species	10116
+163821	167	170	rat	Species	10116
+163821	340	344	rats	Species	10116
+163821	490	507	[3H]dexamethasone	Chemical	-
+163821	632	640	steroids	Chemical	MESH:D013256
+163821	885	898	dexamethasone	Chemical	MESH:D003907
+163821	981	995	corticosterone	Chemical	MESH:D003345
+163821	1033	1040	Sucrose	Chemical	MESH:D013395
+163821	1098	1111	dexamethasone	Chemical	MESH:D003907
+163821	1213	1226	dexamethasone	Chemical	MESH:D003907
+163821	1424	1426	3H	Chemical	MESH:D014316
+163821	1427	1440	dexamethasone	Chemical	MESH:D003907
+163821	1591	1604	dexamethasone	Chemical	MESH:D003907
+163821	2472	2475	rat	Species	10116
+163821	2674	2677	rat	Species	10116
+
+163822|t|Activation of transcription by guanosine 5'-diphosphate,3'-diphosphate, transfer ribonucleic acid, and novel protein from Escherichia coli.
+163822|a|A protein factor TFms) that is required for ppGpp to stimulate RNA synthesis has been purified from an eluate of crude ribosomes. TFms also has the capacity to stimulate RNA synthesis without ppGpp present. Under standard conditions the action TFms and ppGpp requires uncharged tRNA. TFms and ppGpp act at inhibition to promote the formation of rifampicin-resistant or polytrI)-resistant preinitiation complexes. In the presence of rifampicin or poly(rI), tRNA is no longer required. With lambdah80dlacPs DNA as template, ppGpp together with TFms stimulated gal RNA synthesis to a much greater extent than total RNA synthesis. The stimulation of both lac and gel RNA synthesis was increased in the presence of cyclic AMP receptor and cyclic AMP.
+163822	31	55	guanosine 5'-diphosphate	Chemical	MESH:D006153
+163822	56	70	3'-diphosphate	Chemical	-
+163822	122	138	Escherichia coli	Species	562
+163822	485	495	rifampicin	Chemical	MESH:D012293
+163822	509	516	polytrI	Chemical	-
+163822	572	582	rifampicin	Chemical	MESH:D012293
+163822	874	884	cyclic AMP	Chemical	MESH:D000242
+
+163823|t|A persistent active state of the adenylate cyclase system produced by the combined actions of isoproterenol and guanylyl imidodiphosphate in frog erythrocyte membranes.
+163823|a|Isoproterenol plus guanylyl imidodiphosphate (Gpp(NH)p) activate frog erythrocyte adenylate cyclase to a level much higher than the sum of the activities produced by the catecholamine and the synthetic nucleotide tested separately. Propranolol, the beta-receptor blocking agent,  failed to inhibit activity when added after the enzyme system had been preincubated with both isoproterenol and Gpp(NH)p. However, if propranolol was added after only one of the two components had been added, it inhibited the effect of isoproterenol. Production of the propranolol-resistant state by treatment with isoproterenol and Gpp(NH)p did not require the presence of the productive substrate (MgATP). The activated propranolol-resistant state persisted following various treatments of the enzyme preparation including extensive washings of the membranes; considerable activity was retained even after sonication or treatment with the detergent Lubrol-PX, treatments which caused inactivation of the native enzyme. Extensive dilution of the membranes following pretreatment with isoproterenol and Gpp(NH)p did not significantly reduce to the activity of the enzyme. Readdition of isoproterenol after dilution caused some inhibition of adenylate cyclase activity, indicating apparently that the beta-receptor has not become inaccessible. In contrast, preincubation with isoproterenol alone failed to render the enzyme system refractive to propranolol, and dilution readily reduced the activity to negligibly low values. Preincubation with Gpp(NH)p alone also produced a persistent active state but the activity was much lower than that obtained throught the combined action of isoproterenol and Gpp(NH)p. The findings suggest that the hormone may be required only to facilitate the initial interaction of the enzyme with Gpp(NH)p. The differences, in this respect, between Gpp(NH)p and the more labile natural nucleotide, GTP, are discussed.
+163823	94	107	isoproterenol	Chemical	MESH:D007545
+163823	112	137	guanylyl imidodiphosphate	Chemical	MESH:D006165
+163823	169	182	Isoproterenol	Chemical	MESH:D007545
+163823	188	213	guanylyl imidodiphosphate	Chemical	MESH:D006165
+163823	215	223	Gpp(NH)p	Chemical	MESH:D006165
+163823	339	352	catecholamine	Chemical	MESH:D002395
+163823	401	412	Propranolol	Chemical	MESH:D011433
+163823	543	556	isoproterenol	Chemical	MESH:D007545
+163823	561	569	Gpp(NH)p	Chemical	MESH:D006165
+163823	583	594	propranolol	Chemical	MESH:D011433
+163823	685	698	isoproterenol	Chemical	MESH:D007545
+163823	718	729	propranolol	Chemical	MESH:D011433
+163823	764	777	isoproterenol	Chemical	MESH:D007545
+163823	782	790	Gpp(NH)p	Chemical	MESH:D006165
+163823	849	854	MgATP	Chemical	MESH:D000255
+163823	871	882	propranolol	Chemical	MESH:D011433
+163823	1100	1109	Lubrol-PX	Chemical	MESH:D000077423
+163823	1234	1247	isoproterenol	Chemical	MESH:D007545
+163823	1252	1260	Gpp(NH)p	Chemical	MESH:D006165
+163823	1335	1348	isoproterenol	Chemical	MESH:D007545
+163823	1524	1537	isoproterenol	Chemical	MESH:D007545
+163823	1593	1604	propranolol	Chemical	MESH:D011433
+163823	1693	1701	Gpp(NH)p	Chemical	MESH:D006165
+163823	1831	1844	isoproterenol	Chemical	MESH:D007545
+163823	1849	1857	Gpp(NH)p	Chemical	MESH:D006165
+163823	1975	1983	Gpp(NH)p	Chemical	MESH:D006165
+163823	2027	2035	Gpp(NH)p	Chemical	MESH:D006165
+163823	2076	2079	GTP	Chemical	MESH:D006160
+
+163824|t|Pyridoxal phosphate-dependent conformational states of glycogen phosphorylase as probed by interconverting enzymes.
+163824|a|The interaction between pyridoxal 5'-phosphate and the convertible serine of glycogen phosphorylase has been investigated by using: specific interconverting enzymes, phosphorylase kinase and phosphorylase phosphatase; effectors, glucose and glucose 6-phosphate; and a protein kinase and trypsin. Both phosphorylase kinase and phosphorylase phosphatase utilized the native protein while having little influence on the apoprotein. Removal of a peptide containing the critical serine residue gave phosphorylase b' from which the pyridoxal 5'-phosphate in phosphorylase has an important effect on enzymic interconversion.
+163824	0	19	Pyridoxal phosphate	Chemical	MESH:D011732
+163824	140	162	pyridoxal 5'-phosphate	Chemical	MESH:D011732
+163824	183	189	serine	Chemical	MESH:D012694
+163824	345	352	glucose	Chemical	MESH:D005947
+163824	357	376	glucose 6-phosphate	Chemical	MESH:D019298
+163824	590	596	serine	Chemical	MESH:D012694
+163824	642	664	pyridoxal 5'-phosphate	Chemical	MESH:D011732
+
+163825|t|The plane of cleavage in human ferrihemoglobin. I. Ultraviolet difference spectroscopy.
+163825|a|X-ray diffraction studies have shown that hemoglobin has two predominant interfaces in the tetramer at which dissociation to dimers could occur. These interfaces have been designed as alpha1-beta1 and alpha1-beta2. There are 2 tyrosyl residues and 1 tryptophanyl residue in the alpha1-beta2- interface but only 1 tyrosyl residue in the alpha1-beta1 interface exposed to the solvent are perturbed. The ultraviolet difference spectrum between ferrihemoglobin dissociated in 1 M NaClO4 and undissociated hemoglobin revealed two negative peaks, one at 292.5 nm and another at 285 nm. This difference spectrum is due to tyrosyl and tryptophanyl residues which reside on the plane of cleavage and were exposed to 1 M NaClO4 upon dissociation. Hence, dissociation must have occurred along the alpha1-beta2 interface to yield alpha1 beta1 dimers. The deltaF degrees value extrapolated to zero salt concentration calculated on the basis of difference spectroscopy and sedimentation velocity experiments is 8.6 plus or minus 0.7 kcal per mol at pH 7.1 (K equals 4.5 times 10-7.
+163825	25	30	human	Species	9606
+163825	315	322	tyrosyl	Chemical	-
+163825	338	350	tryptophanyl	Chemical	-
+163825	401	408	tyrosyl	Chemical	-
+163825	564	570	NaClO4	Chemical	MESH:C031068
+163825	703	710	tyrosyl	Chemical	-
+163825	715	727	tryptophanyl	Chemical	-
+163825	799	805	NaClO4	Chemical	MESH:C031068
+163825	973	977	salt	Chemical	MESH:D012492
+
+163826|t|Stimulation of active uptake of nucleosides and amino acids by cyclic adenosine 3' :5'-monophosphate in the yeast Schizosaccharomyces pombe.
+163826|a|In conditions of glucose starvation, the maximum velocity of the mediated transport of nonmetabolized and metabolized amino acids, uridine, adenosine, and sucrose across the plasma membrane is stimulated by a factor of two by the addition of 1 mM adenosine 3':5'-monophosphate to Schizosaccharomyces pombe 972h- wild strain, to the glucose-super-repressed and derepressed mutants COB5 and COB6, and to Saccharomyces cerevisiae strain IL 216-IA. The mediated uptake of 2-D-deoxyglucose and the apparently nonmediated uptake of guanosine are not stimulated by the cyclic nucleotide. N6,O2'-Dibutyryl adenosine 3':5'-monophosphate is also efficient, whereas theophylline, guanosine 3':5'-monophosphate, 5'-AMP, ATP, and adenosine are ineffective. The cellular ATP content of glycerol-grown S. pombe COB5 is about 10 nmol per mg of protein and is not decreased by further incubation in the starvation medium. The addition of 100 mM glucose markedly enhances transport without any increase of the cellular ATP content. The addition of antimycin A or Dio-9 decreases markedly both cellular ATP content and transport. The addition of 2.5 mM glucose to antimycin A-containing medium restores both transport is not necessarily of mitochondrial origin. The uptake of 2-D-deoxyglucose is unaffected by the respiratory inhibitors. Stimulation of uptake by cyclic adenosine 3':5'-monophosphate occurs only in glucose-deprived cells. The addition of 10 mM glucose elicits the disappearance of the stimulation and prevents the 30% decrease of the cellular adenosine 3':5'-monophosphate content produced by glucose starvation. Adenosine 3':5'-'monophosphate does not enhance the steady state ATP level but requires cellular ATP produced either by endogenous respiration or, in the absence of respiration blocked by antimycin A, by further addition of 2.5 mM glucose. Stimulation of active uptake by adenosine 3':5'-monophosphate does not require protein synthesis because the addition of cycloheximide or anisomycin does not prevent the stimulation of L-leucine uptake. In the absence of respiration, Dio-9, and ATPase inhibitor, suppresses instantaneously the cellular ejection of protons as well as the uptake of uridine and amino acids. It abolishes also the adenosine 3':5'-monophosphate-stimulated transport. In the presence of antimycin A, specific mitochondrial ATPase inhibitors such as venruricidin A do not inhibit metabolite uptakes and their stimulation by adenosine 3':5'-monophosphate. These results suggest that in these conditions, the target of Dio-9 is not the mitochondrial ATPase but a plasma membrane proton-translocating function generating an electrochemical gradient required for active transport. That adenosine 3':5'-monophosphate enhances the Dio-9-sensitive proton extrusion supports the view that the cyclic nucleotide might modulate the plasma membrane ATPase.
+163826	108	113	yeast	Species	4932
+163826	114	139	Schizosaccharomyces pombe	Species	4896
+163826	158	165	glucose	Chemical	MESH:D005947
+163826	272	279	uridine	Chemical	MESH:D014529
+163826	281	290	adenosine	Chemical	MESH:D000241
+163826	296	303	sucrose	Chemical	MESH:D013395
+163826	388	417	adenosine 3':5'-monophosphate	Chemical	MESH:D000242
+163826	421	451	Schizosaccharomyces pombe 972h	Species	284812
+163826	473	480	glucose	Chemical	MESH:D005947
+163826	543	567	Saccharomyces cerevisiae	Species	4932
+163826	609	625	2-D-deoxyglucose	Chemical	-
+163826	667	676	guanosine	Chemical	MESH:D006151
+163826	703	720	cyclic nucleotide	Chemical	MESH:D009712
+163826	722	768	N6,O2'-Dibutyryl adenosine 3':5'-monophosphate	Chemical	MESH:D003994
+163826	796	808	theophylline	Chemical	MESH:D013806
+163826	810	839	guanosine 3':5'-monophosphate	Chemical	MESH:D006152
+163826	841	847	5'-AMP	Chemical	MESH:D000249
+163826	849	852	ATP	Chemical	MESH:D000255
+163826	858	867	adenosine	Chemical	MESH:D000241
+163826	898	901	ATP	Chemical	MESH:D000255
+163826	913	921	glycerol	Chemical	MESH:D005990
+163826	928	936	S. pombe	Species	4896
+163826	1069	1076	glucose	Chemical	MESH:D005947
+163826	1142	1145	ATP	Chemical	MESH:D000255
+163826	1171	1182	antimycin A	Chemical	MESH:D000968
+163826	1186	1191	Dio-9	Chemical	MESH:C100056
+163826	1225	1228	ATP	Chemical	MESH:D000255
+163826	1275	1282	glucose	Chemical	MESH:D005947
+163826	1286	1297	antimycin A	Chemical	MESH:D000968
+163826	1398	1414	2-D-deoxyglucose	Chemical	-
+163826	1485	1521	cyclic adenosine 3':5'-monophosphate	Chemical	MESH:D000242
+163826	1537	1544	glucose	Chemical	MESH:D005947
+163826	1583	1590	glucose	Chemical	MESH:D005947
+163826	1682	1711	adenosine 3':5'-monophosphate	Chemical	MESH:D000242
+163826	1732	1739	glucose	Chemical	MESH:D005947
+163826	2024	2053	adenosine 3':5'-monophosphate	Chemical	MESH:D000242
+163826	2113	2126	cycloheximide	Chemical	MESH:D003513
+163826	2130	2140	anisomycin	Chemical	MESH:D000841
+163826	2177	2186	L-leucine	Chemical	MESH:D007930
+163826	2226	2231	Dio-9	Chemical	MESH:C100056
+163826	2340	2347	uridine	Chemical	MESH:D014529
+163826	2387	2400	adenosine 3':	Chemical	-
+163826	2400	2416	5'-monophosphate	Chemical	-
+163826	2458	2469	antimycin A	Chemical	MESH:D000968
+163826	2520	2534	venruricidin A	Chemical	-
+163826	2594	2623	adenosine 3':5'-monophosphate	Chemical	MESH:D000242
+163826	2687	2692	Dio-9	Chemical	MESH:C100056
+163826	2852	2881	adenosine 3':5'-monophosphate	Chemical	MESH:D000242
+163826	2895	2898	Dio	Chemical	-
+163826	2955	2972	cyclic nucleotide	Chemical	MESH:D009712
+
+163827|t|The mechanism of stabilization of the structure of nuclease-T by binding of ligands.
+163827|a|The rate of unfolding of Nuclease-T at pH 8,20 degrees was determined as a function of concentration of the ligands deoxythymidine 3',5'-diphosphate (pdTp) and Ca2+ on the basis of the rate of exchange between free fragment, Nuclease-T(50-149) and labeled fragment, Nuclease-T-(50-149) incorporated in the structure of nuclease-T (Taniuchi, H. (1973) J. Biol. Chem. 248, 5164-5174). The rate constant of unfolding of unliganded Nuclease-T' was 4.6 times 10-4s-1. Those of Nuclease-T' bound with pdTp, with Ca2+, and with both pdtp and Ca2+ were 9.0 times 10-5, 1.6 times 10-4, and 2.2 times 10-5s-1, respectively. The association constants of pdTp and Ca2+ with Nuclease-T' were found to be 1.0 times 10-4 and 2.0 times 10-2 m-1, respectively. Those of pdTp with Nuclease-T' plus Ca2+ and of Ca2+ with  Nuclease-T'  plus pdTp were 4 times 10-5 and 1.4 times 10-4M-1, respectively. The calculation of free energy change on the basis of the association constants shows that the magnitude of negative free energy change involved in the binding of either of the two ligands increases by approximately 2 kcal when the other ligand is already bound. There is a correlation between the free energy change and the specifically coupled with the cooperative interacions operating throught the three-dimensional structure resulting in strengthening of the interactions throughtout the structure, including those with the ligands, without a large change in conformation.
+163827	201	233	deoxythymidine 3',5'-diphosphate	Chemical	-
+163827	235	239	pdTp	Chemical	MESH:C019111
+163827	245	249	Ca2+	Chemical	MESH:D000069285
+163827	591	595	Ca2+	Chemical	MESH:D000069285
+163827	611	615	pdtp	Chemical	MESH:C019111
+163827	620	624	Ca2+	Chemical	MESH:D000069285
+163827	728	732	pdTp	Chemical	MESH:C019111
+163827	737	741	Ca2+	Chemical	MESH:D000069285
+163827	865	869	Ca2+	Chemical	MESH:D000069285
+163827	877	881	Ca2+	Chemical	MESH:D000069285
+
+163828|t|The generation of O2-by the interaction of the hemolytic agent, phenylhydrazine, with human hemoglobin.
+163828|a|Phenylhydrazine reacts with adult oxy- or methemoglobin in the presence of molecular oxygen to generate O2-. The mechanism of the reaction apparently differs in each case. The generation of O2- is monitored by following the reduction of ferricytochrome c or the oxidation of epinephrine.
+163828	18	20	O2	Chemical	MESH:D010100
+163828	64	79	phenylhydrazine	Chemical	MESH:C030299
+163828	86	91	human	Species	9606
+163828	104	119	Phenylhydrazine	Chemical	MESH:C030299
+163828	146	159	methemoglobin	Gene	3048
+163828	189	195	oxygen	Chemical	MESH:D010100
+163828	208	210	O2	Chemical	MESH:D010100
+163828	294	296	O2	Chemical	MESH:D010100
+163828	379	390	epinephrine	Chemical	MESH:D004837
+
+163829|t|Hapten-sandwich labeling. II. Immunospecific attachment of cell surface markers suitable for scanning electron microscopy.
+163829|a|A hapten-sandwich procedure has been used for immunospecific labeling of cell surface antigens with markers visible by scanning electron microscopy. Antihapten antibody was used to link hapten-modified tobacco mosaic virus, bushy stunt virus, or hemocyanin to hapten-modified human erythrocytes. The antihapten antibody bridge was also used to link the hapten-virus marker to hapten-modified antibodies against mammary tumor virus on mouse mammary tumor cells, or against immunoglobulin receptors on mouse splenic lymphocytes. In all cases, labeling was highly specific. With this technique, it is possible to (a) compare morphological features of cells bearing differing cell surface antigens, and (b) examine the arrangement of specific antigenic sites on a cell surface or their distribution relative to membrane structures such as microvilli.
+163829	325	345	tobacco mosaic virus	Species	12242
+163829	399	404	human	Species	9606
+163829	542	547	tumor	Disease	MESH:D009369
+163829	557	562	mouse	Species	10090
+163829	571	576	tumor	Disease	MESH:D009369
+163829	623	628	mouse	Species	10090
+
+163830|t|Further characterization of embryonic tendon fibroblasts and the use of immunoferritin techniques to study collagen biosynthesis.
+163830|a|Morphological studies were carried out on fibroblasts from chick embryo tendons, cells which have been used in a number of recent studies on collagen biosynthesis. The cells were relatively rich in endoplasmic reticulum and contained a well-developed Golgi complex comprised of small vesicles, stacked membranes, and large vacuoles. Techniques were then devised for preparing cell fragments which were penetrated by ferritin-antibody conjuates but which retained the essential morphological features of the cells. Finally, the new procedures were employed to develop further information as to how collagen is synthesized. As reported elsewhere, preliminary studies with ferritin-labeled antibodies showed that prolyl hydroxylase was found in the endoplasmic reticulum of freshly isolated fibroblasts and that procollagen is found in both the cisternae of the endoplasmic reticulum and the large Golgi vacuoles. In the experiments described here, the cells were manipulated so that amino acids continued to be incorporated into polypeptide chains but assembly of the molecule was not completed because hydroxylation of prolyl and lysyl residues was prevented. The results indicated that these manipulations produced no change in the distribution of prolyl hydroxylase. Examination of the cells with ferritin conjugated to antibodies which reacted with protocollagen, the unhydroxylated form of procollagen, demonstrated that protocollagen was retained in the cisternae of the endoplasmic reticulum during inhibition of the prolyl and lysyl hydroxylases. Assays for prolyl hydroxylase with an immunologic technique demonstrated that although the enzyme is found within the endoplasmic reticulum, it is not secreted along with procollagen. The observations provided further evidence for a special role for prolyl hydroxylase in the control of collagen biosynthesis.
+163830	28	44	embryonic tendon	Disease	MESH:D052256
+163830	189	194	chick	Species	9031
+
+163831|t|Detection by means of cell fusion of macromolecular synthesis involved in the reconstruction of the nuclear envelope in mitosis.
+163831|a|Using the cultured Chinese hamster cell line Don, G1 or S or a mixture of late-S/G2 cells were prepared by release from metaphase arrest. Metaphase (M) cells were also obtained by mitotic arrest of log-phase cultures with Colcemid and held in metaphase; such M cells remained untreated with any other compound and were termed standard M cells. When interphase (I) cells were fused at pH 8.0 and 37 degrees C with standard cells in the presence of Colcemid by means of UV-inactivated Sendai virus, binucleate interphase-metaphase (I-M) cells were obtained. In a given I-M cell there occurred within 30 min after fusion either prophasing of the I nucleus or formation of a nuclear envelope (NE) around the chromosomes. About 20%  of early G1 cells, 35% of cells at the G1/S boundary, 50% of S cells, and 70% of late S/G2 cells could induce NE formation. If, before fusion, cycloheximide (CHE), an inhibitor of protein synthesis, was present during release from M arrest, the cells entered G1 but not S. About 20% of such early G1 cells, like the untreated early G1 cells, had the capacity to induce NE formation during subsequent fusion. If the cells were blocked in S with 5 mM thymidine (TdR), At least 80% of these cells could induce NE formation during subsequent fusion, but in the presence of both TdR and CHE only 35% could do so. It appeared, therefore, that protein synthesis in interphase was required for NE formation. Experiments with actinomycin D indicated that RNA synthesis was also necessary for acquisition of NE-inducing capacity. About 35% of G1 cells from confluent monolayers had the NE-inducing capacity, but prolonged exposure to CHE reduced their number to 8% . Removal of CHE restored the ability while the cells still remained in G1. This result indicated that continuing protein synthesis in the G1 cell was needed for NE formation subsequent to fusion. The fact that macromolecular synthesis must occur in the I cell before fusion if NE formation was to occur in the fused I-M cell lends further support to evidence adduced earlier that this phenomenon is a normal mitotic event. Prophasing of the I nucleus in I-M cells did not appear to be dependent on macromolecular synthesis in the I cell; earlier results from this laboratory showed, however, that protein synthesis in the prior G2 period of the M cell of the I-M pair was required for prophasing.
+163831	120	127	mitosis	Disease	
+163831	148	163	Chinese hamster	Species	10029
+163831	612	624	Sendai virus	Species	11191
+163831	1000	1013	cycloheximide	Chemical	MESH:D003513
+163831	1015	1018	CHE	Chemical	MESH:D003513
+163831	1306	1315	thymidine	Chemical	MESH:D013936
+163831	1574	1587	actinomycin D	Chemical	MESH:D003609
+163831	1781	1784	CHE	Chemical	MESH:D003513
+163831	1825	1828	CHE	Chemical	MESH:D003513
+
+163832|t|Cell surface changes and Rous sarcoma virus gene expression in synchronized cells.
+163832|a|We have investigated whether cell surface changes associated with growth control and malignant transformation are linked to the cell cycle. Chicken embryo cells synchronized by double thymidine block were examined for cell-cycle-dependent alterations in membrane function (measured by transport of 2-deoxyglucose, uridine, thymidine, and mannitol), in cell surface morphology (examined by scanning electron microscopy), and in the ability of tumor virus gene expression to induce a transformation-specific change in membrane function. We reach the following conclusions: (a) The high rate of 2-deoxyglucose transport seen in transformed cells and the low rates of 2-deoxyglucose and uridine transport characteristic of density-inhibited cells do not occur in normal growing cells as they traverse the cell cycle. (b) Although there are cell cycle-dependent changes in surface morphology, they are not reflected in corresponding changes in membrane function. (c) Tumor virus gene expression can alter cell membrane function at any stage in the cell cycle and without progression through the cell cycle.
+163832	223	230	Chicken	Species	9031
+163832	267	276	thymidine	Chemical	MESH:D013936
+163832	381	395	2-deoxyglucose	Chemical	MESH:D003847
+163832	397	404	uridine	Chemical	MESH:D014529
+163832	406	415	thymidine	Chemical	MESH:D013936
+163832	421	429	mannitol	Chemical	MESH:D008353
+163832	525	530	tumor	Disease	MESH:D009369
+163832	675	689	2-deoxyglucose	Chemical	MESH:D003847
+163832	747	761	2-deoxyglucose	Chemical	MESH:D003847
+163832	766	773	uridine	Chemical	MESH:D014529
+
+163833|t|Externally disposed plasma membrane proteins. I. Enzymatic iodination of mouse L cells.
+163833|a|The enzymatic iodination technique has been utilized in a study of the externally disposed membrane proteins of the mouse L cell. Iodination of cells in suspension results in lactoperoxidase-specific iodide incorporation with no loss of cell viability under the conditions employed, less than 3% lipid labeling, and more than 90% of the labeled species identifiable as monoiodotyrosine. 90% of the incorporated label is localized to the cell surface by electron microscope autoradiography, with 5-10% in the centrosphere region and postulated to represent pinocytic vesicles. Sodium dodecylsulfate-polyacrylamide gels of solubilized L-cell proteins reveals five to six labeled peaks ranging from 50,000 to 200,000 daltons. Increased resolution by use of gradient slab gels reveals 15-20 radioactive bands. Over 60% of the label resides in approximately nine polypeptides of 80,000 to 150,000 daltons. Various controls indicate that the labeling pattern reflects endogenous membrane proteins, not serum components. The incorporated 125-I, cholesterol, and one plasma membrane enzyme marker, alkaline phosphodiesterase I, are purified in parallel when plasma membranes are isolated from intact, iodinated L cells. The labeled components present in a plasma membrane-rich fraction from iodinated cells are identical to those of the total cell, with a 10- to 20-fold enrichment in specific activity of each radioactive peak in the membrane.
+163833	73	78	mouse	Species	10090
+163833	204	209	mouse	Species	10090
+163833	288	294	iodide	Chemical	MESH:D007454
+163833	384	389	lipid	Chemical	MESH:D008055
+163833	457	473	monoiodotyrosine	Chemical	MESH:D007470
+163833	664	685	Sodium dodecylsulfate	Chemical	MESH:D012967
+163833	686	700	polyacrylamide	Chemical	MESH:C016679
+163833	1126	1137	cholesterol	Chemical	MESH:D002784
+
+163834|t|Externally disposed plasma membrane proteins. II. Metabolic fate of iodinated polypeptides of mouse L cells.
+163834|a|The fate of the L-cell plasma membrane proteins labeled by enzymatic iodination was studied. The disappearance of label from growing cells exhibits a biphasic behavior, with 5-20% lost rapidly (t1/2 similar to 2 h) and 80-90% lost relatively slowly (t1/2 similar to 25-33 h). The loss is temperature dependent and serum independent, and is accompanied by the appearance of 51% (125-I)monoiodotyrosine (MIT) in the medium by 47 h. A variable amount (1-14%) of acid-insoluble label can be recovered in the medium over 47 h. Sodium dodecyl sulfate (SDS)-polyacrylamide gel labeling patterns from cells cultured up to 48 h after iodination reveal no change in the relative distribution of radioactivity, indicating similar rates of degradation for most of the labeled membrane proteins. The fate of the labeled membrane proteins was studied at various times after phagocytosis of nondigestible polystyrene particles. Iodinated L cells phagocytose sufficient 1.1 mum latex beads in 60 min to interiorize 15-30% of the total cell surface area. Electron microscope autoradiography confirmed that labeled membrane is internalized during phagocytosis. The latex-containing phagocytic vacuoles are isolated by flotation in a discontinuous sucrose gradient. 15-30% of the total incorporated label and a comparable percentage of alkaline phosphodiesterase I activity (PDase, a plasma membrane enzyme marker) are recovered in the phagocytic vacuole fraction. Lysosomal enzyme activities are found in the latex vacuole fraction, indicating formation of phagolysosomes. SDS gel analyses reveal that all of the radioactive proteins initially present on the intact cell's surface are interiorized to the same relative extent. Incorporated label and PDase activity disappear much more rapidly from the phagolysosomes than from the whole cell. In the phagolysosomal compartment, greater than 70% of the TCA-precipitable labeled proteins and all of the PDase activity are lost rapidly (t1/2 equals 1-2 h) but similar 30% of the labeled proteins in this compartment are degraded with a 17-20 h half-life. The slowly degraded label is due to specific long-lived polypeptides, of 85,000 and 8,000-15,000 daltons, which remain in the phagolysosomal membrane up to 40 h after phagocytosis.
+163834	94	99	mouse	Species	10090
+163834	493	509	monoiodotyrosine	Chemical	MESH:D007470
+163834	511	514	MIT	Chemical	-
+163834	631	653	Sodium dodecyl sulfate	Chemical	MESH:D012967
+163834	655	658	SDS	Chemical	MESH:D012967
+163834	660	674	polyacrylamide	Chemical	MESH:C016679
+163834	999	1010	polystyrene	Chemical	MESH:D011137
+163834	1256	1261	latex	Chemical	MESH:D007840
+163834	1338	1345	sucrose	Chemical	MESH:D013395
+163834	1664	1667	SDS	Chemical	MESH:D012967
+163834	1993	1996	TCA	Chemical	MESH:D014238
+163834	2279	2297	000-15,000 daltons	Disease	MESH:C564120
+
+163835|t|Aflatoxin separation by high-pressure liquid chromatography.
+163835|a|
+163835	0	9	Aflatoxin	Chemical	MESH:D000348
+
+163836|t|Thin-layer chromatography of methoxyhalogenomercuri derivatives of mono-unsaturated long-chain esters.
+163836|a|
+163836	29	51	methoxyhalogenomercuri	Chemical	-
+163836	67	101	mono-unsaturated long-chain esters	Chemical	-
+
+163837|t|Gas-liquid chromatography of carotenoids and other terpenoids.
+163837|a|The retention behaviour of over seventy terpenoids on three silicone polymer liquid phases under both isothermal and temperature-programmed conditions is reported. Terpenoids with conjugated unsaturation (e.g., carotenoids) were hydrogenated prior to analysis in order to prevent thermal decomposition. Analyses of the acetates and TMS ethers of both the natural hydroxycarotenoids and their perhydroderivatives are also reported. In addition, a system is described for the routine analysis of terpenols, including those whose pyrophosphates are intermediates in sterol and carotenoid biosynthesis.
+163837	29	40	carotenoids	Chemical	MESH:D002338
+163837	51	61	terpenoids	Chemical	MESH:D013729
+163837	103	113	terpenoids	Chemical	MESH:D013729
+163837	123	139	silicone polymer	Chemical	-
+163837	227	237	Terpenoids	Chemical	MESH:D013729
+163837	274	285	carotenoids	Chemical	MESH:D002338
+163837	382	390	acetates	Chemical	MESH:D000085
+163837	426	444	hydroxycarotenoids	Chemical	-
+163837	557	566	terpenols	Chemical	MESH:C016775
+163837	590	604	pyrophosphates	Chemical	MESH:D011756
+163837	626	632	sterol	Chemical	MESH:D013261
+163837	637	647	carotenoid	Chemical	MESH:D002338
+
+163838|t|Thin-layer chromatography for the separation of digitoxin, digitoxigenin and related compounds.
+163838|a|
+163838	48	57	digitoxin	Chemical	MESH:D004074
+163838	59	72	digitoxigenin	Chemical	MESH:D004073
+
+163839|t|Quantitative determination of conjugated or esterified estrogens in tablets by thin layer chromatography.
+163839|a|
+
+163840|t|Blood testosterone values in patients with congenital virilizing adrenal hyperplasia.
+163840|a|To evaluate the usefulness of blood testosterone (T) in monitoring the effects of therapy in congenital virilizing adrenal hyperplasia due to 21- or 11- hydroxylation defect (CVAH), T levels were measured on 45 occasions in 13 patients with CVAH; 32 urinary 17-ketosteroid levels and 31 preganetriol values were available for comparison. Bone age levels, growth data, and medication are listed to help assess the clinical state of the patient at the time of each T determination. Blood T values were above normal for age and sex in untreated patients with CVAH and declined with glucocorticoid suppression. A blood T value of 20 ng/100 ml appeared to distinguish between well-controlled cases and those with inadequate steroid suppression. Serial measurement of blood T in girls and in prepubertal boys with CVAH provides assistance in evaluating chemical control of the disease, particularly when accurate 24-h urine collections cannot be obtained for 17-ketosteroid and pregnanetriol assessments.
+163840	6	18	testosterone	Chemical	MESH:D013739
+163840	29	37	patients	Species	9606
+163840	65	84	adrenal hyperplasia	Disease	MESH:D000312
+163840	122	134	testosterone	Chemical	MESH:D013739
+163840	201	220	adrenal hyperplasia	Disease	MESH:D000312
+163840	313	321	patients	Species	9606
+163840	344	358	17-ketosteroid	Chemical	MESH:D015068
+163840	521	528	patient	Species	9606
+163840	628	636	patients	Species	9606
+163840	805	812	steroid	Chemical	MESH:D013256
+163840	859	864	girls	Species	9606
+163840	884	888	boys	Species	9606
+
+163841|t|Interaction of delta-5-androstene-3beta, 17beta-diol with estradiol and dihydrotestosterone receptors in human myometrial and mammary cancer tissue.
+163841|a|Specific receptor binding of estradiol (E-2) and dihydrotestosterone  (DHT) was studied in human myometrial tissue and in human mammary cancer tissue. The inhibition of binding for E-2 and DHT by E-2, testosterone (T), DHT, dehydroepiandosterone (DHEA), dehydroepiandrosterone-sulfate (DHEA-S), androstendione (A) and 5-androstene-3beta, 17beta-diol (Adiol) was tested with the use of dextran-coated charcoal separation of bound and free E-2, respectively, and DHT. The percentage of binding inhibition was calculated with reference to the inhibition obtained with nafoxidine in a molar concentration ratio of 1,000 for E-2 binding, respectively, with cyproterone acetate in a molar concentration ratio of 10,000 for DHT binding. In 15 samples of myometrium tested, receptors were found for both E-2 and DHT. From 19 samples of mammary carcinoma tissue one showed no binding activity, three samples did bind E-2 only, five samples DHT only, and ten samples showed binding of both steroids. A 50% inhibition of E-2 binding, in myometrial as well as in tumor tissue, required a molar concentration ratio of 40 for Adiol, of more than 2,000 for DHEA. No significant inhibiting activity could be found for A up to a molar concentration ratio of 10,000 and for DHEA-S up to 40,000. With regard to DHT binding, Adiol is more active than E-2 and less active than T. Of the substances tested Adiol is therefore the only one which exerts a significant inhibiting influence at a molar ratio not far beyond the physiological range. This signifies that Adiol might interfere at the receptor level in the estrogenic stimulation of mammary cancer cells.
+163841	15	39	delta-5-androstene-3beta	Chemical	-
+163841	41	52	17beta-diol	Chemical	-
+163841	58	67	estradiol	Chemical	MESH:D004958
+163841	105	110	human	Species	9606
+163841	134	140	cancer	Disease	MESH:D009369
+163841	178	187	estradiol	Chemical	MESH:D004958
+163841	189	192	E-2	Gene	106478911
+163841	198	217	dihydrotestosterone	Chemical	MESH:D013196
+163841	220	223	DHT	Chemical	MESH:D013196
+163841	240	245	human	Species	9606
+163841	271	276	human	Species	9606
+163841	285	291	cancer	Disease	MESH:D009369
+163841	330	333	E-2	Gene	106478911
+163841	345	348	E-2	Gene	106478911
+163841	350	362	testosterone	Chemical	MESH:D013739
+163841	368	371	DHT	Chemical	MESH:D013196
+163841	373	394	dehydroepiandosterone	Chemical	-
+163841	396	400	DHEA	Chemical	-
+163841	403	433	dehydroepiandrosterone-sulfate	Chemical	MESH:D019314
+163841	435	441	DHEA-S	Gene	6822
+163841	444	458	androstendione	Chemical	MESH:D000735
+163841	467	485	5-androstene-3beta	Chemical	-
+163841	487	498	17beta-diol	Chemical	-
+163841	534	541	dextran	Chemical	MESH:D003911
+163841	587	590	E-2	Gene	106478911
+163841	610	613	DHT	Chemical	MESH:D013196
+163841	714	724	nafoxidine	Chemical	MESH:D009256
+163841	769	772	E-2	Gene	106478911
+163841	801	820	cyproterone acetate	Chemical	MESH:D017373
+163841	866	869	DHT	Chemical	MESH:D013196
+163841	945	956	E-2 and DHT	Gene	106478911
+163841	985	994	carcinoma	Disease	MESH:D002277
+163841	1057	1060	E-2	Gene	106478911
+163841	1080	1083	DHT	Chemical	MESH:D013196
+163841	1129	1137	steroids	Chemical	MESH:D013256
+163841	1159	1162	E-2	Gene	106478911
+163841	1200	1205	tumor	Disease	MESH:D009369
+163841	1291	1295	DHEA	Chemical	-
+163841	1405	1411	DHEA-S	Gene	6822
+163841	1441	1444	DHT	Chemical	MESH:D013196
+163841	1454	1459	Adiol	Chemical	MESH:D015114
+163841	1480	1483	E-2	Gene	106478911
+163841	1533	1538	Adiol	Chemical	MESH:D015114
+163841	1775	1781	cancer	Disease	MESH:D009369
+
+163842|t|Regulation of human chorionic gonadotropin (hCG) secretion by serum and dibutyryl cyclic AMP in malignant trophoblast cells in vitro.
+163842|a|Human chorionic gonadotropin (hCG) secretion was studied in human malignant trophoblast cells (Jar line) in continuous culture. Radioimmunoassayable hCG in the cells and in the daily culture fluid was increased for at least 3 days by 10% newborn calf serum and by 1 mN N-6, 0-2'-dibutyryl cyclic adenosine 3', 5'-monophosphoric acid (dbcAMP) plus 1 mM theorphylline. Incubation of the cells in the presence of serum, dbcAMP and theorphylline resulted in additive stimulation of hCG secretion after 1 day. After 2 or 3 days, a supra-additive stimulation was observed, which was prevented by Actinomycin D. When cells were preincubated for 2 days in the absence of serum but with dbcAMP plus theorphylline, subsequent addition of serum resulted in supra-additive stimulation of hCG secretion within a single day; the continued presence of dbcAMP plus theophylline was not necessary for this stimulation by serum. These findings suggested that dbcAMP activates a slow process requiring RNA synthesis, resulting in increased hCG secretion. Serum appears to protect the hCG synthesizing system from degradation.
+163842	14	19	human	Species	9606
+163842	20	48	chorionic gonadotropin (hCG)	Gene	93659
+163842	72	92	dibutyryl cyclic AMP	Chemical	MESH:D003994
+163842	134	139	Human	Species	9606
+163842	140	168	chorionic gonadotropin (hCG)	Gene	93659
+163842	194	199	human	Species	9606
+163842	283	286	hCG	Gene	93659
+163842	380	384	calf	Species	9913
+163842	551	557	dbcAMP	Chemical	-
+163842	562	575	theorphylline	Chemical	-
+163842	612	615	hCG	Gene	93659
+163842	724	737	Actinomycin D	Chemical	MESH:D003609
+163842	812	818	dbcAMP	Chemical	-
+163842	824	837	theorphylline	Chemical	-
+163842	910	913	hCG	Gene	93659
+163842	971	977	dbcAMP	Chemical	-
+163842	983	995	theophylline	Chemical	MESH:D013806
+163842	1155	1158	hCG	Gene	93659
+163842	1199	1202	hCG	Gene	93659
+
+163843|t|Immunochemical heterogeneity of calcitonin in plasma.
+163843|a|Calcitonin was measured in the plasma of 13 patients with medullary throid carcinoma and one patient with a calcitonin-producing islet cell carcinoma of the pancreas. The hormone was measured by the simultaneous application of two calcitonin antisera which had differing specificity. Calcitonin measurements were also made of gel filtration (Bio Gel P30) fractions of plasma samples. Although the two antisera were of comparable sensitivity for the measurement of human calcitonin standards, they reacted differently with the calcitonin in the plasma samples. One antiserum (LD-1) gave consistently higher estimations of hormone concentration in the plasma of patients with medullary thyroid carcinoma than the other (LD-26). By contrast, the concentration of calcitonin from the islet cell carcinoma of the pancreas was higher in the LD-26 assay. Multiple gel filtration peaks of immunoreactive calcitonin activity were present in both thyroidal and nonthyroidal calcitonin. Furthermore, the two different antisera identified differing immunochemical peaks of calcitonin activity for agiven plasma sample. These findings demonstrate the presence of immunochemical heterogeneity in plasma calcitonin and suggest the presence of immunological differences between thyroidal and nonthyroidal calcitonin.
+163843	98	106	patients	Species	9606
+163843	122	128	throid	Chemical	-
+163843	129	138	carcinoma	Disease	MESH:D002277
+163843	147	154	patient	Species	9606
+163843	194	219	carcinoma of the pancreas	Disease	MESH:D010190
+163843	518	523	human	Species	9606
+163843	714	722	patients	Species	9606
+163843	738	755	thyroid carcinoma	Disease	MESH:D013964
+163843	845	870	carcinoma of the pancreas	Disease	MESH:D010190
+

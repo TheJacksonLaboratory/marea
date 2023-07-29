@@ -168,10 +168,10 @@ Each concept replacement line includes the concept category and concept identifi
 offsets (in characters) of the text to be replaced by that concept identifier. Unzip 
 _bioconcepts2pubtatorcentral.offset.gz_ before running _scripts/pubtate.py_.
 
-__Nota bene__: The _bioconcepts2pubtatorcentral.offset.gz_ file available from PubTator Central is no longer
-usable for concept replacement, due to incorrect character offsets. The last usable file we have 
-was downloaded on 24 November 2020. To run the __marea__ pipeline with more recent articles,
-one would have to rely on the PubTator Central API to retrieve concept replacement information (and handle
+__Nota bene__: The _bioconcepts2pubtatorcentral.offset.gz_ file currently available from PubTator Central
+is no longer usable for concept replacement, due to incorrect character offsets. The last usable file we
+have was downloaded on 24 November 2020. To run the __marea__ pipeline with more recent articles,
+we would have to rely on the PubTator Central API to retrieve concept replacement information (and handle
 the API's capacity limitations), or download and parse the voluminous BioC XML files from the ftp site.
 Neither of these methods has yet been implemented in __marea__.
 

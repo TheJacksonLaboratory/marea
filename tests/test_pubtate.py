@@ -14,11 +14,11 @@ class PubtateTestCase(unittest.TestCase):
                          'Unexpected result for MeSH id.')
 
     def test_selective_replacement(self):
-        csets_path = 'testdata/pubtator_test_csets/conceptSet.txt'
+        cset_path = 'testdata/pubtator_test_csets/conceptSet.tsv'
         input_dir = 'testdata/pubtator_test_csets/'
         desired_file = 'bioconcepts2pubtatorcentral.target'
         runner = CliRunner()
-        result = runner.invoke(main, ['-i', input_dir, '-o', None, '-c', csets_path])
+        result = runner.invoke(main, ['-i', input_dir, '-o', None, '-c', cset_path])
         self.assertEqual(0, result.exit_code, f"Exit code is {result.exit_code}.")
         with open(input_dir + desired_file,'r') as target:
             target_lines = target.readlines()

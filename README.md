@@ -51,8 +51,8 @@ on the high performance cluster and create the directory where you want to store
 files. _cd_ into the target directory. The following _wget_ commands will download
 the _.xml.gz_ files and their associated _.md5_ files.
 ```
-wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline/*
-wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/pubmed*.xml*
+wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 2 ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed*.xml*
+wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 2 ftp://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/pubmed*.xml*
 ```
 (The NCBI _updatefiles_ directory also contains _stats.html_ files that we do not need.) These wget
 commands run in the background and write output to a log file.
@@ -115,7 +115,7 @@ in the output file. (The abstract is recovered from the PubTator Central offset 
 For an input named _pubmed21n1014.txt_, the corresponding output file is named
 _pubmed21n1014_rel.tsv_.
 
-_filter_abstracts.py_ has four command line options. 
+_filter_abstracts.py_ takes four command line options. 
 
 | option | meaning                                                                   |
 |--------|---------------------------------------------------------------------------|
@@ -168,21 +168,61 @@ Each concept replacement line includes the concept category and concept identifi
 offsets (in characters) of the text to be replaced by that concept identifier. Unzip 
 _bioconcepts2pubtatorcentral.offset.gz_ before running _scripts/pubtate.py_.
 
-_scripts/pubtate.py_ applies all the offset file's concept replacements to the title and abstract 
-of each article and writes them to _bioconcepts2pubtatorcentral.replaced_.
-_pubtate.py_ takes two command line options. 
+__Nota bene__: The _bioconcepts2pubtatorcentral.offset.gz_ file currently available from PubTator Central
+is no longer usable for concept replacement, due to incorrect character offsets. The last usable file we
+have was downloaded on 24 November 2020. To run the __marea__ pipeline with more recent articles,
+we would have to rely on the PubTator Central API to retrieve concept replacement information (and handle
+the API's capacity limitations), or download and parse the voluminous BioC XML files from the ftp site.
+Neither of these methods has yet been implemented in __marea__.
+
+_scripts/pubtate.py_ applies the offset file's concept replacements to the title and abstract 
+of each article and writes them to _bioconcepts2pubtatorcentral.replaced_. You can choose to
+provide a file of concepts you want replaced. If such a file is provided as a command line argument,
+only the concepts listed in the file will be replaced; all other annotations in
+_bioconcepts2pubtatorcentral.offset_ will be ignored.
+
+_pubtate.py_ takes three command line options. 
 
 | option | meaning                                                                                    |
 |--------|--------------------------------------------------------------------------------------------|
 | _-i_   | directory containing _bioconcepts2pubtatorcentral.offset_ file                             |
 | _-o_   | directory where _pubtate.py_ writes its output file _bioconcepts2pubtatorcentral.replaced_ |
+| _-c_   | path to file containing list of concepts to be replaced                                    |
 
 For example,
 ```
-python pubtate.py -i ../data -o ../data/pubtator
+python pubtate.py -i ../data/pubtatorin -o ../data/pubtatorout -c ../data/concepts/conceptset.tsv
 ```
-The output directory is optional and defaults to the input directory.
+The output directory is optional and defaults to the input directory. The concept set file is also
+optional. If no file is specified, all concept replacements in
+_bioconcepts2pubtatorcentral.offset_ will be applied (except for categories noted above that
+__marea__ skips over). If the file specified for the _-c_ option is empty, _pubtate.py_ will
+not replace any concepts but will produce an output file in its normal format.
 
+The concept set file is a tab-separated text file containing one concept per line, in two columns.
+The first column contains the concept category (Chemical, Disease, etc.). The second
+column contains the concept identifier. Both of these columns must match exactly the
+corresponding columns of the annotations in _bioconcepts2pubtatorcentral.offset_. For example,
+```
+Chemical	MESH:D005947
+Disease	MESH:C000657245
+Gene    2475
+```
+in the concept set file would match the following annotations in _bioconcepts2pubtatorcentral.offset_:
+```
+3881207	813	820	glucose	Chemical	MESH:D005947
+28756309	715	722	Glucose	Chemical	MESH:D005947
+26061669	483	490	glucose	Chemical	MESH:D005947
+163811	350	357	glucose	Chemical	MESH:D005947
+32145190	16	24	COVID-19	Disease	MESH:C000657245
+32780290	29	37	COVID-19	Disease	MESH:C000657245
+32780290	202	226	coronavirus disease 2019	Disease	MESH:C000657245
+32780290	561	581	SARS-CoV-2 infection	Disease	MESH:C000657245
+28756309	1390	1419	mammalian target of rapamycin	Gene	2475
+28756309	1421	1425	mTOR	Gene	2475
+30336374	1034	1063	mammalian target of rapamycin	Gene	2475
+30336374	1065	1069	mTOR	Gene	2475
+```
 ### 6. Text postprocessing
 _scripts/post_process.py_ takes as input the file produced by _pubtate.py_ and selects those articles
 listed in the __rel.tsv_ files produced by step 4 of the pipeline. _post_process.py_ cleans

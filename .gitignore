@@ -133,3 +133,4 @@ data/
 /tests/testdata/pubmed_rel/
 /tests/testdata/nltk_data/
 /tests/testdata/lexicons/
+/tests/testdata/pubtator_test_csets/bioconcepts2pubtatorcentral.replaced

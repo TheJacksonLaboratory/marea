@@ -51,8 +51,8 @@ on the high performance cluster and create the directory where you want to store
 files. _cd_ into the target directory. The following _wget_ commands will download
 the _.xml.gz_ files and their associated _.md5_ files.
 ```
-wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline/*
-wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 5 ftp://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/pubmed*.xml*
+wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 2 ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed*.xml*
+wget --ftp-user 'anonymous' --ftp-password 'youremailaddress' -bnv -w 2 ftp://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/pubmed*.xml*
 ```
 (The NCBI _updatefiles_ directory also contains _stats.html_ files that we do not need.) These wget
 commands run in the background and write output to a log file.
